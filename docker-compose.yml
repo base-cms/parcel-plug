@@ -3,7 +3,7 @@ version: '3.7'
 x-node-defaults: &node
   tty: true
   init: true
-  image: node:10.13-alpine
+  image: node:10.13
   entrypoint: ["sh"]
   working_dir: /parcel-plug
   volumes:
