@@ -1,17 +1,18 @@
-const { Schema } = require('mongoose');
-const slug = require('slug');
 const pushId = require('unique-push-id');
+const slug = require('slug');
+const uuid = require('uuid/v4');
+const { Schema } = require('mongoose');
 
 const sessionSchema = new Schema({
   globalSecret: {
     type: String,
     required: true,
-    default: () => pushId(),
+    default: () => `${pushId()}.${uuid()}`,
   },
   namespace: {
     type: String,
     required: true,
-    default: () => pushId(),
+    default: () => uuid(),
   },
   expiration: {
     type: Number,
@@ -19,6 +20,14 @@ const sessionSchema = new Schema({
     default: 86400,
     min: 10,
     max: 31536000,
+  },
+});
+
+const settingsSchema = new Schema({
+  session: {
+    type: sessionSchema,
+    required: true,
+    default: () => ({}),
   },
 });
 
@@ -35,8 +44,8 @@ const schema = new Schema({
     unique: true,
     set: v => slug(v),
   },
-  session: {
-    type: sessionSchema,
+  settings: {
+    type: settingsSchema,
     required: true,
     default: () => ({}),
   },
