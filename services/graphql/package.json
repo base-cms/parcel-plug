@@ -10,6 +10,7 @@
   "dependencies": {
     "@godaddy/terminus": "^4.1.0",
     "apollo-server-express": "^2.3.1",
+    "bcrypt": "^3.0.3",
     "cors": "^2.8.5",
     "deep-assign": "^3.0.0",
     "envalid": "^4.1.4",
