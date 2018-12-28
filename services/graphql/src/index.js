@@ -1,8 +1,11 @@
 const http = require('http');
 const { createTerminus } = require('@godaddy/terminus');
-const env = require('./env');
 const app = require('./app');
+const env = require('./env');
+const health = require('./health');
 const pkg = require('../package.json');
+const start = require('./start');
+const stop = require('./stop');
 const { log } = require('./output');
 
 const { INTERNAL_PORT, EXTERNAL_PORT } = env;
@@ -10,14 +13,16 @@ const server = http.createServer(app);
 
 const run = async () => {
   // Await required services here...
+  await start();
 
   createTerminus(server, {
     timeout: 1000,
     signals: ['SIGTERM', 'SIGINT', 'SIGHUP', 'SIGQUIT'],
-    healthChecks: { '/_health': () => 'ok' },
+    healthChecks: { '/_health': () => health() },
     onSignal: () => {
       log('> Cleaning up...');
       // Stop required services here...
+      return stop().catch(e => log('> CLEANUP ERRORS:', e));
     },
     onShutdown: () => log('> Cleanup finished. Shutting down.'),
   });

@@ -11,5 +11,6 @@ const connection = mongoose.createConnection(instanceDSN, {
   appname: `${name} v${version}`,
   bufferMaxEntries: 0, // Default -1
   ignoreUndefined: true,
+  useNewUrlParser: true,
 });
 module.exports = connection;
