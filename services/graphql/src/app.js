@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const env = require('./env');
 const graphql = require('./graphql/server');
 
-const { GRAPHQL_ENDPOINT = '/graphql' } = process.env;
+const { GRAPHQL_ENDPOINT } = env;
 
 const app = express();
 const CORS = cors({

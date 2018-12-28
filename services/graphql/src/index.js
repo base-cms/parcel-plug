@@ -1,10 +1,11 @@
 const http = require('http');
 const { createTerminus } = require('@godaddy/terminus');
+const env = require('./env');
 const app = require('./app');
 const pkg = require('../package.json');
 const { log } = require('./output');
 
-const { INTERNAL_PORT, EXTERNAL_PORT } = process.env;
+const { INTERNAL_PORT, EXTERNAL_PORT } = env;
 const server = http.createServer(app);
 
 const run = async () => {
