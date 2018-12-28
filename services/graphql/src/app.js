@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const graphql = require('./graphql/server');
+
+const { GRAPHQL_ENDPOINT = '/graphql' } = process.env;
 
 const app = express();
 const CORS = cors({
@@ -11,5 +14,7 @@ const CORS = cors({
 app.use(helmet());
 app.use(CORS);
 app.options('*', CORS);
+
+graphql({ app, endpoint: GRAPHQL_ENDPOINT });
 
 module.exports = app;
