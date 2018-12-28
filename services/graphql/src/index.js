@@ -4,7 +4,7 @@ const app = require('./app');
 const pkg = require('../package.json');
 const { log } = require('./output');
 
-const { PORT } = process.env;
+const { INTERNAL_PORT, EXTERNAL_PORT } = process.env;
 const server = http.createServer(app);
 
 const run = async () => {
@@ -21,7 +21,7 @@ const run = async () => {
     onShutdown: () => log('> Cleanup finished. Shutting down.'),
   });
 
-  server.listen(PORT, () => log(`> Ready on http://0.0.0.0:${PORT}`));
+  server.listen(INTERNAL_PORT, () => log(`> Ready on http://0.0.0.0:${EXTERNAL_PORT}`));
 };
 
 // Simulate future NodeJS behavior by throwing unhandled Promise rejections.
