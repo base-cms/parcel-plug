@@ -20,6 +20,7 @@
     "helmet": "^3.15.0",
     "mongoose": "^5.4.1",
     "slug": "^0.9.3",
-    "unique-push-id": "^1.0.2"
+    "unique-push-id": "^1.0.2",
+    "uuid": "^3.3.2"
   }
 }
