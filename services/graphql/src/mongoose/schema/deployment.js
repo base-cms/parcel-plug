@@ -8,7 +8,7 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
-});
+}, { timestamps: true });
 
 schema.plugin(referencePlugin, {
   name: 'publisherId',

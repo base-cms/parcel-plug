@@ -6,6 +6,6 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
-});
+}, { timestamps: true });
 
 module.exports = schema;
