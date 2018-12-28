@@ -1,0 +1,17 @@
+{
+  "name": "parcel-plug",
+  "description": "Parcel Plug Monorepo",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "private": true,
+  "repository": "https://github.com/base-cms/parcel-plug.git",
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "devDependencies": {
+    "eslint": "^5.11.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "lerna": "^3.8.0"
+  }
+}
