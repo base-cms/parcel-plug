@@ -10,6 +10,7 @@ extend type Query {
 extend type Mutation {
   createPublisher(input: CreatePublisherMutationInput!): Publisher! @requiresAuth
   updatePublisher(input: UpdatePublisherMutationInput!): Publisher! @requiresAuth
+  deletePublisher(input: DeletePublisherMutationInput!): Publisher! @requiresAuth
 }
 
 type Publisher implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -41,6 +42,10 @@ input CreatePublisherMutationInput {
 input UpdatePublisherMutationInput {
   id: ObjectID!
   payload: UpdatePublisherPayloadInput!
+}
+
+input DeletePublisherMutationInput {
+  id: ObjectID!
 }
 
 input UpdatePublisherPayloadInput {

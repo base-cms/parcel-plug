@@ -24,6 +24,16 @@ module.exports = {
       publisher.set(payload);
       return publisher.save();
     },
+
+    /**
+     *
+     */
+    deletePublisher: async (_, { input }, { auth }) => {
+      const { id } = input;
+      const publisher = await Publisher.strictFindActiveById(id);
+      publisher.setUserContext(auth.user);
+      return publisher.softDelete();
+    },
   },
 
   /**
