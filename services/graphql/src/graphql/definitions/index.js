@@ -7,6 +7,7 @@ module.exports = gql`
 scalar Date
 scalar ObjectID
 
+directive @applyInterfaceFields on OBJECT
 directive @requiresAuth(role: UserRole) on FIELD_DEFINITION
 
 type Query {
