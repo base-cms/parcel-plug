@@ -26,5 +26,14 @@ module.exports = {
       const { id, deleted } = input;
       return Publisher.findOne({ _id: id, deleted });
     },
+
+    /**
+     *
+     */
+    publishers: (_, { input }) => {
+      const { deleted, sort, pagination } = input;
+      const query = { deleted };
+      return Publisher.paginate({ query, sort, ...pagination });
+    },
   },
 };

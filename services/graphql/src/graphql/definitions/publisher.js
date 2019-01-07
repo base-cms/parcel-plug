@@ -4,6 +4,7 @@ module.exports = gql`
 
 extend type Query {
   publisher(input: PublisherQueryInput!): Publisher @requiresAuth
+  publishers(input: PublishersQueryInput = {}): PublisherConnection! @requiresAuth
 }
 
 extend type Mutation {
@@ -15,6 +16,23 @@ type Publisher implements SoftDeleteable & Timestampable & UserAttributable @app
   name: String!
 }
 
+type PublisherConnection {
+  totalCount: Int!
+  edges: [PublisherEdge]!
+  pageInfo: PageInfo!
+}
+
+type PublisherEdge {
+  node: Publisher!
+  cursor: String!
+}
+
+enum PublisherSortField {
+  id
+  name
+  updatedAt
+}
+
 input CreatePublisherMutationInput {
   name: String!
 }
@@ -22,6 +40,17 @@ input CreatePublisherMutationInput {
 input PublisherQueryInput {
   id: ObjectID!
   deleted: Boolean = false
+}
+
+input PublishersQueryInput {
+  deleted: Boolean = false
+  sort: PublisherSortInput = {}
+  pagination: PaginationInput = {}
+}
+
+input PublisherSortInput {
+  field: PublisherSortField = id
+  order: SortOrder = desc
 }
 
 `;
