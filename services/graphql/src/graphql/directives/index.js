@@ -1,5 +1,5 @@
-const AuthDirective = require('./auth');
+const RequiresAuthDirective = require('./requires-auth');
 
 module.exports = {
-  auth: AuthDirective,
+  requiresAuth: RequiresAuthDirective,
 };

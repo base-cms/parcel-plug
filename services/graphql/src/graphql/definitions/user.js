@@ -3,7 +3,7 @@ const gql = require('graphql-tag');
 module.exports = gql`
 
 type Mutation {
-  createUser(input: CreateUserMutationInput!): User! @auth(requiresRole: Admin)
+  createUser(input: CreateUserMutationInput!): User! @requiresAuth(role: Admin)
   loginUser(input: LoginUserMutationInput!): Authentication
   logoutUser: String
 }

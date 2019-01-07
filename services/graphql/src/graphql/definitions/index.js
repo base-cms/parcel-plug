@@ -6,7 +6,7 @@ module.exports = gql`
 scalar Date
 scalar ObjectID
 
-directive @auth(requiresRole: UserRole) on FIELD_DEFINITION
+directive @requiresAuth(role: UserRole) on FIELD_DEFINITION
 
 type Query {
   ping: String!

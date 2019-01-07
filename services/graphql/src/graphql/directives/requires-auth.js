@@ -1,14 +1,14 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
 const { AuthenticationError, ApolloError } = require('apollo-server-express');
 
-class AuthDirective extends SchemaDirectiveVisitor {
+class RequiresAuthDirective extends SchemaDirectiveVisitor {
   /**
    *
    * @param {*} field
    */
   visitFieldDefinition(field) {
     const { resolve } = field;
-    const { requiresRole } = this.args;
+    const { role } = this.args;
 
     // eslint-disable-next-line no-param-reassign
     field.resolve = function checkAuth(...args) {
@@ -16,7 +16,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
       if (!auth.isValid()) {
         throw new AuthenticationError('You must be logged-in to access this resource.');
       }
-      if (requiresRole && !auth.hasRole(requiresRole)) {
+      if (role && !auth.hasRole(role)) {
         throw new ApolloError('You do not have permission to access this resource.', 'UNAUTHORIZED');
       }
       return resolve.apply(this, args);
@@ -24,4 +24,4 @@ class AuthDirective extends SchemaDirectiveVisitor {
   }
 }
 
-module.exports = AuthDirective;
+module.exports = RequiresAuthDirective;
