@@ -25,17 +25,14 @@ type Session {
   token: String!
 }
 
-type User {
+type User implements Timestampable & SoftDeleteable @applyInterfaceFields {
   id: ObjectID!
   email: String!
   role: UserRole!
-  deleted: Boolean!
   givenName: String
   familyName: String
   logins: Int
   photoURL: String
-  createdAt: Date
-  updatedAt: Date
 }
 
 input CreateUserMutationInput {
