@@ -5,6 +5,7 @@ module.exports = gql`
 type Mutation {
   createUser(input: CreateUserMutationInput!): User! @auth(requiresRole: Admin)
   loginUser(input: LoginUserMutationInput!): Authentication
+  logoutUser: String
 }
 
 enum UserRole {

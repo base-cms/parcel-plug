@@ -1,6 +1,7 @@
 const { ApolloError } = require('apollo-server-express');
 const User = require('../../mongoose/models/user');
 const userService = require('../../services/user');
+const sessionService = require('../../services/session');
 
 module.exports = {
   /**
@@ -40,6 +41,17 @@ module.exports = {
       } catch ({ message }) {
         throw new ApolloError(message, 'LOGIN_ERROR');
       }
+    },
+
+    /**
+     *
+     */
+    logoutUser: async (_, args, { auth }) => {
+      if (auth.isValid()) {
+        await sessionService.delete(auth.session);
+        return 'ok';
+      }
+      return null;
     },
   },
 };
