@@ -9,6 +9,10 @@ module.exports = ({ app, endpoint }) => {
     schema,
     playground: !isProduction ? { endpoint } : false,
     introspection: true,
+    context: ({ req }) => {
+      const { auth } = req;
+      return { auth };
+    },
   });
   server.applyMiddleware({ app, path: endpoint });
   return server;
