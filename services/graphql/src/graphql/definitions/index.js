@@ -18,6 +18,21 @@ type Mutation {
   logoutUser: String
 }
 
+interface SoftDeleteable {
+  deleted: Boolean!
+}
+
+interface Timestampable {
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface UserAttributable {
+  createdBy: User
+  updatedBy: User
+}
+
+
 ${publisher}
 ${user}
 
