@@ -16,7 +16,9 @@ const schema = new Schema({
 
 schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);
-schema.plugin(paginablePlugin);
+schema.plugin(paginablePlugin, {
+  collateWhen: ['name'],
+});
 schema.plugin(userAttributionPlugin);
 
 module.exports = schema;

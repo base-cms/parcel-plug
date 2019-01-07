@@ -1,12 +1,13 @@
 const paginateFind = require('../../paginate/find');
 
-module.exports = function paginablePlugin(schema) {
+module.exports = function paginablePlugin(schema, {
+  collateWhen = [],
+} = {}) {
   schema.static('paginate', function paginate({
     query,
     limit,
     after,
     sort,
-    collate,
     projection,
     excludeProjection,
   }) {
@@ -15,7 +16,7 @@ module.exports = function paginablePlugin(schema) {
       limit,
       after,
       sort,
-      collate,
+      collate: collateWhen.includes(sort.field),
       projection,
       excludeProjection,
     });
