@@ -51,6 +51,19 @@ services:
     ports:
       - "11002:80"
 
+  manage:
+    <<: *node
+    image: danlynn/ember-cli:3.6.1
+    working_dir: /parcel-plug/services/manage
+    entrypoint: ["/parcel-plug/node_modules/.bin/ember"]
+    command: ["serve"]
+    depends_on:
+      - graphql
+    ports:
+      - "4200:4200"
+      - "7020:7020"
+      - "7357:7357"
+
 volumes:
   mongodb: {}
   yarn-cache: {}
