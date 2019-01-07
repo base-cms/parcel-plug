@@ -30,6 +30,8 @@ services:
 
   redis:
     image: redis:alpine
+    ports:
+      - "11003:6379"
 
   graphql:
     <<: *node
@@ -42,6 +44,7 @@ services:
       EXTERNAL_PORT: 11002
       ACCOUNT_KEY: devel
       MONGO_DSN: mongodb://mongodb:27017/parcel-plug
+      REDIS_DSN: redis://redis:6379/0
     depends_on:
       - mongodb
       - redis
