@@ -28,6 +28,9 @@ services:
     ports:
       - "11001:27017"
 
+  redis:
+    image: redis:alpine
+
   graphql:
     <<: *node
     working_dir: /parcel-plug/services/graphql
@@ -41,6 +44,7 @@ services:
       MONGO_DSN: mongodb://mongodb:27017/parcel-plug
     depends_on:
       - mongodb
+      - redis
     ports:
       - "11002:80"
 
