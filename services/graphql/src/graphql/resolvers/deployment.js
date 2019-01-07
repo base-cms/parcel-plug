@@ -1,6 +1,14 @@
 const Deployment = require('../../mongoose/models/deployment');
+const Publisher = require('../../mongoose/models/publisher');
 
 module.exports = {
+  /**
+   *
+   */
+  Deployment: {
+    publisher: ({ publisherId }) => Publisher.findActiveById(publisherId),
+  },
+
   /**
    *
    */
