@@ -18,6 +18,11 @@ type Mutation {
   logoutUser: String
 }
 
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+
 interface SoftDeleteable {
   deleted: Boolean!
 }
@@ -32,6 +37,15 @@ interface UserAttributable {
   updatedBy: User
 }
 
+enum SortOrder {
+  asc
+  desc
+}
+
+input PaginationInput {
+  limit: Int = 10
+  after: String
+}
 
 ${publisher}
 ${user}
