@@ -16,6 +16,7 @@ extend type Mutation {
 type Publisher implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
+  deployments(input: PublisherDeploymentsInput = {}): DeploymentConnection!
 }
 
 type PublisherConnection {
@@ -58,6 +59,11 @@ input PublisherQueryInput {
 
 input PublishersQueryInput {
   sort: PublisherSortInput = {}
+  pagination: PaginationInput = {}
+}
+
+input PublisherDeploymentsInput {
+  sort: DeploymentSortInput = {}
   pagination: PaginationInput = {}
 }
 
