@@ -12,13 +12,18 @@ class RequiresAuthDirective extends SchemaDirectiveVisitor {
 
     // eslint-disable-next-line no-param-reassign
     field.resolve = function checkAuth(...args) {
-      const [, , { auth }] = args;
+      const [doc, , { auth }] = args;
       if (!auth.isValid()) {
         throw new AuthenticationError('You must be logged-in to access this resource.');
       }
       if (role && !auth.hasRole(role)) {
         throw new ApolloError('You do not have permission to access this resource.', 'UNAUTHORIZED');
       }
+      // Apply user attribution where applicable.
+      if (doc && typeof doc.setUserContext === 'function') {
+        doc.setUserContext(auth.user);
+      }
+
       return resolve.apply(this, args);
     };
   }
