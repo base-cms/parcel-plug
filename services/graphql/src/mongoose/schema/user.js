@@ -86,6 +86,13 @@ schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);
 schema.plugin(paginablePlugin);
 
+schema.static('validatePassword', (value, confirm) => {
+  if (!value || !confirm) throw new Error('You must provide and confirm your password.');
+  if (value.length < 6) throw new Error('Passwords must be at least six characters long.');
+  if (value !== confirm) throw new Error('The password does not match the confirmation password.');
+  return true;
+});
+
 /**
  * Indexes
  */
