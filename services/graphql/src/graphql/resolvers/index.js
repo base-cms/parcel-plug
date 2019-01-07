@@ -6,9 +6,9 @@ const user = require('./user');
 const { DateType, ObjectIDType } = require('../types');
 
 const resolveType = (doc) => {
-  if (!doc) return null;
+  if (!doc || !doc.constructor) return null;
   const { modelName } = doc.constructor;
-  return classify(modelName.replace('-', '_'));
+  return modelName ? classify(modelName.replace('-', '_')) : null;
 };
 
 module.exports = deepAssign(
