@@ -4,11 +4,25 @@ module.exports = gql`
 
 type Mutation {
   createUser(input: CreateUserMutationInput!): User! @auth(requiresRole: Admin)
+  loginUser(input: LoginUserMutationInput!): Authentication
 }
 
 enum UserRole {
   Admin
   Member
+}
+
+type Authentication {
+  user: User!
+  session: Session!
+}
+
+type Session {
+  id: String!
+  uid: String!
+  cre: Int!
+  exp: Int!
+  token: String!
 }
 
 type User {
@@ -31,6 +45,11 @@ input CreateUserMutationInput {
   givenName: String!
   familyName: String!
   role: UserRole = Member
+}
+
+input LoginUserMutationInput {
+  email: String!
+  password: String!
 }
 
 `;

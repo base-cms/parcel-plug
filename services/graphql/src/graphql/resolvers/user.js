@@ -1,4 +1,6 @@
+const { ApolloError } = require('apollo-server-express');
 const User = require('../../mongoose/models/user');
+const userService = require('../../services/user');
 
 module.exports = {
   /**
@@ -9,7 +11,6 @@ module.exports = {
      *
      */
     createUser: (_, { input }) => {
-      // @todo Check admin auth!
       const {
         email,
         givenName,
@@ -26,6 +27,19 @@ module.exports = {
         password,
         role,
       });
+    },
+
+    /**
+     *
+     */
+    loginUser: async (_, { input }) => {
+      const { email, password } = input;
+      try {
+        const response = await userService.login(email, password);
+        return response;
+      } catch ({ message }) {
+        throw new ApolloError(message, 'LOGIN_ERROR');
+      }
     },
   },
 };
