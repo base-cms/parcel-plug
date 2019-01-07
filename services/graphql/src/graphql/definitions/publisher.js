@@ -49,11 +49,9 @@ input UpdatePublisherPayloadInput {
 
 input PublisherQueryInput {
   id: ObjectID!
-  deleted: Boolean = false
 }
 
 input PublishersQueryInput {
-  deleted: Boolean = false
   sort: PublisherSortInput = {}
   pagination: PaginationInput = {}
 }

@@ -34,16 +34,16 @@ module.exports = {
      *
      */
     publisher: (_, { input }) => {
-      const { id, deleted } = input;
-      return Publisher.findOne({ _id: id, deleted });
+      const { id } = input;
+      return Publisher.findActiveById(id);
     },
 
     /**
      *
      */
     publishers: (_, { input }) => {
-      const { deleted, sort, pagination } = input;
-      const query = { deleted };
+      const { sort, pagination } = input;
+      const query = { deleted: false };
       return Publisher.paginate({ query, sort, ...pagination });
     },
   },
