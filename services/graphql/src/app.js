@@ -26,4 +26,9 @@ app.options('*', CORS);
 
 graphql({ app, endpoint: GRAPHQL_ENDPOINT });
 
+// Redirect root domain requests to the app.
+app.get('/', (req, res) => {
+  res.redirect(301, '/app');
+});
+
 module.exports = app;
