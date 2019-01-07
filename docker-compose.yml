@@ -4,7 +4,7 @@ x-node-defaults: &node
   tty: true
   init: true
   image: node:10.13
-  entrypoint: ["sh"]
+  entrypoint: ["bash"]
   working_dir: /parcel-plug
   volumes:
     - .:/parcel-plug:cached
