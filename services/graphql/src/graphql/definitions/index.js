@@ -1,4 +1,5 @@
 const gql = require('graphql-tag');
+const deployment = require('./deployment');
 const publisher = require('./publisher');
 const user = require('./user');
 
@@ -43,6 +44,7 @@ input PaginationInput {
   after: String
 }
 
+${deployment}
 ${publisher}
 ${user}
 
