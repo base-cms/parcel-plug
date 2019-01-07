@@ -9,6 +9,7 @@ extend type Query {
 
 extend type Mutation {
   createPublisher(input: CreatePublisherMutationInput!): Publisher! @requiresAuth
+  updatePublisher(input: UpdatePublisherMutationInput!): Publisher! @requiresAuth
 }
 
 type Publisher implements SoftDeleteable & Timestampable & UserAttributable @applyInterfaceFields {
@@ -34,6 +35,15 @@ enum PublisherSortField {
 }
 
 input CreatePublisherMutationInput {
+  name: String!
+}
+
+input UpdatePublisherMutationInput {
+  id: ObjectID!
+  payload: UpdatePublisherPayloadInput!
+}
+
+input UpdatePublisherPayloadInput {
   name: String!
 }
 

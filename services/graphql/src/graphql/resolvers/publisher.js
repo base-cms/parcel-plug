@@ -13,6 +13,17 @@ module.exports = {
       publisher.setUserContext(auth.user);
       return publisher.save();
     },
+
+    /**
+     *
+     */
+    updatePublisher: async (_, { input }, { auth }) => {
+      const { id, payload } = input;
+      const publisher = await Publisher.strictFindActiveById(id);
+      publisher.setUserContext(auth.user);
+      publisher.set(payload);
+      return publisher.save();
+    },
   },
 
   /**
