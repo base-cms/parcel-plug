@@ -1,12 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const passport = require('passport');
+const bearer = require('./auth/bearer');
 const env = require('./env');
 const graphql = require('./graphql/server');
 
 const { GRAPHQL_ENDPOINT } = env;
 
 const app = express();
+
+// Set passport auth.
+passport.use(bearer);
+app.use(passport.initialize());
+
 const CORS = cors({
   methods: ['GET', 'POST'],
   maxAge: 600,
