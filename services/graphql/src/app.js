@@ -9,6 +9,7 @@ const graphql = require('./graphql/server');
 const { GRAPHQL_ENDPOINT } = env;
 
 const app = express();
+app.set('trust proxy', 'loopback, linklocal, uniquelocal');
 
 // Set passport auth.
 passport.use(bearer);
