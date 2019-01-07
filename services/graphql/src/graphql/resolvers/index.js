@@ -1,6 +1,7 @@
 const deepAssign = require('deep-assign');
 const { classify } = require('inflection');
 const User = require('../../mongoose/models/user');
+const advertiser = require('./advertiser');
 const deployment = require('./deployment');
 const publisher = require('./publisher');
 const user = require('./user');
@@ -13,6 +14,7 @@ const resolveType = (doc) => {
 };
 
 module.exports = deepAssign(
+  advertiser,
   deployment,
   publisher,
   user,
