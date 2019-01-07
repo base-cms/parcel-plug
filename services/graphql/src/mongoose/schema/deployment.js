@@ -1,6 +1,12 @@
 const { Schema } = require('mongoose');
 const connection = require('../connections/account');
-const { referencePlugin } = require('../plugins');
+const {
+  deleteablePlugin,
+  paginablePlugin,
+  referencePlugin,
+  repositoryPlugin,
+  userAttributionPlugin,
+} = require('../plugins');
 
 const schema = new Schema({
   name: {
@@ -16,5 +22,11 @@ schema.plugin(referencePlugin, {
   modelName: 'publisher',
   options: { required: true },
 });
+schema.plugin(deleteablePlugin);
+schema.plugin(repositoryPlugin);
+schema.plugin(paginablePlugin, {
+  collateWhen: ['name'],
+});
+schema.plugin(userAttributionPlugin);
 
 module.exports = schema;
