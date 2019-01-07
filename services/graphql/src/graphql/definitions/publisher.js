@@ -12,7 +12,7 @@ extend type Mutation {
   updatePublisher(input: UpdatePublisherMutationInput!): Publisher! @requiresAuth
 }
 
-type Publisher implements SoftDeleteable & Timestampable & UserAttributable @applyInterfaceFields {
+type Publisher implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
 }

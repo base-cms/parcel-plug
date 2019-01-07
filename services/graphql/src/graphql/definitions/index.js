@@ -23,10 +23,6 @@ type PageInfo {
   endCursor: String
 }
 
-interface SoftDeleteable {
-  deleted: Boolean!
-}
-
 interface Timestampable {
   createdAt: Date
   updatedAt: Date

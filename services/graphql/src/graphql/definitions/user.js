@@ -25,7 +25,7 @@ type Session {
   token: String!
 }
 
-type User implements Timestampable & SoftDeleteable @applyInterfaceFields {
+type User implements Timestampable @applyInterfaceFields {
   id: ObjectID!
   email: String!
   role: UserRole!

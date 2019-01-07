@@ -24,7 +24,6 @@ module.exports = deepAssign(
     /**
      * Interfaces
      */
-    SoftDeleteable: { __resolveType: resolveType },
     Timestampable: { __resolveType: resolveType },
     UserAttributable: {
       __resolveType: resolveType,
