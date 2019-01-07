@@ -1,11 +1,14 @@
 const deepAssign = require('deep-assign');
+const { classify } = require('inflection');
 const User = require('../../mongoose/models/user');
 const publisher = require('./publisher');
 const user = require('./user');
 const { DateType, ObjectIDType } = require('../types');
 
 const resolveType = (doc) => {
-  console.log('resolveType', doc);
+  if (!doc) return null;
+  const { modelName } = doc.constructor;
+  return classify(modelName.replace('-', '_'));
 };
 
 module.exports = deepAssign(
