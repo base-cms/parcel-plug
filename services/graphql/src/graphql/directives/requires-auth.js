@@ -11,7 +11,7 @@ class RequiresAuthDirective extends SchemaDirectiveVisitor {
     const { role } = this.args;
 
     // eslint-disable-next-line no-param-reassign
-    field.resolve = function checkAuth(...args) {
+    field.resolve = (...args) => {
       const [doc, , { auth }] = args;
       if (!auth.isValid()) {
         throw new AuthenticationError('You must be logged-in to access this resource.');
@@ -20,11 +20,14 @@ class RequiresAuthDirective extends SchemaDirectiveVisitor {
         throw new ApolloError('You do not have permission to access this resource.', 'UNAUTHORIZED');
       }
       // Apply user attribution where applicable.
+      // Only works on pre-existing docs (will not work on create).
       if (doc && typeof doc.setUserContext === 'function') {
         doc.setUserContext(auth.user);
       }
-
-      return resolve.apply(this, args);
+      if (typeof resolve === 'function') {
+        return resolve(...args);
+      }
+      return null;
     };
   }
 }
