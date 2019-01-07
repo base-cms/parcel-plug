@@ -48,8 +48,8 @@ class Sort {
    */
   get value() {
     const { field, order } = this;
-    const sort = [[field, order]];
-    if (field !== '_id') sort.push(['_id', order]);
+    const sort = { [field]: order };
+    if (field !== '_id') sort._id = order;
     return sort;
   }
 
