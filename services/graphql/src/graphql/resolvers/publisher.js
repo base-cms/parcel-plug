@@ -14,4 +14,17 @@ module.exports = {
       return publisher.save();
     },
   },
+
+  /**
+   *
+   */
+  Query: {
+    /**
+     *
+     */
+    publisher: (_, { input }) => {
+      const { id, deleted } = input;
+      return Publisher.findOne({ _id: id, deleted });
+    },
+  },
 };
