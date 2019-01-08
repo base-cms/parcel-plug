@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 export default Service.extend({
   notify: inject(),
-  // user: inject(),
+  user: inject(),
 
   isReady() {
     const element = $('.ember-notify-default');
@@ -14,10 +14,10 @@ export default Service.extend({
 
   handle(e) {
     if (e.message === 'GraphQL error: You must be logged-in to access this resource.') {
-      // if (this.get('user.isAuthenticated')) {
-      //   this.get('user').logout();
-      //   e.loggingOut = true;
-      // }
+      if (this.get('user.isAuthenticated')) {
+        this.get('user').logout();
+        e.loggingOut = true;
+      }
     }
     // eslint-disable-next-line no-console
     console.error(e);
