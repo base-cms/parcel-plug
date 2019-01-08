@@ -7,6 +7,20 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('manage', { path: '' }, function() {
+    this.route('advertisers', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
+    this.route('deployments', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
+    this.route('publishers', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
+  });
   this.route('login');
   this.route('logout');
 });
