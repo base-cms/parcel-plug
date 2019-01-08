@@ -3,39 +3,22 @@
     {{#link-to "manage.index" class="navbar-brand"}}Parcel<span class="text-secondary">Plug</span>{{/link-to}}
 
     <ul class="navbar-nav mr-auto">
-      {{!-- {{#if user.isAuthenticated}}
+      {{#if user.isAuthenticated}}
         {{#link-to "manage.index" tagName="li" class="nav-item"}}
           {{#link-to "manage.index" class="nav-link" title="Dashboard"}}
             {{entypo-icon "blackboard"}} <span class="d-none d-md-inline">Dashboard</span>
           {{/link-to}}
         {{/link-to}}
 
-        {{#link-to "manage.campaign" tagName="li" class="nav-item"}}
-          {{#link-to "manage.campaign" class="nav-link" title="Manage Campaigns"}}
-            {{entypo-icon "calendar"}} <span class="d-none d-md-inline">Campaigns</span>
-          {{/link-to}}
-        {{/link-to}}
-
-        {{#link-to "manage.story" tagName="li" class="nav-item"}}
-          {{#link-to "manage.story" class="nav-link" title="Manage Stories"}}
-            {{entypo-icon "open-book"}} <span class="d-none d-md-inline">Stories</span>
-          {{/link-to}}
-        {{/link-to}}
-
-        {{#link-to "manage.advertiser" tagName="li" class="nav-item"}}
-          {{#link-to "manage.advertiser" class="nav-link" title="Manage Advertisers"}}
+        {{#link-to "manage.advertisers" tagName="li" class="nav-item"}}
+          {{#link-to "manage.advertisers" class="nav-link" title="Manage Advertisers"}}
             {{entypo-icon "archive"}} <span class="d-none d-md-inline">Advertisers</span>
           {{/link-to}}
         {{/link-to}}
-      {{/if}} --}}
+      {{/if}}
     </ul>
 
     <ul class="navbar-nav ml-auto">
-      {{!-- <li class="nav-item">
-        <a href="https://as3.gitbook.io/native-ad-platform" title="Application Documentation" class="nav-link" target="_blank" rel="noopener noreferrer">
-          {{entypo-icon "text-document"}} <span class="d-none d-md-inline">Documentation</span>
-        </a>
-      </li> --}}
       {{!-- {{partial "manage/navigation/models"}} --}}
       {{!-- {{partial "manage/navigation/user"}} --}}
     </ul>
