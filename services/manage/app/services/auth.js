@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import ObjectQueryManager from 'ember-apollo-client/mixins/object-query-manager';
+import { ObjectQueryManager } from 'ember-apollo-client';
 
 import checkSession from '@base-cms/parcel-plug-manage/gql/queries/user/check-session';
 import logoutUser from '@base-cms/parcel-plug-manage/gql/mutations/user/logout';
