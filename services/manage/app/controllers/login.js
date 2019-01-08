@@ -16,7 +16,11 @@ export default Controller.extend(ActionMixin, {
       try {
         await this.get('session').authenticate('authenticator:application', username, password);
       } catch (e) {
-        this.set('errorMessage', e.errors.length ? e.errors[0].message : 'An unknown error has occurred.');
+        if (e.errors) {
+          this.set('errorMessage', e.errors[0].message);
+        } else {
+          this.set('errorMessage', e.message);
+        }
       } finally {
         this.endAction();
       }
