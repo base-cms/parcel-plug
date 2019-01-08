@@ -67,5 +67,19 @@ module.exports = {
       }
       return null;
     },
+
+    /**
+     *
+     */
+    changeUserPassword: async (_, { input }, { auth }) => {
+      const { id, value, confirm } = input;
+      if (`${auth.user.id}` === `${id}` || auth.isAdmin()) {
+        User.validatePassword(value, confirm);
+        const user = await User.strictFindById(id);
+        user.password = value;
+        return user.save();
+      }
+      throw new Error('Only administrators can change passwords for other users.');
+    },
   },
 };

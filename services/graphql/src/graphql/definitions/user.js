@@ -9,6 +9,7 @@ extend type Query {
 extend type Mutation {
   createUser(input: CreateUserMutationInput!): User! @requiresAuth(role: Admin)
   loginUser(input: LoginUserMutationInput!): Authentication
+  changeUserPassword(input: ChangeUserPasswordMutationInput!): User! @requiresAuth
 }
 
 enum UserRole {
@@ -55,6 +56,12 @@ input LoginUserMutationInput {
 
 input CheckSessionQueryInput {
   token: String!
+}
+
+input ChangeUserPasswordMutationInput {
+  id: ObjectID!
+  value: String!
+  confirm: String!
 }
 
 `;
