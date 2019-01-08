@@ -18,6 +18,7 @@
 }
 
 @import "z-depth";
+@import "spin";
 
 // Fluid container that acts like fixed. Main wrapper.
 @include media-breakpoint-up(xl) {
