@@ -25,4 +25,9 @@ export default Mixin.create(LoadingMixin, {
     controller.set('isActionRunning', false);
     this.hideLoading();
   },
+
+  sendEventAction(name, ...args) {
+    const fn = this.get(name);
+    if (typeof fn === 'function') return fn(...args);
+  },
 });
