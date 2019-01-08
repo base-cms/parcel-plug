@@ -1,0 +1,12 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/advertiser/list'
+
+query AdvertisersList {
+  advertisers {
+    totalCount
+    edges {
+      node {
+        ...AdvertiserListFragment
+      }
+    }
+  }
+}
