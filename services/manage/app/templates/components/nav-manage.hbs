@@ -15,6 +15,18 @@
             {{entypo-icon "archive"}} <span class="d-none d-md-inline">Advertisers</span>
           {{/link-to}}
         {{/link-to}}
+
+        {{#link-to "manage.publishers" tagName="li" class="nav-item"}}
+          {{#link-to "manage.publishers" class="nav-link" title="Manage Publishers"}}
+            {{entypo-icon "network"}} <span class="d-none d-md-inline">Publishers</span>
+          {{/link-to}}
+        {{/link-to}}
+
+        {{#link-to "manage.deployments" tagName="li" class="nav-item"}}
+          {{#link-to "manage.deployments" class="nav-link" title="Manage Deployments"}}
+            {{entypo-icon "mail"}} <span class="d-none d-md-inline">Deployments</span>
+          {{/link-to}}
+        {{/link-to}}
       {{/if}}
     </ul>
 
