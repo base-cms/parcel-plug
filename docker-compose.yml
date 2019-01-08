@@ -56,7 +56,7 @@ services:
     image: danlynn/ember-cli:3.6.1
     working_dir: /parcel-plug/services/manage
     entrypoint: ["/parcel-plug/node_modules/.bin/ember"]
-    command: ["serve"]
+    command: ["serve", "--proxy", "http://graphql"]
     depends_on:
       - graphql
     ports:
