@@ -10,6 +10,7 @@ extend type Mutation {
   createUser(input: CreateUserMutationInput!): User! @requiresAuth(role: Admin)
   loginUser(input: LoginUserMutationInput!): Authentication
   changeUserPassword(input: ChangeUserPasswordMutationInput!): User! @requiresAuth
+  updateCurrentUserProfile(input: UpdateCurrentUserProfileMutationInput!): User! @requiresAuth
 }
 
 enum UserRole {
@@ -62,6 +63,11 @@ input ChangeUserPasswordMutationInput {
   id: ObjectID!
   value: String!
   confirm: String!
+}
+
+input UpdateCurrentUserProfileMutationInput {
+  givenName: String!
+  familyName: String!
 }
 
 `;

@@ -81,5 +81,15 @@ module.exports = {
       }
       throw new Error('Only administrators can change passwords for other users.');
     },
+
+    /**
+     *
+     */
+    updateCurrentUserProfile: (_, { input }, { auth }) => {
+      const { givenName, familyName } = input;
+      const { user } = auth;
+      user.set({ givenName, familyName });
+      return user.save();
+    },
   },
 };
