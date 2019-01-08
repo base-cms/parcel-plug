@@ -1,0 +1,7 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/advertiser/edit'
+
+query AdvertiserEdit($input: AdvertiserQueryInput!) {
+  advertiser(input: $input) {
+    ...AdvertiserEditFragment
+  }
+}
