@@ -6,6 +6,14 @@ export default Route.extend(ApplicationRouteMixin, ActionMixin, {
   routeAfterAuthentication: 'manage',
 
   actions: {
+    showLoading() {
+      this.showLoading();
+    },
+
+    hideLoading() {
+      this.hideLoading();
+    },
+
     /**
      *
      * @param {*} transition
