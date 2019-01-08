@@ -42,6 +42,10 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
   didInsertElement() {
     this._super(...arguments);
     this.$().val(this.get('value'));
+    if (this.get('autofocus')) {
+      // Force autofocus since browsers handle the attribute differently on transition.
+      this.$().focus();
+    }
   },
 
   /**

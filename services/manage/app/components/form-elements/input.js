@@ -47,4 +47,12 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
     const style = this.get('show') ? '' : 'display: none;';
     return htmlSafe(style);
   }).readOnly(),
+
+  didInsertElement() {
+    this._super(...arguments);
+    if (this.get('autofocus')) {
+      // Force autofocus since browsers handle the attribute differently on transition.
+      this.$().focus();
+    }
+  },
 });
