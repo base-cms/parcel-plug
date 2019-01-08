@@ -8,5 +8,9 @@ query AdvertisersList {
         ...AdvertiserListFragment
       }
     }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
   }
 }
