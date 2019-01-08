@@ -1,0 +1,21 @@
+<label for="advertiser-name">Name {{required-field}}</label>
+{{#form.elements.input
+  id="advertiser-name"
+  class="form-control"
+  autocomplete="off"
+  type="text"
+  name="name"
+  label="Name"
+  value=value
+  aria-labeledby="advertiser-name-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  <div class="input-group">
+    {{input.element}}
+    {{input.elements.indicator}}
+    {{input.elements.invalid-feedback}}
+  </div>
+{{/form.elements.input}}
+<small id="advertiser-name-help" class="form-text text-muted">The advertiser's company name.</small>
