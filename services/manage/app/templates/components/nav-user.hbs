@@ -1,0 +1,41 @@
+{{#if user.isAuthenticated}}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" title="User Settings" data-toggle="dropdown" href="#" role="button">
+      {{entypo-icon "user"}} <span class="d-none d-md-inline">{{user.model.givenName}} {{user.model.familyName}}</span>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right">
+
+      {{!-- <a class="dropdown-item dropdown-item d-flex justify-content-between" href="javascript:void(0)" title="Change Password" {{action "displayChangePassword"}}>
+        Change Password
+        {{entypo-icon "key" class="ml-1"}}
+      </a>
+      <a class="dropdown-item dropdown-item d-flex justify-content-between" href="javascript:void(0)" title="Update User Profile" {{action "displayUpdateProfile"}}>
+        Update Profile
+        {{entypo-icon "v-card" class="ml-1"}}
+      </a> --}}
+
+      {{!-- {{#if (eq user.role "Admin")}}
+        <div class="dropdown-divider"></div>
+        {{#link-to "manage.account" class="dropdown-item dropdown-item d-flex justify-content-between" title="Account Settings"}}
+          Account Settings
+          {{entypo-icon "cog" class="ml-1"}}
+        {{/link-to}}
+      {{/if}} --}}
+
+      <div class="dropdown-divider"></div>
+
+      {{#link-to "logout" class="dropdown-item d-flex justify-content-between" title="Logout of the Application"}}
+        Logout
+        {{entypo-icon "log-out"}}
+      {{/link-to}}
+    </div>
+  </li>
+{{else}}
+  {{#link-to "login" tagName="li" class="nav-item" title="Login Into the Application"}}
+    {{#link-to "login" class="nav-link"}}{{entypo-icon "login"}}  Log In{{/link-to}}
+  {{/link-to}}
+{{/if}}
+
+{{!-- {{change-password-modal isOpen=isChangePasswordOpen model=user.model}}
+{{update-profile-modal isOpen=isUpdateProfileOpen model=user.model}} --}}
