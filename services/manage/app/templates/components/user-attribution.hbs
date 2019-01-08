@@ -1,0 +1,9 @@
+{{entypo-icon "clock"}} {{label}}
+{{#if date}}
+  <span title={{moment-format date format}}>
+    {{moment-from-now date}}
+  </span>
+{{/if}}
+{{#if user.id}}
+  by {{user.givenName}} {{user.familyName}}
+{{/if}}
