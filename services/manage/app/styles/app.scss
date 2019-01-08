@@ -30,6 +30,12 @@
   padding-bottom: 1rem;
 }
 
+// Compensate for bottom progress bar. Ensures nav bar links are vertically centered.
+nav.navbar {
+  padding-top: 1.2em;
+  padding-bottom: 0.6em;
+}
+
 // Ember link actions, or explicitally clickable.
 a[data-ember-action]:not(:disabled),
 .clickable {
