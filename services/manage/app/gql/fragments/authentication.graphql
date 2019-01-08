@@ -1,0 +1,11 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/session'
+#import '@base-cms/parcel-plug-manage/gql/fragments/user'
+
+fragment AuthenticationFragment on Authentication {
+  session {
+    ...SessionFragment
+  }
+  user {
+    ...UserFragment
+  }
+}
