@@ -1,0 +1,37 @@
+{{#bs-modal show=isOpen as |modal|}}
+  <form {{action "saveProfile" on="submit"}}>
+    {{#modal.header}}
+      <h5 class="modal-title">Update Profile</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        {{action modal.actions.hide}}
+      >
+        {{entypo-icon "cross"}}
+      </button>
+    {{/modal.header}}
+
+    {{#modal.body}}
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="name">First Name</label>
+            {{input class="form-control" autocomplete="given-name" value=model.givenName}}
+          </div>
+          <div class="form-group mb-0">
+            <label for="name">Last Name</label>
+            {{input class="form-control" autocomplete="family-name" value=model.familyName}}
+          </div>
+        </div>
+      </div>
+    {{/modal.body}}
+
+    {{#modal.footer}}
+      <button class="btn btn-success" disabled={{isActionRunning}}>
+        {{entypo-icon "check"}} Save
+      </button>
+    {{/modal.footer}}
+    {{progress-bar show=isActionRunning}}
+  </form>
+{{/bs-modal}}

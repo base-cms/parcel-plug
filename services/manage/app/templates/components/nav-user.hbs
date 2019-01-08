@@ -21,10 +21,15 @@
         Change Password
         {{entypo-icon "key" class="ml-1"}}
       </a>
-      {{!-- <a class="dropdown-item dropdown-item d-flex justify-content-between" href="#" title="Update User Profile" {{action "displayUpdateProfile"}}>
+      <a
+        class="dropdown-item dropdown-item d-flex justify-content-between"
+        href="#"
+        title="Update User Profile"
+        {{action "displayUpdateProfile"}}
+      >
         Update Profile
         {{entypo-icon "v-card" class="ml-1"}}
-      </a> --}}
+      </a>
 
       {{!-- {{#if (eq user.role "Admin")}}
         <div class="dropdown-divider"></div>
@@ -58,4 +63,4 @@
 {{/if}}
 
 {{change-password-modal isOpen=isChangePasswordOpen model=user.model}}
-{{!-- {{update-profile-modal isOpen=isUpdateProfileOpen model=user.model}} --}}
+{{update-profile-modal isOpen=isUpdateProfileOpen model=user.model}}
