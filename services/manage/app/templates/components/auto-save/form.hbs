@@ -1,0 +1,29 @@
+<fieldset disabled={{disabled}}>
+  {{yield
+    (hash
+      shouldAutosave=shouldAutosave
+      elements=(hash
+        input=(component "auto-save/input"
+          shouldSave=shouldAutosave
+          on-insert=(action "addFormElement")
+          on-destroy=(action "removeFormElement")
+        )
+        textarea=(component "auto-save/textarea"
+          shouldSave=shouldAutosave
+          on-insert=(action "addFormElement")
+          on-destroy=(action "removeFormElement")
+        )
+        typeahead=(component "auto-save/typeahead"
+          shouldSave=shouldAutosave
+          on-insert=(action "addFormElement")
+          on-destroy=(action "removeFormElement")
+        )
+        select=(component "auto-save/select"
+          shouldSave=shouldAutosave
+          on-insert=(action "addFormElement")
+          on-destroy=(action "removeFormElement")
+        )
+      )
+    )
+  }}
+</fieldset>

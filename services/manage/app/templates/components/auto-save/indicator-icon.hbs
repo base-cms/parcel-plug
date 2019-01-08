@@ -1,0 +1,9 @@
+{{#if isChanging}}
+  {{entypo-icon "hour-glass" class="text-dark spin"}}
+{{else if changeComplete}}
+  {{entypo-icon "check" class="text-success"}}
+{{else if validationMessage}}
+  {{entypo-icon "warning" class="text-danger"}}
+{{else}}
+  {{entypo-icon "hour-glass" class="text-light"}}
+{{/if}}
