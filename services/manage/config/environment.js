@@ -4,7 +4,7 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: '@base-cms/parcel-plug-manage',
     environment,
-    rootURL: '/',
+    rootURL: '/app',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
