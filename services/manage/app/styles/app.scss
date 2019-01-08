@@ -1,3 +1,60 @@
 @import "../../node_modules/bootswatch/dist/cosmo/variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "../../node_modules/bootswatch/dist/cosmo/bootswatch";
+
+@import "ember-power-select/themes/bootstrap";
+@import "ember-power-select";
+.in-modal-dropdown {
+  z-index: 1100;
+}
+
+.ember-power-select-trigger {
+  padding: 2px;
+}
+
+@import "ember-power-calendar";
+.ember-power-calendar {
+  @include ember-power-calendar($cell-size: 30px);
+}
+
+@import "z-depth";
+
+// Fluid container that acts like fixed. Main wrapper.
+@include media-breakpoint-up(xl) {
+  .container-fluid .col.main {
+    padding-left: 6.0rem;
+    padding-right: 6.0rem;
+  }
+}
+.container-fluid .col.main {
+  padding-bottom: 1rem;
+}
+
+// Ember link actions, or explicitally clickable.
+a[data-ember-action]:not(:disabled),
+.clickable {
+    cursor: pointer;
+}
+
+// Add min-height utility
+.mnh-100 {
+  min-height: 100%;
+}
+
+// Add depth to cards
+.card {
+  box-shadow: $z-depth-1;
+  border: none !important;
+}
+
+// Add depth to dropdowns
+.dropdown-menu {
+  box-shadow: $z-depth-2;
+  border: none !important;
+}
+
+// Add depth to modals
+.modal-content {
+  border: 0;
+  box-shadow: $z-depth-3;
+}
