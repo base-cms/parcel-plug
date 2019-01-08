@@ -1,0 +1,12 @@
+{{#form-elements/button
+  id=id
+  class=class
+  type="submit"
+  disabled=disabled
+}}
+  {{#if isSaving}}
+    {{entypo-icon "hour-glass" class="d-inline-block spin"}} Saving...
+  {{else}}
+    {{entypo-icon "save"}} Save
+  {{/if}}
+{{/form-elements/button}}
