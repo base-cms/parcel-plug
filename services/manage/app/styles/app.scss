@@ -64,3 +64,18 @@ a[data-ember-action]:not(:disabled),
   border: 0;
   box-shadow: $z-depth-3;
 }
+
+// Add styling to ember-notify alerts
+.ember-notify.alert {
+  box-shadow: $z-depth-2;
+  border: none !important;
+}
+
+// Force create button to bottom right; add depth
+.fixed-bottom {
+  box-shadow: $z-depth-2;
+}
+.fixed-bottom.right {
+  right: 0;
+  left: inherit;
+}
