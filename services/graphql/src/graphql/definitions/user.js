@@ -2,6 +2,10 @@ const gql = require('graphql-tag');
 
 module.exports = gql`
 
+extend type Query {
+  checkSession(input: CheckSessionQueryInput!): Authentication
+}
+
 extend type Mutation {
   createUser(input: CreateUserMutationInput!): User! @requiresAuth(role: Admin)
   loginUser(input: LoginUserMutationInput!): Authentication
@@ -47,6 +51,10 @@ input CreateUserMutationInput {
 input LoginUserMutationInput {
   email: String!
   password: String!
+}
+
+input CheckSessionQueryInput {
+  token: String!
 }
 
 `;

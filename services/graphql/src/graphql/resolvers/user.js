@@ -7,6 +7,20 @@ module.exports = {
   /**
    *
    */
+  Query: {
+    /**
+     *
+     */
+    checkSession: async (_, { input }) => {
+      const { token } = input;
+      const { user, session } = await userService.retrieveSession(token);
+      return { user, session };
+    },
+  },
+
+  /**
+   *
+   */
   Mutation: {
     /**
      *
