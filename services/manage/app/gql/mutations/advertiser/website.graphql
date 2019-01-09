@@ -1,0 +1,6 @@
+mutation AdvertiserWebsite($input: AdvertiserWebsiteMutationInput!) {
+  advertiserWebsite(input: $input) {
+    id
+    website
+  }
+}

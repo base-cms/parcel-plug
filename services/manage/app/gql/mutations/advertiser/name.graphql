@@ -1,0 +1,6 @@
+mutation AdvertiserName($input: AdvertiserNameMutationInput!) {
+  advertiserName(input: $input) {
+    id
+    name
+  }
+}
