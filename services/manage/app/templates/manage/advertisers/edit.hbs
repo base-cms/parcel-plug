@@ -1,4 +1,32 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.advertisers.index"}}{{entypo-icon "archive"}} Advertisers{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{model.name}}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
+
+
+{{#auto-save/form as |form|}}
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          {{advertiser/-fields/name
+            form=form
+            value=model.name
+            on-change=(action "setName")
+          }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{advertiser/-fields/website
+            form=form
+            value=model.website
+            on-change=(action "setWebsite")
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+{{/auto-save/form}}
