@@ -13,10 +13,7 @@
   required=true
 as |input|
 }}
-  <div class="input-group">
-    {{input.element}}
-    {{input.elements.indicator}}
-    {{input.elements.invalid-feedback}}
-  </div>
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
 {{/form.elements.input}}
 <small id="advertiser-name-help" class="form-text text-muted">The advertiser's company name.</small>
