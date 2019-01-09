@@ -13,9 +13,9 @@ export default Component.extend(MenuMixin, {
     this._super(...arguments);
     this.set('types', [
       { key: 'contains', label: 'Contains' },
-      { key: 'starts-with', label: 'Starts With' },
-      { key: 'ends-with', label: 'Ends With' },
-      { key: 'exact-match', label: 'Exact Match' },
+      { key: 'starts', label: 'Starts With' },
+      { key: 'ends', label: 'Ends With' },
+      { key: 'exact', label: 'Exact Match' },
     ]);
   },
 
