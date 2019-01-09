@@ -3,7 +3,7 @@ const gql = require('graphql-tag');
 module.exports = gql`
 
 extend type Query {
-  advertiser(input: AdvertiserQueryInput!): Advertiser @requiresAuth
+  advertiser(input: AdvertiserQueryInput!): Advertiser @requiresAuth @retrieve(modelName: "advertiser")
   advertisers(input: AdvertisersQueryInput = {}): AdvertiserConnection! @requiresAuth
 }
 

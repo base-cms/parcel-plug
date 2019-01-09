@@ -8,14 +8,6 @@ module.exports = {
     /**
      *
      */
-    advertiser: (_, { input }) => {
-      const { id } = input;
-      return Advertiser.findActiveById(id);
-    },
-
-    /**
-     *
-     */
     advertisers: (_, { input }) => {
       const { sort, pagination } = input;
       const query = { deleted: false };
