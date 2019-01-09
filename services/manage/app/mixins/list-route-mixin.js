@@ -18,8 +18,8 @@ export default Mixin.create(RouteObservableMixin, {
    *
    * @param {object} params
    */
-  async getResults({ query, queryKey, queryInput }, { first, field, order }) {
-    const pagination = { first };
+  async getResults({ query, queryKey, queryInput }, { limit, field, order }) {
+    const pagination = { limit };
     const sort = { field, order };
     const input = { pagination, sort, ...queryInput }
     const variables = { input };
