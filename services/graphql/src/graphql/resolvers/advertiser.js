@@ -8,17 +8,6 @@ module.exports = {
     /**
      *
      */
-    updateAdvertiser: async (_, { input }, { auth }) => {
-      const { id, payload } = input;
-      const advertiser = await Advertiser.strictFindActiveById(id);
-      advertiser.setUserContext(auth.user);
-      advertiser.set(payload);
-      return advertiser.save();
-    },
-
-    /**
-     *
-     */
     deleteAdvertiser: async (_, { input }, { auth }) => {
       const { id } = input;
       const advertiser = await Advertiser.strictFindActiveById(id);
