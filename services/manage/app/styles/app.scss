@@ -94,3 +94,12 @@ body.transitioning {
   right: 0;
   left: inherit;
 }
+
+// Override the "green" success validation state with regular field colors
+.was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {
+  border-color: $input-border-color;
+}
+.was-validated .form-control:valid:focus, .form-control.is-valid:focus, .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
+  border-color: $input-focus-border-color;
+  box-shadow: $input-focus-box-shadow;
+}
