@@ -1,8 +1,20 @@
 import Mixin from '@ember/object/mixin';
-import RouteObservableMixin from '@base-cms/parcel-plug-manage/mixins/route-observable-mixin';
+import RouteSearchMixin from '@base-cms/parcel-plug-manage/mixins/route-search-mixin';
 
-export default Mixin.create(RouteObservableMixin, {
+export default Mixin.create(RouteSearchMixin, {
   queryParams: {
+    phrase: {
+      refreshModel: true,
+      replace: true,
+    },
+    searchType: {
+      refreshModel: true,
+      replace: true,
+    },
+    searchBy: {
+      refreshModel: true,
+      replace: true,
+    },
     limit: {
       refreshModel: true
     },
@@ -18,8 +30,35 @@ export default Mixin.create(RouteObservableMixin, {
    *
    * @param {object} params
    */
-  async getResults({ query, queryKey, queryInput }, { limit, field, order }) {
+  async getResults({
+    query,
+    queryKey,
+    queryInput,
+    search,
+    searchKey,
+    searchInput,
+  }, {
+    limit,
+    field,
+    order,
+    phrase,
+    searchType,
+    searchBy,
+  }) {
     const pagination = { limit };
+    if (phrase) {
+      return this.search({
+        query: search,
+        resultKey: searchKey,
+        queryInput: searchInput,
+      }, {
+        searchBy,
+        phrase,
+        searchType,
+        pagination,
+      });
+    }
+
     const sort = { field, order };
     const input = { pagination, sort, ...queryInput }
     const variables = { input };
