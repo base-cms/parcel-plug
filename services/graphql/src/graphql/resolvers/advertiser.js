@@ -4,21 +4,6 @@ module.exports = {
   /**
    *
    */
-  Mutation: {
-    /**
-     *
-     */
-    deleteAdvertiser: async (_, { input }, { auth }) => {
-      const { id } = input;
-      const advertiser = await Advertiser.strictFindActiveById(id);
-      advertiser.setUserContext(auth.user);
-      return advertiser.softDelete();
-    },
-  },
-
-  /**
-   *
-   */
   Query: {
     /**
      *

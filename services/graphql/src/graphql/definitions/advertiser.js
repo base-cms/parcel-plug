@@ -10,7 +10,7 @@ extend type Query {
 extend type Mutation {
   createAdvertiser(input: CreateAdvertiserMutationInput!): Advertiser! @requiresAuth @create(modelName: "advertiser")
   updateAdvertiser(input: UpdateAdvertiserMutationInput!): Advertiser! @requiresAuth @update(modelName: "advertiser")
-  deleteAdvertiser(input: DeleteAdvertiserMutationInput!): Advertiser! @requiresAuth
+  deleteAdvertiser(input: DeleteAdvertiserMutationInput!): Advertiser! @requiresAuth @delete(modelName: "advertiser")
 
   advertiserName(input: AdvertiserNameMutationInput!): Advertiser! @requiresAuth @setAndUpdate(modelName: "advertiser", path: "name")
   advertiserWebsite(input: AdvertiserWebsiteMutationInput!): Advertiser! @requiresAuth @setAndUpdate(modelName: "advertiser", path: "website")
