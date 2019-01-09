@@ -1,0 +1,32 @@
+<div class="col">
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      {{!-- {{list-controls/search
+        phrase=phrase
+        searchType=searchType
+        fields=searchFields
+        searchBy=searchBy
+        onSubmit=(action "search")
+      }} --}}
+    </div>
+
+    <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+      {{!-- Fix menu alignment, once https://github.com/twbs/bootstrap/pull/26255 is merged --}}
+      <div
+        class="btn-toolbar float-md-right"
+        role="toolbar"
+        aria-label="Filter Toolbar"
+      >
+        {{!-- {{list-controls/sort
+          class="mr-2"
+          options=sortOptions
+          ascending=ascending
+          sortBy=sortBy
+          disabled=isSortDisabled
+          alignment="right"
+        }} --}}
+        {{list-controls/limit options=limitOptions limit=limit alignment="right"}}
+      </div>
+    </div>
+  </div>
+</div>
