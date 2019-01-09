@@ -1,7 +1,7 @@
 #import '@base-cms/parcel-plug-manage/gql/fragments/advertiser/list'
 
-query AdvertisersList {
-  advertisers {
+query AdvertisersList($input: AdvertisersQueryInput = {}) {
+  advertisers(input: $input) {
     totalCount
     edges {
       node {
