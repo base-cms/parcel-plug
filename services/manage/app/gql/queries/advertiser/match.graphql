@@ -1,6 +1,6 @@
 #import '@base-cms/parcel-plug-manage/gql/fragments/advertiser/list'
 
-query AdvertisersListMatch($input: MatchAdvertisersQueryInput = {}) {
+query AdvertisersListMatch($input: MatchAdvertisersQueryInput!) {
   matchAdvertisers(input: $input) {
     totalCount
     edges {
