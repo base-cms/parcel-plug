@@ -1,5 +1,5 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
-const { ApolloError } = require('apollo-server-express');
+const handleValidation = require('../utils/handle-validation');
 const { account: connection } = require('../../mongoose/connections');
 
 class SetAndUpdateDirective extends SchemaDirectiveVisitor {
@@ -20,13 +20,7 @@ class SetAndUpdateDirective extends SchemaDirectiveVisitor {
       const doc = await Model.strictFindActiveById(id);
       doc.setUserContext(auth.user);
       doc.set(path, value || undefined);
-      try {
-        const saved = await doc.save();
-        return saved;
-      } catch (e) {
-        if (e.name === 'ValidationError') throw new ApolloError(e.message, 'VALIDATION_ERROR', e.errors);
-        throw e;
-      }
+      return handleValidation(doc);
     };
   }
 }
