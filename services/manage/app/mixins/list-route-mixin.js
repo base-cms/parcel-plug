@@ -18,10 +18,11 @@ export default Mixin.create(RouteObservableMixin, {
    *
    * @param {object} params
    */
-  async getResults({ query, queryKey, queryVars }, { first, field, order }) {
+  async getResults({ query, queryKey, queryInput }, { first, field, order }) {
     const pagination = { first };
     const sort = { field, order };
-    const variables = { pagination, sort, ...queryVars };
+    const input = { pagination, sort, ...queryInput }
+    const variables = { input };
 
     this.getController().set('resultKey', queryKey);
     try {
