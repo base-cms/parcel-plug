@@ -4,7 +4,7 @@ module.exports = gql`
 
 extend type Query {
   advertiser(input: AdvertiserQueryInput!): Advertiser @requiresAuth @retrieve(modelName: "advertiser")
-  advertisers(input: AdvertisersQueryInput = {}): AdvertiserConnection! @requiresAuth
+  advertisers(input: AdvertisersQueryInput = {}): AdvertiserConnection! @requiresAuth @retrieveMany(modelName: "advertiser")
 }
 
 extend type Mutation {
