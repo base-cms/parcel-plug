@@ -1,0 +1,19 @@
+<label for="advertiser-website">Website</label>
+{{#form.elements.input
+  id="advertiser-website"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="url"
+  name="website"
+  label="Website"
+  value=value
+  aria-labeledby="advertiser-website-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.input}}
+<small id="advertiser-website-help" class="form-text text-muted">The advertiser's website.</small>
