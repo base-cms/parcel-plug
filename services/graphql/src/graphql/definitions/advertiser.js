@@ -8,7 +8,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  createAdvertiser(input: CreateAdvertiserMutationInput!): Advertiser! @requiresAuth
+  createAdvertiser(input: CreateAdvertiserMutationInput!): Advertiser! @requiresAuth @create(modelName: "advertiser")
   updateAdvertiser(input: UpdateAdvertiserMutationInput!): Advertiser! @requiresAuth
   deleteAdvertiser(input: DeleteAdvertiserMutationInput!): Advertiser! @requiresAuth
 
