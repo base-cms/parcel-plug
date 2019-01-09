@@ -52,6 +52,11 @@ a[data-ember-action]:not(:disabled),
     cursor: pointer;
 }
 
+// Showing progress cursor when transitioning/loading.
+body.transitioning {
+  cursor: progress;
+}
+
 // Add min-height utility
 .mnh-100 {
   min-height: 100%;
