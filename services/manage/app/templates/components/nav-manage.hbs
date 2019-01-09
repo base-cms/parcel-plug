@@ -1,42 +1,39 @@
-<div class="sticky-top z-depth-1-half">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    {{#link-to "manage.index" class="navbar-brand"}}Parcel<span class="text-secondary">Plug</span>{{/link-to}}
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  {{#link-to "manage.index" class="navbar-brand"}}Parcel<span class="text-secondary">Plug</span>{{/link-to}}
 
-    <ul class="navbar-nav mr-auto">
-      {{#if user.isAuthenticated}}
-        {{#link-to "manage.index" tagName="li" class="nav-item"}}
-          {{#link-to "manage.index" class="nav-link" title="Dashboard"}}
-            {{entypo-icon "blackboard"}} <span class="d-none d-md-inline">Dashboard</span>
-          {{/link-to}}
+  <ul class="navbar-nav mr-auto">
+    {{#if user.isAuthenticated}}
+      {{#link-to "manage.index" tagName="li" class="nav-item"}}
+        {{#link-to "manage.index" class="nav-link" title="Dashboard"}}
+          {{entypo-icon "blackboard"}} <span class="d-none d-md-inline">Dashboard</span>
         {{/link-to}}
+      {{/link-to}}
 
-        {{#link-to "manage.advertisers" tagName="li" class="nav-item"}}
-          {{#link-to "manage.advertisers" class="nav-link" title="Manage Advertisers"}}
-            {{entypo-icon "archive"}} <span class="d-none d-md-inline">Advertisers</span>
-          {{/link-to}}
+      {{#link-to "manage.advertisers" tagName="li" class="nav-item"}}
+        {{#link-to "manage.advertisers" class="nav-link" title="Manage Advertisers"}}
+          {{entypo-icon "archive"}} <span class="d-none d-md-inline">Advertisers</span>
         {{/link-to}}
+      {{/link-to}}
 
-        {{#link-to "manage.publishers" tagName="li" class="nav-item"}}
-          {{#link-to "manage.publishers" class="nav-link" title="Manage Publishers"}}
-            {{entypo-icon "network"}} <span class="d-none d-md-inline">Publishers</span>
-          {{/link-to}}
+      {{#link-to "manage.publishers" tagName="li" class="nav-item"}}
+        {{#link-to "manage.publishers" class="nav-link" title="Manage Publishers"}}
+          {{entypo-icon "network"}} <span class="d-none d-md-inline">Publishers</span>
         {{/link-to}}
+      {{/link-to}}
 
-        {{#link-to "manage.deployments" tagName="li" class="nav-item"}}
-          {{#link-to "manage.deployments" class="nav-link" title="Manage Deployments"}}
-            {{entypo-icon "mail"}} <span class="d-none d-md-inline">Deployments</span>
-          {{/link-to}}
+      {{#link-to "manage.deployments" tagName="li" class="nav-item"}}
+        {{#link-to "manage.deployments" class="nav-link" title="Manage Deployments"}}
+          {{entypo-icon "mail"}} <span class="d-none d-md-inline">Deployments</span>
         {{/link-to}}
-      {{/if}}
-    </ul>
+      {{/link-to}}
+    {{/if}}
+  </ul>
 
-    <ul class="navbar-nav ml-auto">
-      {{!-- {{partial "manage/navigation/models"}} --}}
-      {{nav-user}}
-    </ul>
+  <ul class="navbar-nav ml-auto">
+    {{!-- {{partial "manage/navigation/models"}} --}}
+    {{nav-user}}
+  </ul>
 
-  </nav>
+</nav>
 
-  {{loading-progress class="bg-dark"}}
-</div>
-
+{{loading-progress class="bg-dark"}}
