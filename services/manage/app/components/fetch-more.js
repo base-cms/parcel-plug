@@ -76,8 +76,9 @@ export default Component.extend({
           },
         };
       };
-      const pagination = assign({}, observable.variables.pagination, { after: endCursor });
-      const variables = { pagination };
+      const pagination = assign({}, observable.variables.input.pagination, { after: endCursor });
+      const input = { ...observable.variables.input, pagination };
+      const variables = { input };
       try {
         const result = await observable.fetchMore({ updateQuery, variables });
         this.sendEvent('on-fetch-success', result);
