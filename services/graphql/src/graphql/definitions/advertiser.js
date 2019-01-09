@@ -5,6 +5,7 @@ module.exports = gql`
 extend type Query {
   advertiser(input: AdvertiserQueryInput!): Advertiser @requiresAuth @retrieve(modelName: "advertiser")
   advertisers(input: AdvertisersQueryInput = {}): AdvertiserConnection! @requiresAuth @retrieveMany(modelName: "advertiser")
+  matchAdvertisers(input: MatchAdvertisersQueryInput!): AdvertiserConnection! @requiresAuth @matchMany(modelName: "advertiser")
 }
 
 extend type Mutation {
@@ -65,6 +66,13 @@ input AdvertiserQueryInput {
 input AdvertisersQueryInput {
   sort: AdvertiserSortInput = {}
   pagination: PaginationInput = {}
+}
+
+input MatchAdvertisersQueryInput {
+  pagination: PaginationInput = {}
+  field: String!
+  phrase: String!
+  position: MatchPosition = contains
 }
 
 input AdvertiserDeploymentsInput {
