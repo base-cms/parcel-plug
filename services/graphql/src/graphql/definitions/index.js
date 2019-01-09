@@ -13,6 +13,7 @@ directive @applyInterfaceFields on OBJECT
 directive @create(modelName: String!) on FIELD_DEFINITION
 directive @requiresAuth(role: UserRole) on FIELD_DEFINITION
 directive @setAndUpdate(modelName: String!, path: String!) on FIELD_DEFINITION
+directive @update(modelName: String!) on FIELD_DEFINITION
 
 type Query {
   ping: String!
