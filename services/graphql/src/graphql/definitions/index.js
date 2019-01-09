@@ -12,6 +12,7 @@ scalar ObjectID
 directive @applyInterfaceFields on OBJECT
 directive @create(modelName: String!) on FIELD_DEFINITION
 directive @delete(modelName: String!) on FIELD_DEFINITION
+directive @matchMany(modelName: String!) on FIELD_DEFINITION
 directive @requiresAuth(role: UserRole) on FIELD_DEFINITION
 directive @retrieve(modelName: String!) on FIELD_DEFINITION
 directive @retrieveMany(modelName: String!) on FIELD_DEFINITION
@@ -44,6 +45,13 @@ interface UserAttributable {
 enum SortOrder {
   asc
   desc
+}
+
+enum MatchPosition {
+  contains
+  starts
+  ends
+  exact
 }
 
 input PaginationInput {
