@@ -28,9 +28,7 @@
     {{/modal.body}}
 
     {{#modal.footer}}
-      <button class="btn btn-success" disabled={{isActionRunning}}>
-        {{entypo-icon "check"}} Save
-      </button>
+      {{form-elements/save-button class="btn btn-success" isSaving=isActionRunning}}
     {{/modal.footer}}
     {{progress-bar show=isActionRunning}}
   </form>
