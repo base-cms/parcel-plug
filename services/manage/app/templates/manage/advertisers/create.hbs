@@ -3,10 +3,12 @@
   {{#crumbs.item active=true}}Create New{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#advertiser/-forms/create
+{{#auto-save/form
+  id="advertiser-create"
+  shouldAutosave=false
   model=model
-  on-success=(route-action "transitionWithModel" "manage.advertisers.edit")
-  on-error=(route-action "error")
+  disabled=isActionRunning
+  on-submit=(action "create")
 as |form|
 }}
   <div class="card">
@@ -16,12 +18,21 @@ as |form|
       <div class="row">
         <div class="col">
           {{form.fields.name class="mb-0"}}
+          {{advertiser/-fields/name
+            form=form
+            value=model.name
+            autofocus=true
+            on-change=(action "setFieldValue")
+          }}
         </div>
       </div>
 
     </div>
     <div class="card-footer">
-      {{form.buttons.save}}
+      {{form-elements/save-button
+        class="btn action btn-success"
+        isSaving=isActionRunning
+      }}
     </div>
   </div>
-{{/advertiser/-forms/create}}
+{{/auto-save/form}}
