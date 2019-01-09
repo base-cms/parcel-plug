@@ -11,6 +11,7 @@ scalar ObjectID
 
 directive @applyInterfaceFields on OBJECT
 directive @requiresAuth(role: UserRole) on FIELD_DEFINITION
+directive @setAndUpdate(modelName: String!, path: String!) on FIELD_DEFINITION
 
 type Query {
   ping: String!
