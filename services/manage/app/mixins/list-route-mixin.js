@@ -5,15 +5,12 @@ export default Mixin.create(RouteSearchMixin, {
   queryParams: {
     phrase: {
       refreshModel: true,
-      replace: true,
     },
     searchType: {
       refreshModel: true,
-      replace: true,
     },
     searchBy: {
       refreshModel: true,
-      replace: true,
     },
     limit: {
       refreshModel: true
