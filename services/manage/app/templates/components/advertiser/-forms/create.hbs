@@ -11,7 +11,7 @@ as |form|
         name=(component "advertiser/-fields/name" form=form value=model.name autofocus=true on-change=(action "setFieldValue"))
       )
       buttons=(hash
-        save=(component "form-elements/save-button" class="btn btn-success" isSaving=isActionRunning)
+        save=(component "form-elements/save-button" class="btn action btn-success" isSaving=isActionRunning)
       )
     )
   }}
