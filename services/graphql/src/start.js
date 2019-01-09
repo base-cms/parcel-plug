@@ -1,5 +1,5 @@
-
 const mongoose = require('./mongoose/connections');
+const models = require('./mongoose/models');
 const Account = require('./mongoose/models/account');
 const { log } = require('./output');
 const { NODE_ENV, ACCOUNT_KEY } = require('./env');
@@ -36,10 +36,23 @@ const createAccount = async () => new Promise((resolve, reject) => {
   }
 });
 
+const indexModel = Model => new Promise((resolve, reject) => {
+  Model.on('index', (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve();
+    }
+  });
+});
+
+const indexModels = () => Promise.all(Object.keys(models).map(name => indexModel(models[name])));
+
 module.exports = () => Promise.all([
   start(mongoose.core, 'MongoDB core', m => m.client.s.url),
   start(mongoose.account, 'MongoDB account', m => m.client.s.url),
   createAccount(),
+  indexModels().then(() => log('> Model indexes created.')),
   start(new Promise((resolve, reject) => {
     redis.on('connect', resolve);
     redis.on('error', reject);
