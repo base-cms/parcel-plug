@@ -11,6 +11,9 @@ extend type Mutation {
   createAdvertiser(input: CreateAdvertiserMutationInput!): Advertiser! @requiresAuth
   updateAdvertiser(input: UpdateAdvertiserMutationInput!): Advertiser! @requiresAuth
   deleteAdvertiser(input: DeleteAdvertiserMutationInput!): Advertiser! @requiresAuth
+
+  advertiserName(input: AdvertiserNameMutationInput!): Advertiser! @requiresAuth @setAndUpdate(modelName: "advertiser", path: "name")
+  advertiserWebsite(input: AdvertiserWebsiteMutationInput!): Advertiser! @requiresAuth @setAndUpdate(modelName: "advertiser", path: "website")
 }
 
 type Advertiser implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -72,6 +75,16 @@ input AdvertiserDeploymentsInput {
 input AdvertiserSortInput {
   field: AdvertiserSortField = id
   order: SortOrder = desc
+}
+
+input AdvertiserNameMutationInput {
+  id: ObjectID!
+  value: String!
+}
+
+input AdvertiserWebsiteMutationInput {
+  id: ObjectID!
+  value: String
 }
 
 `;
