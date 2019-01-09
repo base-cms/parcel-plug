@@ -1,4 +1,3 @@
-const objectPath = require('object-path');
 const cursor = require('./cursor');
 
 module.exports = {
@@ -79,7 +78,7 @@ module.exports = {
     }
 
     const doc = await Model.findById(id, projection);
-    const value = objectPath.get(doc, field);
+    const value = doc.get(field);
     const $or = [
       { [field]: { [op]: value } },
       { [field]: { $eq: value }, _id: { [op]: id } },
