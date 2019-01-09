@@ -80,6 +80,11 @@ body.transitioning {
   box-shadow: $z-depth-3;
 }
 
+// Add depth to action buttons
+.btn.action {
+  box-shadow: $z-depth-half;
+}
+
 // Add styling to ember-notify alerts
 .ember-notify.alert {
   box-shadow: $z-depth-2;
