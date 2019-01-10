@@ -38,6 +38,7 @@ type DeploymentEdge {
 enum DeploymentSortField {
   id
   name
+  publisherName
   updatedAt
 }
 
