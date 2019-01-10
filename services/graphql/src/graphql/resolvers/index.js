@@ -1,7 +1,6 @@
 const deepAssign = require('deep-assign');
 const { classify } = require('inflection');
 const User = require('../../mongoose/models/user');
-const deployment = require('./deployment');
 const user = require('./user');
 const { DateType, ObjectIDType } = require('../types');
 
@@ -12,7 +11,6 @@ const resolveType = (doc) => {
 };
 
 module.exports = deepAssign(
-  deployment,
   user,
   {
     /**

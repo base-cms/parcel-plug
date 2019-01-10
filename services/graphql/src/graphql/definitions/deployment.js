@@ -3,20 +3,24 @@ const gql = require('graphql-tag');
 module.exports = gql`
 
 extend type Query {
-  deployment(input: DeploymentQueryInput!): Deployment @requiresAuth
-  deployments(input: DeploymentsQueryInput = {}): DeploymentConnection! @requiresAuth
+  deployment(input: DeploymentQueryInput!): Deployment @requiresAuth @retrieve(modelName: "deployment")
+  deployments(input: DeploymentsQueryInput = {}): DeploymentConnection! @requiresAuth @retrieveMany(modelName: "deployment")
+  matchDeployments(input: MatchDeploymentsQueryInput!): DeploymentConnection! @requiresAuth @matchMany(modelName: "deployment")
 }
 
 extend type Mutation {
-  createDeployment(input: CreateDeploymentMutationInput!): Deployment! @requiresAuth
-  updateDeployment(input: UpdateDeploymentMutationInput!): Deployment! @requiresAuth
-  deleteDeployment(input: DeleteDeploymentMutationInput!): Deployment! @requiresAuth
+  createDeployment(input: CreateDeploymentMutationInput!): Deployment! @requiresAuth @create(modelName: "deployment")
+  updateDeployment(input: UpdateDeploymentMutationInput!): Deployment! @requiresAuth @update(modelName: "deployment")
+  deleteDeployment(input: DeleteDeploymentMutationInput!): Deployment! @requiresAuth @delete(modelName: "deployment")
+
+  deploymentName(input: DeploymentNameMutationInput!): Deployment! @requiresAuth @setAndUpdate(modelName: "deployment", path: "name")
+  deploymentPublisher(input: DeploymentPublisherMutationInput!): Deployment! @requiresAuth @setAndUpdate(modelName: "deployment", path: "publisherId")
 }
 
 type Deployment implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
-  publisher: Publisher!
+  publisher: Publisher! @refOne(modelName: "publisher", localField: "publisherId", foreignField: "_id")
 }
 
 type DeploymentConnection {
@@ -67,6 +71,23 @@ input DeploymentsQueryInput {
 input DeploymentSortInput {
   field: DeploymentSortField = id
   order: SortOrder = desc
+}
+
+input DeploymentNameMutationInput {
+  id: ObjectID!
+  value: String!
+}
+
+input DeploymentPublisherMutationInput {
+  id: ObjectID!
+  value: ObjectID!
+}
+
+input MatchDeploymentsQueryInput {
+  pagination: PaginationInput = {}
+  field: String!
+  phrase: String!
+  position: MatchPosition = contains
 }
 
 `;
