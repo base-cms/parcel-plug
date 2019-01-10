@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-8 col-lg-6 mx-auto">
-      <div class="card z-depth-1 border-0">
+      <div class="card">
         <form {{action "authenticate" on="submit"}}>
           <div class="card-header"></div>
           <div class="card-body">
@@ -15,6 +15,7 @@
                 </div>
                 {{input
                   id="login-username"
+                  autofocus=true
                   required=true
                   class="form-control form-control-lg"
                   type="email"
