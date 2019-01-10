@@ -16,12 +16,22 @@
       <div class="row">
         <div class="col">
           <div class="form-group">
-            <label for="name">First Name</label>
-            {{input class="form-control" autocomplete="given-name" value=model.givenName}}
+            <label for="user-given-name">First Name</label>
+            {{input
+              id="user-given-name"
+              class="form-control"
+              autocomplete="given-name"
+              value=model.givenName
+            }}
           </div>
           <div class="form-group mb-0">
-            <label for="name">Last Name</label>
-            {{input class="form-control" autocomplete="family-name" value=model.familyName}}
+            <label for="user-family-name">Last Name</label>
+            {{input
+              id="user-family-name"
+              class="form-control"
+              autocomplete="family-name"
+              value=model.familyName
+            }}
           </div>
         </div>
       </div>
