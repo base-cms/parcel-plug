@@ -17,11 +17,21 @@ as |form|
 
       <div class="row">
         <div class="col">
-          {{form.fields.name class="mb-0"}}
           {{deployment/-fields/name
             form=form
             value=model.name
             autofocus=true
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          {{deployment/-fields/publisher
+            class="mb-0"
+            form=form
+            value=model.publisher
             on-change=(action "setFieldValue")
           }}
         </div>

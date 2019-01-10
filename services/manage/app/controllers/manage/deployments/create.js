@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { ObjectQueryManager } from 'ember-apollo-client';
+import { get } from '@ember/object';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
 
 import createDeployment from '@base-cms/parcel-plug-manage/gql/mutations/deployment/create';
@@ -12,8 +13,8 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
      */
     async create() {
       this.startAction();
-      const { name, publisherId } = this.get('model');
-      const input = { name, publisherId };
+      const { name, publisher } = this.get('model');
+      const input = { name, publisherId: get(publisher, 'id') };
       const variables = { input };
       try {
         const response = await this.get('apollo').mutate({ mutation: createDeployment, variables }, 'createDeployment');
