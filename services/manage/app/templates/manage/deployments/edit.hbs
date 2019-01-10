@@ -17,6 +17,16 @@
           }}
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          {{deployment/-fields/publisher
+            class="mb-0"
+            form=form
+            value=model.publisher
+            on-change=(action "setPublisher")
+          }}
+        </div>
+      </div>
     </div>
     <div class="card-footer text-right">
       {{confirm-button
