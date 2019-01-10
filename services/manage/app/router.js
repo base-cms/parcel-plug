@@ -20,6 +20,10 @@ Router.map(function() {
       this.route('create');
       this.route('edit', { path: ':id' });
     });
+    this.route('adunits', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
   });
   this.route('login');
   this.route('logout');
