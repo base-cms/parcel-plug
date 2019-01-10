@@ -2,6 +2,7 @@ import Service, { inject } from '@ember/service';
 import { ObjectQueryManager } from 'ember-apollo-client';
 
 import autocompletePublishers from '@base-cms/parcel-plug-manage/gql/queries/publisher/autocomplete';
+import autocompleteDeployments from '@base-cms/parcel-plug-manage/gql/queries/deployment/autocomplete';
 
 export default Service.extend(ObjectQueryManager, {
   graphErrors: inject(),
@@ -15,6 +16,8 @@ export default Service.extend(ObjectQueryManager, {
     switch (type) {
       case 'publishers':
         return { field: 'name', query: autocompletePublishers, resultKey: 'matchPublishers' };
+      case 'deployments':
+        return { field: 'fullName', query: autocompleteDeployments, resultKey: 'matchDeployments' };
       default:
         throw new Error(`The autocomplete type '${type}' is not registered.`);
     }
