@@ -19,6 +19,11 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
+  deploymentName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   width: {
     type: Number,
     required: true,
@@ -52,9 +57,16 @@ schema.pre('save', function setSize() {
   this.size = `${width}x${height}`;
 });
 
+schema.pre('save', async function setDeploymentName() {
+  if (this.isModified('deploymentId') || !this.deploymentName) {
+    const deployment = await connection.model('deployment').findOne({ _id: this.deploymentId }, { name: 1 });
+    this.deploymentName = deployment.name;
+  }
+});
+
 schema.pre('save', function setFullName() {
-  const { name, size } = this;
-  this.fullName = `${name} (${size})`;
+  const { name, size, deploymentName } = this;
+  this.fullName = `${name} (${size}) [${deploymentName}]`;
 });
 
 module.exports = schema;
