@@ -1,4 +1,5 @@
 const paginateFind = require('../../paginate/find');
+const { createEmptyResponse } = require('../../paginate/utils');
 
 module.exports = function paginablePlugin(schema, {
   collateWhen = [],
@@ -21,4 +22,6 @@ module.exports = function paginablePlugin(schema, {
       excludeProjection,
     });
   });
+
+  schema.static('paginateEmpty', () => createEmptyResponse());
 };

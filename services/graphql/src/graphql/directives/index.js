@@ -2,6 +2,7 @@ const ApplyInterfaceDirective = require('./apply-interface');
 const CreateDirective = require('./create');
 const DeleteDirective = require('./delete');
 const MatchManyDirective = require('./match-many');
+const RefManyDirective = require('./ref-many');
 const RequiresAuthDirective = require('./requires-auth');
 const RetrieveDirective = require('./retrieve');
 const RetrieveManyDirective = require('./retrieve-many');
@@ -13,6 +14,7 @@ module.exports = {
   create: CreateDirective,
   delete: DeleteDirective,
   matchMany: MatchManyDirective,
+  refMany: RefManyDirective,
   requiresAuth: RequiresAuthDirective,
   retrieve: RetrieveDirective,
   retrieveMany: RetrieveManyDirective,
