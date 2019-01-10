@@ -20,6 +20,7 @@ Router.map(function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {
         this.route('deployments');
+        this.route('adunits');
       });
     });
     this.route('adunits', function() {
