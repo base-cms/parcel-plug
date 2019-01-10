@@ -36,6 +36,7 @@ type PublisherEdge {
 enum PublisherSortField {
   id
   name
+  createdAt
   updatedAt
 }
 

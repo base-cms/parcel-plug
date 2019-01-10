@@ -82,4 +82,11 @@ schema.pre('validate', function setFullName() {
   this.fullName = `${name} (${size}) [${deploymentName} - ${publisherName}]`;
 });
 
+schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ size: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ deploymentName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ publisherName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ updatedAt: 1, _id: 1 });
+schema.index({ createdAt: 1, _id: 1 });
+
 module.exports = schema;

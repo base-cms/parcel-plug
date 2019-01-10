@@ -39,6 +39,7 @@ enum OrderSortField {
   id
   name
   advertiserName
+  createdAt
   updatedAt
 }
 

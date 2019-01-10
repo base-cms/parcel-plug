@@ -52,4 +52,9 @@ schema.pre('validate', function setFullName() {
   this.fullName = `${name} (${advertiserName})`;
 });
 
+schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ advertiserName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ updatedAt: 1, _id: 1 });
+schema.index({ createdAt: 1, _id: 1 });
+
 module.exports = schema;

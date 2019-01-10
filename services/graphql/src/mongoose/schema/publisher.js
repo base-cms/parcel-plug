@@ -21,4 +21,8 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ updatedAt: 1, _id: 1 });
+schema.index({ createdAt: 1, _id: 1 });
+
 module.exports = schema;

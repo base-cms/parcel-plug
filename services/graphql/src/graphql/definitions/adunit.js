@@ -46,6 +46,7 @@ enum AdUnitSortField {
   size
   deploymentName
   publisherName
+  createdAt
   updatedAt
 }
 

@@ -39,6 +39,7 @@ enum DeploymentSortField {
   id
   name
   publisherName
+  createdAt
   updatedAt
 }
 

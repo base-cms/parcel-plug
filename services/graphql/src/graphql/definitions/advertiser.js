@@ -38,6 +38,7 @@ type AdvertiserEdge {
 enum AdvertiserSortField {
   id
   name
+  createdAt
   updatedAt
 }
 
