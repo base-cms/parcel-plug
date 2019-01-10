@@ -14,6 +14,18 @@
           {{entypo-icon "archive"}} <span class="d-none d-md-inline">Advertisers</span>
         {{/link-to}}
       {{/link-to}}
+
+      {{#link-to "manage.orders" tagName="li" class="nav-item"}}
+        {{#link-to "manage.orders" class="nav-link" title="Manage Orders"}}
+          {{entypo-icon "credit"}} <span class="d-none d-md-inline">Orders</span>
+        {{/link-to}}
+      {{/link-to}}
+
+      {{#link-to "manage.lineitems" tagName="li" class="nav-item"}}
+        {{#link-to "manage.lineitems" class="nav-link" title="Manage Line Items"}}
+          {{entypo-icon "list"}} <span class="d-none d-md-inline">Line Items</span>
+        {{/link-to}}
+      {{/link-to}}
     {{/if}}
   </ul>
 

@@ -24,6 +24,13 @@ Router.map(function() {
       this.route('create');
       this.route('edit', { path: ':id' });
     });
+    this.route('orders', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
+    this.route('lineitems', function() {
+      this.route('edit', { path: ':id' });
+    });
   });
   this.route('login');
   this.route('logout');
