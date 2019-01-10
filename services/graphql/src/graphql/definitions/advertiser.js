@@ -21,6 +21,7 @@ type Advertiser implements Timestampable & UserAttributable @applyInterfaceField
   id: ObjectID!
   name: String!
   website: String
+  orders(input: AdvertiserOrdersInput = {}): OrderConnection! @refMany(modelName: "order", localField: "_id", foreignField: "advertiserId")
 }
 
 type AdvertiserConnection {
@@ -93,6 +94,11 @@ input AdvertiserNameMutationInput {
 input AdvertiserWebsiteMutationInput {
   id: ObjectID!
   value: String
+}
+
+input AdvertiserOrdersInput {
+  sort: OrderSortInput = {}
+  pagination: PaginationInput = {}
 }
 
 `;
