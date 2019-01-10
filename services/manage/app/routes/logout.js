@@ -7,5 +7,5 @@ export default Route.extend(UnauthenticatedRouteMixin, {
 
   beforeModel() {
     return this.get('session').invalidate();
-  }
+  },
 });
