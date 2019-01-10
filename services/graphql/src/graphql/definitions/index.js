@@ -1,4 +1,5 @@
 const gql = require('graphql-tag');
+const adunit = require('./adunit');
 const advertiser = require('./advertiser');
 const deployment = require('./deployment');
 const publisher = require('./publisher');
@@ -61,6 +62,7 @@ input PaginationInput {
   after: String
 }
 
+${adunit}
 ${advertiser}
 ${deployment}
 ${publisher}
