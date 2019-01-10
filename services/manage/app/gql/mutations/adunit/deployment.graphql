@@ -1,0 +1,10 @@
+mutation AdUnitDeployment($input: AdUnitDeploymentMutationInput!) {
+  adunitDeployment(input: $input) {
+    id
+    fullName
+    deployment {
+      id
+      name
+    }
+  }
+}

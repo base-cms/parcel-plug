@@ -1,0 +1,7 @@
+mutation AdUnitHeight($input: AdUnitHeightMutationInput!) {
+  adunitHeight(input: $input) {
+    id
+    fullName
+    width
+  }
+}

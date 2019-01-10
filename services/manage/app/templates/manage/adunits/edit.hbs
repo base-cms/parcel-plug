@@ -1,0 +1,62 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.adunits.index"}}{{entypo-icon "browser"}} Ad Units{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{model.fullName}}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+
+{{#auto-save/form id="adunit-edit" as |form|}}
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col">
+          {{adunit/-fields/name
+            form=form
+            value=model.name
+            on-change=(action "setName")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          {{adunit/-fields/deployment
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.deployment
+            on-change=(action "setDeployment")
+          }}
+        </div>
+        <div class="col-md-3">
+          {{adunit/-fields/width
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.width
+            on-change=(action "setWidth")
+          }}
+        </div>
+        <div class="col-md-3">
+          {{adunit/-fields/height
+            class="mb-0"
+            form=form
+            value=model.height
+            on-change=(action "setHeight")
+          }}
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer text-right">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger action"
+        disabled=isActionRunning
+        isRunning=isDeleting
+        onConfirm=(action "delete")
+      }}
+    </div>
+  </div>
+{{/auto-save/form}}

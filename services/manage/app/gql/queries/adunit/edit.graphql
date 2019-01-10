@@ -1,0 +1,7 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/adunit/edit'
+
+query AdUnitEdit($input: AdUnitQueryInput!) {
+  adunit(input: $input) {
+    ...AdUnitEditFragment
+  }
+}
