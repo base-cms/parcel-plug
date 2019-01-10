@@ -1,6 +1,7 @@
 import Service, { inject } from '@ember/service';
 import { ObjectQueryManager } from 'ember-apollo-client';
 
+import autocompleteAdvertisers from '@base-cms/parcel-plug-manage/gql/queries/advertiser/autocomplete';
 import autocompleteAdUnits from '@base-cms/parcel-plug-manage/gql/queries/adunit/autocomplete';
 import autocompleteDeployments from '@base-cms/parcel-plug-manage/gql/queries/deployment/autocomplete';
 import autocompletePublishers from '@base-cms/parcel-plug-manage/gql/queries/publisher/autocomplete';
@@ -17,6 +18,8 @@ export default Service.extend(ObjectQueryManager, {
     switch (type) {
       case 'adunits':
         return { field: 'fullName', query: autocompleteAdUnits, resultKey: 'matchAdUnits' };
+      case 'advertisers':
+        return { field: 'name', query: autocompleteAdvertisers, resultKey: 'matchAdvertisers' };
       case 'deployments':
         return { field: 'fullName', query: autocompleteDeployments, resultKey: 'matchDeployments' };
       case 'publishers':

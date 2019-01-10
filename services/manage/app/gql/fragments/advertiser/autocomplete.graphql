@@ -1,0 +1,4 @@
+fragment AdvertiserAutocompleteFragment on Advertiser {
+  id
+  name
+}

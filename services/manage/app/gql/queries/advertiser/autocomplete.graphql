@@ -1,0 +1,11 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/advertiser/autocomplete'
+
+query AdvertiserAutocomplete($input: MatchAdvertisersQueryInput!) {
+  matchAdvertisers(input: $input) {
+    edges {
+      node {
+        ...AdvertiserAutocompleteFragment
+      }
+    }
+  }
+}
