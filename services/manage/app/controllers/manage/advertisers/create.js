@@ -17,7 +17,7 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
       const variables = { input };
       try {
         const response = await this.get('apollo').mutate({ mutation: createAdvertiser, variables }, 'createAdvertiser');
-        this.transitionToRoute('manage.advertisers.edit', response.id);
+        await this.transitionToRoute('manage.advertisers.edit', response.id);
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
