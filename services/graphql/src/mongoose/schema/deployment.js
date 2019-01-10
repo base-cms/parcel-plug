@@ -39,6 +39,7 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+// @todo If the publisher name changes, this will also have to change.
 schema.pre('validate', async function setPublisherName() {
   if (this.isModified('publisherId') || !this.publisherName) {
     const publisher = await connection.model('publisher').findOne({ _id: this.publisherId }, { name: 1 });
