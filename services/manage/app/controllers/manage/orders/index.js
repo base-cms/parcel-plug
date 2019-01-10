@@ -6,6 +6,7 @@ export default ListController.extend({
     this.set('sortOptions', [
       { key: 'updatedAt', label: 'Updated' },
       { key: 'name', label: 'Name' },
+      { key: 'advertiserName', label: 'Advertiser Name' },
     ]);
     this.set('field', 'updatedAt');
     this.set('order', 'desc');

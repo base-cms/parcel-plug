@@ -38,6 +38,7 @@ type OrderEdge {
 enum OrderSortField {
   id
   name
+  advertiserName
   updatedAt
 }
 
