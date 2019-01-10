@@ -3,6 +3,9 @@
 fragment AdvertiserListFragment on Advertiser {
   id
   name
+  orders {
+    totalCount
+  }
   createdAt
   updatedAt
   createdBy {
