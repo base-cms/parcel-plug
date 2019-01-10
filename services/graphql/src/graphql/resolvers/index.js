@@ -1,5 +1,6 @@
 const deepAssign = require('deep-assign');
 const { classify } = require('inflection');
+const GraphQLJSON = require('graphql-type-json');
 const User = require('../../mongoose/models/user');
 const user = require('./user');
 const { DateType, ObjectIDType } = require('../types');
@@ -17,6 +18,7 @@ module.exports = deepAssign(
      * Custom scalar types.
      */
     Date: DateType,
+    JSON: GraphQLJSON,
     ObjectID: ObjectIDType,
 
     /**
