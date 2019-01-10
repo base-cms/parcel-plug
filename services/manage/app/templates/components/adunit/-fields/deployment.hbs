@@ -1,0 +1,21 @@
+<label for="adunit-deployment">Deployment {{form-elements/required-field}}</label>
+{{#form.elements.typeahead
+  id="adunit-deployment"
+  class="form-control"
+  autocomplete="off"
+  type="text"
+  name="deployment"
+  label="Deployment"
+  value=value
+  aria-labeledby="adunit-deployment-help"
+  on-change=on-change
+  on-search=(action "search")
+  required=true
+as |input|
+}}
+  {{#input.element as |deployment|}}
+    {{deployment.fullName}}
+  {{/input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.typeahead}}
+<small id="adunit-deployment-help" class="form-text text-muted">The email deployment this ad unit is used by.</small>

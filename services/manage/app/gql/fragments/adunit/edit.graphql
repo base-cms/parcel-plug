@@ -1,0 +1,10 @@
+fragment AdUnitEditFragment on AdUnit {
+  id
+  name
+  fullName
+  size
+  deployment {
+    id
+    name
+  }
+}

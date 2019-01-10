@@ -1,0 +1,20 @@
+<label for="adunit-width">Width {{form-elements/required-field}}</label>
+{{#form.elements.input
+  id="adunit-width"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="number"
+  min=1
+  name="width"
+  label="Name"
+  value=value
+  aria-labeledby="adunit-width-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.input}}
+<small id="adunit-width-help" class="form-text text-muted">The ad unit width (in pixels).</small>
