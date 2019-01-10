@@ -1,0 +1,21 @@
+<label for="deployment-publisher">Publisher {{form-elements/required-field}}</label>
+{{#form.elements.typeahead
+  id="deployment-publisher"
+  class="form-control"
+  autocomplete="off"
+  type="text"
+  name="publisher"
+  label="Publisher"
+  value=value
+  aria-labeledby="deployment-publisher-help"
+  on-change=on-change
+  on-search=(action "search")
+  required=true
+as |input|
+}}
+  {{#input.element as |publisher|}}
+    {{publisher.name}}
+  {{/input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.typeahead}}
+<small id="deployment-publisher-help" class="form-text text-muted">The publisher of the email deployment.</small>
