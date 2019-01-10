@@ -1,0 +1,33 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.deployments.index"}}{{entypo-icon "mail"}} Deployments{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{model.name}}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+
+{{#auto-save/form id="deployment-edit" as |form|}}
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          {{deployment/-fields/name
+            form=form
+            value=model.name
+            on-change=(action "setName")
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger action"
+        disabled=isActionRunning
+        isRunning=isDeleting
+        onConfirm=(action "delete")
+      }}
+    </div>
+  </div>
+{{/auto-save/form}}
