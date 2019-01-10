@@ -1,4 +1,7 @@
 fragment PublisherEditFragment on Publisher {
   id
   name
+  deployments {
+    totalCount
+  }
 }
