@@ -1,0 +1,9 @@
+fragment OrderEditFragment on Order {
+  id
+  name
+  fullName
+  advertiser {
+    id
+    name
+  }
+}

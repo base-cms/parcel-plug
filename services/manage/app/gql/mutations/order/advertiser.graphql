@@ -1,0 +1,10 @@
+mutation OrderAdvertiser($input: OrderAdvertiserMutationInput!) {
+  orderAdvertiser(input: $input) {
+    id
+    fullName
+    advertiser {
+      id
+      name
+    }
+  }
+}
