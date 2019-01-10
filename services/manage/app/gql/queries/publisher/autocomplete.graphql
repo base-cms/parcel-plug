@@ -1,6 +1,6 @@
 #import '@base-cms/parcel-plug-manage/gql/fragments/publisher/autocomplete'
 
-query PublishersListMatch($input: MatchPublishersQueryInput!) {
+query PublisherAutocomplete($input: MatchPublishersQueryInput!) {
   matchPublishers(input: $input) {
     edges {
       node {
