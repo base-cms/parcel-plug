@@ -3,14 +3,17 @@ const gql = require('graphql-tag');
 module.exports = gql`
 
 extend type Query {
-  publisher(input: PublisherQueryInput!): Publisher @requiresAuth
-  publishers(input: PublishersQueryInput = {}): PublisherConnection! @requiresAuth
+  publisher(input: PublisherQueryInput!): Publisher @requiresAuth @retrieve(modelName: "publisher")
+  publishers(input: PublishersQueryInput = {}): PublisherConnection! @requiresAuth @retrieveMany(modelName: "publisher")
+  matchPublishers(input: MatchPublishersQueryInput!): PublisherConnection! @requiresAuth @matchMany(modelName: "publisher")
 }
 
 extend type Mutation {
-  createPublisher(input: CreatePublisherMutationInput!): Publisher! @requiresAuth
-  updatePublisher(input: UpdatePublisherMutationInput!): Publisher! @requiresAuth
-  deletePublisher(input: DeletePublisherMutationInput!): Publisher! @requiresAuth
+  createPublisher(input: CreatePublisherMutationInput!): Publisher! @requiresAuth @create(modelName: "publisher")
+  updatePublisher(input: UpdatePublisherMutationInput!): Publisher! @requiresAuth @update(modelName: "publisher")
+  deletePublisher(input: DeletePublisherMutationInput!): Publisher! @requiresAuth @delete(modelName: "publisher")
+
+  publisherName(input: PublisherNameMutationInput!): Publisher! @requiresAuth @setAndUpdate(modelName: "publisher", path: "name")
 }
 
 type Publisher implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -70,6 +73,18 @@ input PublisherDeploymentsInput {
 input PublisherSortInput {
   field: PublisherSortField = id
   order: SortOrder = desc
+}
+
+input PublisherNameMutationInput {
+  id: ObjectID!
+  value: String!
+}
+
+input MatchPublishersQueryInput {
+  pagination: PaginationInput = {}
+  field: String!
+  phrase: String!
+  position: MatchPosition = contains
 }
 
 `;
