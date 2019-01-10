@@ -12,6 +12,7 @@ export default ListController.extend({
 
     this.set('searchFields', [
       { key: 'name', label: 'Name' },
+      { key: 'publisherName', label: 'Publisher Name' },
     ]);
     this.set('searchBy', 'name');
   },

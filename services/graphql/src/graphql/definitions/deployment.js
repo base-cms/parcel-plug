@@ -20,6 +20,7 @@ extend type Mutation {
 type Deployment implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
+  fullName: String!
   publisher: Publisher! @refOne(modelName: "publisher", localField: "publisherId", foreignField: "_id")
 }
 

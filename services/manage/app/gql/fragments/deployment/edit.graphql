@@ -1,6 +1,7 @@
 fragment DeploymentEditFragment on Deployment {
   id
   name
+  fullName
   publisher {
     id
     name
