@@ -1,0 +1,43 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.orders.index"}}{{entypo-icon "credit"}} Orders{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{model.fullName}}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+
+{{#auto-save/form id="order-edit" as |form|}}
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          {{order/-fields/name
+            form=form
+            value=model.name
+            on-change=(action "setName")
+          }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{order/-fields/advertiser
+            class="mb-0"
+            form=form
+            value=model.advertiser
+            on-change=(action "setAdvertiser")
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger action"
+        disabled=isActionRunning
+        isRunning=isDeleting
+        onConfirm=(action "delete")
+      }}
+    </div>
+  </div>
+{{/auto-save/form}}
