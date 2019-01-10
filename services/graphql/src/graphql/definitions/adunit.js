@@ -43,6 +43,9 @@ type AdUnitEdge {
 enum AdUnitSortField {
   id
   name
+  size
+  deploymentName
+  publisherName
   updatedAt
 }
 
