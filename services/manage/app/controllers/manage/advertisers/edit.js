@@ -4,6 +4,7 @@ import { ObjectQueryManager } from 'ember-apollo-client';
 
 import advertiserName from '@base-cms/parcel-plug-manage/gql/mutations/advertiser/name';
 import advertiserWebsite from '@base-cms/parcel-plug-manage/gql/mutations/advertiser/website';
+import deleteAdvertiser from '@base-cms/parcel-plug-manage/gql/mutations/advertiser/delete';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
   actions: {
@@ -36,6 +37,24 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
         await this.get('apollo').mutate({ mutation: advertiserWebsite, variables }, 'advertiserWebsite');
       } catch (e) {
         throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    /**
+     *
+     */
+    async delete() {
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = deleteAdvertiser;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'deleteCampaign');
+        await this.transitionToRoute('manage.advertisers.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
       } finally {
         this.endAction();
       }

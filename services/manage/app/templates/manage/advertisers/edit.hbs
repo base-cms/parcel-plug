@@ -27,6 +27,16 @@
         </div>
       </div>
     </div>
-    <div class="card-footer"></div>
+    <div class="card-footer text-right">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger action"
+        disabled=isActionRunning
+        isRunning=isActionRunning
+        onConfirm=(action "delete")
+      }}
+    </div>
   </div>
 {{/auto-save/form}}
