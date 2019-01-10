@@ -1,0 +1,5 @@
+mutation DeletePublisher($input: DeletePublisherMutationInput!) {
+  deletePublisher(input: $input) {
+    id
+  }
+}

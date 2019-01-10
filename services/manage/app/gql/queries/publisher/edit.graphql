@@ -1,0 +1,7 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/publisher/edit'
+
+query PublisherEdit($input: PublisherQueryInput!) {
+  publisher(input: $input) {
+    ...PublisherEditFragment
+  }
+}

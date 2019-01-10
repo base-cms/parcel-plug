@@ -1,0 +1,6 @@
+mutation PublisherName($input: PublisherNameMutationInput!) {
+  publisherName(input: $input) {
+    id
+    name
+  }
+}

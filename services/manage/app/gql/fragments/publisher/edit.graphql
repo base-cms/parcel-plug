@@ -1,0 +1,4 @@
+fragment PublisherEditFragment on Publisher {
+  id
+  name
+}

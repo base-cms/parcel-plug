@@ -1,0 +1,17 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+
+fragment PublisherListFragment on Publisher {
+  id
+  name
+  deployments {
+    totalCount
+  }
+  createdAt
+  updatedAt
+  createdBy {
+    ...UserListFragment
+  }
+  updatedBy {
+    ...UserListFragment
+  }
+}

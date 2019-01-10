@@ -1,0 +1,16 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/publisher/list'
+
+query PublishersListMatch($input: MatchPublishersQueryInput!) {
+  matchPublishers(input: $input) {
+    totalCount
+    edges {
+      node {
+        ...PublisherListFragment
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
