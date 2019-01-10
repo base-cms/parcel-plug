@@ -1,0 +1,16 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/deployment/list'
+
+query DeploymentListForPublisher($input: DeploymentsForPublisherQueryInput!) {
+  deploymentsForPublisher(input: $input) {
+    totalCount
+    edges {
+      node {
+        ...DeploymentListFragment
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
