@@ -1,0 +1,4 @@
+fragment PublisherAutocompleteFragment on Publisher {
+  id
+  name
+}
