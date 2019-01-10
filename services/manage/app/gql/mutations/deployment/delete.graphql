@@ -1,0 +1,5 @@
+mutation DeleteDeployment($input: DeleteDeploymentMutationInput!) {
+  deleteDeployment(input: $input) {
+    id
+  }
+}

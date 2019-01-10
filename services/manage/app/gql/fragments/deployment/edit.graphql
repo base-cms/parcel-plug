@@ -1,0 +1,8 @@
+fragment DeploymentEditFragment on Deployment {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+}

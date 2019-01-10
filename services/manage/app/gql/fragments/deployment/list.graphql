@@ -1,0 +1,18 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+
+fragment DeploymentListFragment on Deployment {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+  createdAt
+  updatedAt
+  createdBy {
+    ...UserListFragment
+  }
+  updatedBy {
+    ...UserListFragment
+  }
+}
