@@ -15,12 +15,12 @@ scalar JSON
 directive @applyInterfaceFields on OBJECT
 directive @create(modelName: String!) on FIELD_DEFINITION
 directive @delete(modelName: String!) on FIELD_DEFINITION
-directive @matchMany(modelName: String!) on FIELD_DEFINITION
+directive @matchMany(modelName: String!, using: JSON) on FIELD_DEFINITION
 directive @refMany(modelName: String!, localField: String!, foreignField: String!) on FIELD_DEFINITION
 directive @refOne(modelName: String!, localField: String!, foreignField: String!) on FIELD_DEFINITION
 directive @requiresAuth(role: UserRole) on FIELD_DEFINITION
 directive @retrieve(modelName: String!) on FIELD_DEFINITION
-directive @retrieveMany(modelName: String!) on FIELD_DEFINITION
+directive @retrieveMany(modelName: String!, using: JSON) on FIELD_DEFINITION
 directive @setAndUpdate(modelName: String!, path: String!) on FIELD_DEFINITION
 directive @update(modelName: String!) on FIELD_DEFINITION
 

@@ -1,6 +1,7 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
 const escapeRegex = require('escape-string-regexp');
 const { account: connection } = require('../../mongoose/connections');
+const applyInput = require('../utils/apply-input');
 
 const buildRegex = (term, position) => {
   let start = '';
@@ -24,7 +25,7 @@ class MatchManyDirective extends SchemaDirectiveVisitor {
    */
   visitFieldDefinition(field) {
     const { resolve } = field;
-    const { modelName } = this.args;
+    const { modelName, using } = this.args;
 
     // eslint-disable-next-line no-param-reassign
     field.resolve = async (...args) => {
@@ -37,10 +38,14 @@ class MatchManyDirective extends SchemaDirectiveVisitor {
         position,
       } = input;
 
-      const query = {
-        [searchField]: buildRegex(phrase, position),
-        deleted: false,
-      };
+      const query = applyInput({
+        query: {
+          [searchField]: buildRegex(phrase, position),
+          deleted: false,
+        },
+        using,
+        input,
+      });
       const sort = { field: searchField, order: 'asc' };
       const Model = connection.model(modelName);
       return Model.paginate({ query, sort, ...pagination });
