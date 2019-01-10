@@ -1,0 +1,16 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/adunit/list'
+
+query AdUnitsListMatch($input: MatchAdUnitsQueryInput!) {
+  matchAdUnits(input: $input) {
+    totalCount
+    edges {
+      node {
+        ...AdUnitListFragment
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
