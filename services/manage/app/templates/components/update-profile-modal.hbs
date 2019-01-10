@@ -28,7 +28,10 @@
     {{/modal.body}}
 
     {{#modal.footer}}
-      {{form-elements/save-button class="btn btn-success" isSaving=isActionRunning}}
+      {{form-elements/save-button
+        class="btn btn-success action"
+        isSaving=isActionRunning
+      }}
     {{/modal.footer}}
     {{progress-bar show=isActionRunning}}
   </form>
