@@ -29,6 +29,7 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
      */
     async delete() {
       this.startAction();
+      this.set('isDeleting', true);
       const id = this.get('model.id');
       const variables = { input: { id } };
       const mutation = deletePublisher;
@@ -39,6 +40,7 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
         this.get('graphErrors').show(e);
       } finally {
         this.endAction();
+        this.set('isDeleting', false);
       }
     },
   },
