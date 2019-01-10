@@ -1,0 +1,33 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.publishers.index"}}{{entypo-icon "network"}} Publishers{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{model.name}}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+
+{{#auto-save/form as |form|}}
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          {{publisher/-fields/name
+            form=form
+            value=model.name
+            on-change=(action "setName")
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger action"
+        disabled=isActionRunning
+        isRunning=isActionRunning
+        onConfirm=(action "delete")
+      }}
+    </div>
+  </div>
+{{/auto-save/form}}
