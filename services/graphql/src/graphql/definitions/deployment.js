@@ -6,6 +6,9 @@ extend type Query {
   deployment(input: DeploymentQueryInput!): Deployment @requiresAuth @retrieve(modelName: "deployment")
   deployments(input: DeploymentsQueryInput = {}): DeploymentConnection! @requiresAuth @retrieveMany(modelName: "deployment")
   matchDeployments(input: MatchDeploymentsQueryInput!): DeploymentConnection! @requiresAuth @matchMany(modelName: "deployment")
+
+  deploymentsForPublisher(input: DeploymentsForPublisherQueryInput!): DeploymentConnection! @requiresAuth @retrieveMany(modelName: "deployment", using: { publisherId: "publisherId" })
+  matchDeploymentsForPublisher(input: MatchDeploymentsForPublisherQueryInput!): DeploymentConnection! @requiresAuth @matchMany(modelName: "deployment", using: { publisherId: "publisherId" })
 }
 
 extend type Mutation {
@@ -87,6 +90,20 @@ input DeploymentPublisherMutationInput {
 }
 
 input MatchDeploymentsQueryInput {
+  pagination: PaginationInput = {}
+  field: String!
+  phrase: String!
+  position: MatchPosition = contains
+}
+
+input DeploymentsForPublisherQueryInput {
+  publisherId: ObjectID!
+  sort: DeploymentSortInput = {}
+  pagination: PaginationInput = {}
+}
+
+input MatchDeploymentsForPublisherQueryInput {
+  publisherId: ObjectID!
   pagination: PaginationInput = {}
   field: String!
   phrase: String!
