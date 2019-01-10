@@ -1,0 +1,4 @@
+fragment DeploymentAutocompleteFragment on Deployment {
+  id
+  name
+}

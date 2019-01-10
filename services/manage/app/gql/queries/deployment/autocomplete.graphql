@@ -1,0 +1,11 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/deployment/autocomplete'
+
+query DeploymentAutocomplete($input: MatchDeploymentsQueryInput!) {
+  matchDeployments(input: $input) {
+    edges {
+      node {
+        ...DeploymentAutocompleteFragment
+      }
+    }
+  }
+}
