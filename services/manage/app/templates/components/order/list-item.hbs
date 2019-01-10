@@ -1,0 +1,26 @@
+{{#link-to
+  "manage.orders.edit"
+  item.id
+  class="list-group-item list-group-item-action flex-column align-items-start"
+}}
+  <div class="d-flex flex-row justify-content-between">
+
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-row">
+        <div class="d-flex flex-column">
+          <h4 class="mb-1">{{item.name}}</h4>
+          <p class="mb-1">Advertiser: {{item.advertiser.name}}</p>
+          <small>ID: {{item.id}}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-none d-md-flex flex-column align-items-end text-right">
+      <div class="mt-auto">
+        {{user-attribution label="Updated" user=item.updatedBy date=item.updatedAt}}
+        {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
+      </div>
+    </div>
+
+  </div>
+{{/link-to}}
