@@ -1,0 +1,21 @@
+<label for="order-advertiser">Advertiser {{form-elements/required-field}}</label>
+{{#form.elements.typeahead
+  id="order-advertiser"
+  class="form-control"
+  autocomplete="off"
+  type="text"
+  name="advertiser"
+  label="Advertiser"
+  value=value
+  aria-labeledby="order-advertiser-help"
+  on-change=on-change
+  on-search=(action "search")
+  required=true
+as |input|
+}}
+  {{#input.element as |advertiser|}}
+    {{advertiser.name}}
+  {{/input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.typeahead}}
+<small id="order-advertiser-help" class="form-text text-muted">The order advertiser.</small>
