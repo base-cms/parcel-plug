@@ -1,7 +1,5 @@
-#import '@base-cms/parcel-plug-manage/gql/fragments/deployment/edit'
-
 mutation CreateDeployment($input: CreateDeploymentMutationInput!) {
   createDeployment(input: $input) {
-    ...DeploymentEditFragment
+    id
   }
 }

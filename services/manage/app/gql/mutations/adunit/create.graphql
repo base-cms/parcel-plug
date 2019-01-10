@@ -1,7 +1,5 @@
-#import '@base-cms/parcel-plug-manage/gql/fragments/adunit/edit'
-
 mutation CreateAdUnit($input: CreateAdUnitMutationInput!) {
   createAdUnit(input: $input) {
-    ...AdUnitEditFragment
+    id
   }
 }
