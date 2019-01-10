@@ -7,6 +7,10 @@ fragment AdUnitListFragment on AdUnit {
   deployment {
     id
     name
+    publisher {
+      id
+      name
+    }
   }
   createdAt
   updatedAt
