@@ -1,8 +1,9 @@
 import Service, { inject } from '@ember/service';
 import { ObjectQueryManager } from 'ember-apollo-client';
 
-import autocompletePublishers from '@base-cms/parcel-plug-manage/gql/queries/publisher/autocomplete';
+import autocompleteAdUnits from '@base-cms/parcel-plug-manage/gql/queries/adunit/autocomplete';
 import autocompleteDeployments from '@base-cms/parcel-plug-manage/gql/queries/deployment/autocomplete';
+import autocompletePublishers from '@base-cms/parcel-plug-manage/gql/queries/publisher/autocomplete';
 
 export default Service.extend(ObjectQueryManager, {
   graphErrors: inject(),
@@ -14,10 +15,12 @@ export default Service.extend(ObjectQueryManager, {
    */
   getQueryFor(type) {
     switch (type) {
-      case 'publishers':
-        return { field: 'name', query: autocompletePublishers, resultKey: 'matchPublishers' };
+      case 'adunits':
+        return { field: 'fullName', query: autocompleteAdUnits, resultKey: 'matchAdUnits' };
       case 'deployments':
         return { field: 'fullName', query: autocompleteDeployments, resultKey: 'matchDeployments' };
+      case 'publishers':
+        return { field: 'name', query: autocompletePublishers, resultKey: 'matchPublishers' };
       default:
         throw new Error(`The autocomplete type '${type}' is not registered.`);
     }

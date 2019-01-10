@@ -1,0 +1,4 @@
+fragment AdUnitAutocompleteFragment on AdUnit {
+  id
+  fullName
+}
