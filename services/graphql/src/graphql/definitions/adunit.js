@@ -12,6 +12,11 @@ extend type Mutation {
   createAdUnit(input: CreateAdUnitMutationInput!): AdUnit! @requiresAuth @create(modelName: "adunit")
   updateAdUnit(input: UpdateAdUnitMutationInput!): AdUnit! @requiresAuth @update(modelName: "adunit")
   deleteAdUnit(input: DeleteAdUnitMutationInput!): AdUnit! @requiresAuth @delete(modelName: "adunit")
+
+  adunitName(input: AdUnitNameMutationInput!): AdUnit! @requiresAuth @setAndUpdate(modelName: "adunit", path: "name")
+  adunitWidth(input: AdUnitWidthMutationInput!): AdUnit! @requiresAuth @setAndUpdate(modelName: "adunit", path: "width")
+  adunitHeight(input: AdUnitHeightMutationInput!): AdUnit! @requiresAuth @setAndUpdate(modelName: "adunit", path: "height")
+  adunitDeployment(input: AdUnitDeploymentMutationInput!): AdUnit! @requiresAuth @setAndUpdate(modelName: "adunit", path: "deploymentId")
 }
 
 type AdUnit implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -83,6 +88,26 @@ input MatchAdUnitsQueryInput {
   field: String!
   phrase: String!
   position: MatchPosition = contains
+}
+
+input AdUnitNameMutationInput {
+  id: ObjectID!
+  value: String!
+}
+
+input AdUnitWidthMutationInput {
+  id: ObjectID!
+  value: Int!
+}
+
+input AdUnitHeightMutationInput {
+  id: ObjectID!
+  value: Int!
+}
+
+input AdUnitDeploymentMutationInput {
+  id: ObjectID!
+  value: ObjectID!
 }
 
 `;
