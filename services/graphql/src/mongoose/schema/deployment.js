@@ -35,7 +35,7 @@ schema.plugin(referencePlugin, {
 schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);
 schema.plugin(paginablePlugin, {
-  collateWhen: ['name'],
+  collateWhen: ['name', 'publisherName'],
 });
 schema.plugin(userAttributionPlugin);
 
