@@ -19,7 +19,7 @@ extend type Mutation {
 type Publisher implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
-  deployments(input: PublisherDeploymentsInput = {}): DeploymentConnection!
+  deployments(input: PublisherDeploymentsInput = {}): DeploymentConnection! @refMany(modelName: "deployment", localField: "id", foreignField: "publisherId")
 }
 
 type PublisherConnection {
