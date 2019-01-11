@@ -1,0 +1,16 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/lineitem/list'
+
+query LineItemsList($input: LineItemsQueryInput = {}) {
+  lineitems(input: $input) {
+    totalCount
+    edges {
+      node {
+        ...LineItemListFragment
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

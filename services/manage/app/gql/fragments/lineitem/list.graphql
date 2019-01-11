@@ -1,0 +1,22 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+
+fragment LineItemListFragment on LineItem {
+  id
+  name
+  order {
+    id
+    name
+  }
+  advertiser {
+    id
+    name
+  }
+  createdAt
+  updatedAt
+  createdBy {
+    ...UserListFragment
+  }
+  updatedBy {
+    ...UserListFragment
+  }
+}
