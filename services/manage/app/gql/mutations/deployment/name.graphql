@@ -1,7 +1,6 @@
 mutation DeploymentName($input: DeploymentNameMutationInput!) {
   deploymentName(input: $input) {
     id
-    fullName
     name
   }
 }

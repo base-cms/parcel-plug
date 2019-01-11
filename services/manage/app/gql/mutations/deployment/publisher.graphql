@@ -1,7 +1,6 @@
 mutation DeploymentPublisher($input: DeploymentPublisherMutationInput!) {
   deploymentPublisher(input: $input) {
     id
-    fullName
     publisher {
       id
       name
