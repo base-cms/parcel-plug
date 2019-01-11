@@ -2,4 +2,7 @@ fragment AdvertiserEditFragment on Advertiser {
   id
   name
   website
+  orders {
+    totalCount
+  }
 }

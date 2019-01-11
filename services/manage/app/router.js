@@ -10,7 +10,9 @@ Router.map(function() {
   this.route('manage', { path: '' }, function() {
     this.route('advertisers', function() {
       this.route('create');
-      this.route('edit', { path: ':id' });
+      this.route('edit', { path: ':id' }, function() {
+        this.route('orders');
+      });
     });
     this.route('deployments', function() {
       this.route('create');
