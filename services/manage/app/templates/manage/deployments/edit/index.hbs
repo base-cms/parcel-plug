@@ -1,0 +1,34 @@
+{{#auto-save/form id="deployment-edit" as |form|}}
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{deployment/-fields/name
+          form=form
+          value=model.name
+          on-change=(action "setName")
+        }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{deployment/-fields/publisher
+          class="mb-0"
+          form=form
+          value=model.publisher
+          on-change=(action "setPublisher")
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    {{confirm-button
+      icon="trash"
+      label="Delete"
+      runningLabel="Deleting..."
+      class="btn-danger"
+      disabled=isActionRunning
+      isRunning=isDeleting
+      onConfirm=(action "delete")
+    }}
+  </div>
+{{/auto-save/form}}

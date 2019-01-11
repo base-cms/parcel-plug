@@ -6,4 +6,7 @@ fragment DeploymentEditFragment on Deployment {
     id
     name
   }
+  adunits {
+    totalCount
+  }
 }

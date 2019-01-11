@@ -7,6 +7,9 @@ fragment DeploymentListFragment on Deployment {
     id
     name
   }
+  adunits {
+    totalCount
+  }
   createdAt
   updatedAt
   createdBy {
