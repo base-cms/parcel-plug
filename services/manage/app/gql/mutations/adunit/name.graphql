@@ -1,7 +1,6 @@
 mutation AdUnitName($input: AdUnitNameMutationInput!) {
   adunitName(input: $input) {
     id
-    fullName
     name
   }
 }

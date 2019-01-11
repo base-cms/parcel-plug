@@ -1,7 +1,7 @@
 mutation AdUnitWidth($input: AdUnitWidthMutationInput!) {
   adunitWidth(input: $input) {
     id
-    fullName
+    size
     width
   }
 }
