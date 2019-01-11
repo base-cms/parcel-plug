@@ -1,1 +1,6 @@
-{{entypo-icon "plus"}}{{#if icon}}{{entypo-icon icon}}{{/if}}
+{{entypo-icon "plus"}}
+{{#if hasIconComponent}}
+  {{component icon}}
+{{else if icon}}
+  {{entypo-icon icon}}
+{{/if}}
