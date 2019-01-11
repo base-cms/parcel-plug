@@ -7,6 +7,9 @@ fragment OrderListFragment on Order {
     id
     name
   }
+  lineitems {
+    totalCount
+  }
   createdAt
   updatedAt
   createdBy {
