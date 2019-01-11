@@ -23,7 +23,9 @@ Router.map(function() {
     this.route('publishers', function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {
-        this.route('deployments');
+        this.route('deployments', function() {
+          this.route('create');
+        });
         this.route('adunits');
       });
     });

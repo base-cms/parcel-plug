@@ -1,0 +1,50 @@
+{{#bs-modal
+  show=true
+  size="xl"
+  backdrop="static"
+  onHidden=(route-action "transitionTo" "manage.publishers.edit.deployments")
+as |modal|
+}}
+  {{#modal.header}}
+    <h5 class="modal-title">{{deployment/-icon}} Create Deployment for {{publisher.name}}</h5>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      {{action modal.actions.hide}}
+    >
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+  {{#auto-save/form
+    id="publisher-deployment-create"
+    shouldAutosave=false
+    model=model
+    disabled=isActionRunning
+    on-submit=(action "create")
+  as |form|
+  }}
+    {{#modal.body}}
+
+      <div class="row">
+        <div class="col">
+          {{deployment/-fields/name
+            class="mb-0"
+            form=form
+            value=model.name
+            autofocus=true
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+      </div>
+
+    {{/modal.body}}
+    {{#modal.footer}}
+      {{form-elements/save-button
+        class="btn btn-success"
+        isSaving=isActionRunning
+      }}
+    {{/modal.footer}}
+    {{progress-bar class="progress-md" show=isActionRunning}}
+  {{/auto-save/form}}
+{{/bs-modal}}
