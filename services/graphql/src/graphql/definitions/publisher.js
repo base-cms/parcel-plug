@@ -20,6 +20,7 @@ type Publisher implements Timestampable & UserAttributable @applyInterfaceFields
   id: ObjectID!
   name: String!
   deployments(input: PublisherDeploymentsInput = {}): DeploymentConnection! @refMany(modelName: "deployment", localField: "_id", foreignField: "publisherId")
+  adunits(input: PublisherAdUnitsInput = {}): AdUnitConnection! @refMany(modelName: "adunit", localField: "_id", foreignField: "publisherId")
 }
 
 type PublisherConnection {
@@ -68,6 +69,11 @@ input PublishersQueryInput {
 
 input PublisherDeploymentsInput {
   sort: DeploymentSortInput = {}
+  pagination: PaginationInput = {}
+}
+
+input PublisherAdUnitsInput {
+  sort: AdUnitSortInput = {}
   pagination: PaginationInput = {}
 }
 
