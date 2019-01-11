@@ -87,7 +87,7 @@ schema.pre('validate', function setFullName() {
     deploymentName,
     publisherName,
   } = this;
-  this.fullName = `${name} (${size}) [${deploymentName} - ${publisherName}]`;
+  this.fullName = `${publisherName} > ${deploymentName} > ${name} (${size})`;
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });

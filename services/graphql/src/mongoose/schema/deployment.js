@@ -49,7 +49,7 @@ schema.pre('validate', async function setPublisherName() {
 
 schema.pre('validate', function setFullName() {
   const { name, publisherName } = this;
-  this.fullName = `${name} (${publisherName})`;
+  this.fullName = `${publisherName} > ${name}`;
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });

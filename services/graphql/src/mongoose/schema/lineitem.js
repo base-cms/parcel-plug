@@ -111,7 +111,7 @@ schema.pre('validate', async function setOrderAndAdvertiser() {
 
 schema.pre('validate', function setFullName() {
   const { name, orderName, advertiserName } = this;
-  this.fullName = `${name} [${orderName}] (${advertiserName})`;
+  this.fullName = `${advertiserName} > ${orderName} > ${name}`;
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
