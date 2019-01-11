@@ -6,6 +6,9 @@ fragment PublisherListFragment on Publisher {
   deployments {
     totalCount
   }
+  adunits {
+    totalCount
+  }
   createdAt
   updatedAt
   createdBy {

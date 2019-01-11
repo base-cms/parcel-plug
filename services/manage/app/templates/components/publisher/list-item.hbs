@@ -14,7 +14,8 @@
         {{/if}} --}}
         <div class="d-flex flex-column">
           <h4 class="mb-1">{{item.name}}</h4>
-          <p class="mb-1">Deployments: {{if item.deployments.totalCount item.deployments.totalCount 0}}</p>
+          <p class="mb-0">Deployments: {{item.deployments.totalCount}}</p>
+          <p class="mb-1">Ad Units: {{item.adunits.totalCount}}</p>
           <small>ID: {{item.id}}</small>
         </div>
       </div>
