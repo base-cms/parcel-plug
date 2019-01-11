@@ -85,6 +85,11 @@ body.transitioning {
   box-shadow: $z-depth-half;
 }
 
+// Add depth to active pill tabs
+.nav-pills .nav-link.active {
+  box-shadow: $z-depth-half;
+}
+
 // Add styling to ember-notify alerts
 .ember-notify.alert {
   box-shadow: $z-depth-2;
