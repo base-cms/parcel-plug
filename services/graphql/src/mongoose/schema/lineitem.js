@@ -8,29 +8,36 @@ const {
   userAttributionPlugin,
 } = require('../plugins');
 
-const targetingSchema = new Schema({
-
-});
-
+const targetingSchema = new Schema({});
 targetingSchema.plugin(referencePlugin, {
   name: 'adunitIds',
   many: true,
   connection,
   modelName: 'adunit',
 });
-
 targetingSchema.plugin(referencePlugin, {
   name: 'deploymentIds',
   many: true,
   connection,
   modelName: 'deployment',
 });
-
 targetingSchema.plugin(referencePlugin, {
   name: 'publisherIds',
   many: true,
   connection,
   modelName: 'publisher',
+});
+
+const datesSchema = new Schema({
+  start: {
+    type: Date,
+  },
+  end: {
+    type: Date,
+  },
+  days: {
+    type: [Date],
+  },
 });
 
 const schema = new Schema({
@@ -53,6 +60,10 @@ const schema = new Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  dates: {
+    type: datesSchema,
+    default: {},
   },
   priority: {
     type: Number,
