@@ -1,0 +1,16 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/order/list'
+
+query OrderListForAdvertiser($input: OrdersForAdvertiserQueryInput!) {
+  ordersForAdvertiser(input: $input) {
+    totalCount
+    edges {
+      node {
+        ...OrderListFragment
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
