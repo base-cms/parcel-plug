@@ -1,8 +1,15 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.orders.index"}}{{order/-icon}} Orders{{/link-to}}{{/crumbs.item}}
   {{#crumbs.item active=true}}
+    {{#link-to
+      "manage.advertisers.edit"
+      model.advertiser.id
+      class="text-secondary"
+    }}
+      {{model.advertiser.name}}
+    {{/link-to}}
+    >
     {{model.name}}
-    ({{#link-to "manage.advertisers.edit" model.advertiser.id}}{{model.advertiser.name}}{{/link-to}})
   {{/crumbs.item}}
 {{/nav-breadcrumbs}}
 

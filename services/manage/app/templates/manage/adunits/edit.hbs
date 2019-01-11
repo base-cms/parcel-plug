@@ -1,10 +1,23 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.adunits.index"}}{{adunit/-icon}} Ad Units{{/link-to}}{{/crumbs.item}}
   {{#crumbs.item active=true}}
-    {{model.name}}
-    [{{model.size}}]
-    {{#link-to "manage.deployments.edit" model.deployment.id}}{{model.deployment.name}}{{/link-to}}
-    ({{#link-to "manage.publishers.edit" model.publisher.id}}{{model.publisher.name}}{{/link-to}})
+    {{#link-to
+      "manage.publishers.edit"
+      model.publisher.id
+      class="text-secondary"
+    }}
+      {{model.publisher.name}}
+    {{/link-to}}
+    >
+    {{#link-to
+      "manage.deployments.edit"
+      model.deployment.id
+      class="text-secondary"
+    }}
+      {{model.deployment.name}}
+    {{/link-to}}
+    >
+    {{model.name}} ({{model.size}})
   {{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
