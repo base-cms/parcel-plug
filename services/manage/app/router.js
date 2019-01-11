@@ -42,7 +42,9 @@ Router.map(function() {
       });
     });
     this.route('lineitems', function() {
-      this.route('edit', { path: ':id' });
+      this.route('edit', { path: ':id' }, function() {
+
+      });
     });
   });
   this.route('login');

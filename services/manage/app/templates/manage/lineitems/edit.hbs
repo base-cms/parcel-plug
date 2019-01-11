@@ -1,0 +1,27 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.lineitems.index"}}{{lineitem/-icon}} Line Items{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}
+    {{#link-to
+      "manage.advertisers.edit"
+      model.advertiser.id
+      class="text-secondary"
+    }}
+      {{model.advertiser.name}}
+    {{/link-to}}
+    >
+    {{#link-to
+      "manage.orders.edit"
+      model.order.id
+      class="text-secondary"
+    }}
+      {{model.order.name}}
+    {{/link-to}}
+    >
+    {{model.name}}
+  {{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+<div class="card">
+  <div class="card-header"></div>
+  {{outlet}}
+</div>

@@ -1,0 +1,25 @@
+{{#auto-save/form id="lineitem-edit" as |form|}}
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{lineitem/-fields/name
+          class="mb-0"
+          form=form
+          value=model.name
+          on-change=(action "setName")
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    {{confirm-button
+      icon="trash"
+      label="Delete"
+      runningLabel="Deleting..."
+      class="btn-danger"
+      disabled=isActionRunning
+      isRunning=isDeleting
+      onConfirm=(action "delete")
+    }}
+  </div>
+{{/auto-save/form}}
