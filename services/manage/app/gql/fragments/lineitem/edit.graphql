@@ -1,0 +1,12 @@
+fragment LineItemEditFragment on LineItem {
+  id
+  name
+  order {
+    id
+    name
+  }
+  advertiser {
+    id
+    name
+  }
+}

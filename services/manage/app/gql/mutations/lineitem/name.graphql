@@ -1,0 +1,6 @@
+mutation LineItemName($input: LineItemNameMutationInput!) {
+  lineitemName(input: $input) {
+    id
+    name
+  }
+}

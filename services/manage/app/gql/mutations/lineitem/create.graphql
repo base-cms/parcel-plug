@@ -1,0 +1,5 @@
+mutation CreateLineItem($input: CreateLineItemMutationInput!) {
+  createLineItem(input: $input) {
+    id
+  }
+}

@@ -1,0 +1,5 @@
+mutation DeleteLineItem($input: DeleteLineItemMutationInput!) {
+  deleteLineItem(input: $input) {
+    id
+  }
+}
