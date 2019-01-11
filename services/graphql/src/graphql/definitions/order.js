@@ -25,6 +25,7 @@ type Order implements Timestampable & UserAttributable @applyInterfaceFields {
   name: String!
   fullName: String!
   advertiser: Advertiser! @refOne(modelName: "advertiser", localField: "advertiserId", foreignField: "_id")
+  lineitems(input: OrderLineItemsInput = {}): LineItemConnection! @refMany(modelName: "lineitem", localField: "_id", foreignField: "orderId")
 }
 
 type OrderConnection {
@@ -108,6 +109,11 @@ input MatchOrdersForAdvertiserQueryInput {
   field: String!
   phrase: String!
   position: MatchPosition = contains
+}
+
+input OrderLineItemsInput {
+  sort: OrderSortInput = {}
+  pagination: PaginationInput = {}
 }
 
 `;
