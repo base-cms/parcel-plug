@@ -6,6 +6,11 @@ extend type Query {
   adunit(input: AdUnitQueryInput!): AdUnit @requiresAuth @retrieve(modelName: "adunit")
   adunits(input: AdUnitsQueryInput = {}): AdUnitConnection! @requiresAuth @retrieveMany(modelName: "adunit")
   matchAdUnits(input: MatchAdUnitsQueryInput!): AdUnitConnection! @requiresAuth @matchMany(modelName: "adunit")
+
+  adunitsForPublisher(input: AdUnitsForPublisherQueryInput!): AdUnitConnection! @requiresAuth @retrieveMany(modelName: "adunit", using: { publisherId: "publisherId" })
+  matchAdUnitsForPublisher(input: MatchAdUnitsForPublisherQueryInput!): AdUnitConnection! @requiresAuth @matchMany(modelName: "adunit", using: { publisherId: "publisherId" })
+  adunitsForDeployment(input: AdUnitsForDeploymentQueryInput!): AdUnitConnection! @requiresAuth @retrieveMany(modelName: "adunit", using: { deploymentId: "deploymentId" })
+  matchAdUnitsForDeployment(input: MatchAdUnitsForDeploymentQueryInput!): AdUnitConnection! @requiresAuth @matchMany(modelName: "adunit", using: { deploymentId: "publisherId" })
 }
 
 extend type Mutation {
@@ -26,6 +31,7 @@ type AdUnit implements Timestampable & UserAttributable @applyInterfaceFields {
   width: Int!
   height: Int!
   size: String!
+  publisher: Publisher! @refOne(modelName: "publisher", localField: "publisherId", foreignField: "_id")
   deployment: Deployment! @refOne(modelName: "deployment", localField: "deploymentId", foreignField: "_id")
 }
 
@@ -112,6 +118,34 @@ input AdUnitHeightMutationInput {
 input AdUnitDeploymentMutationInput {
   id: ObjectID!
   value: ObjectID!
+}
+
+input AdUnitsForPublisherQueryInput {
+  publisherId: ObjectID!
+  sort: AdUnitSortInput = {}
+  pagination: PaginationInput = {}
+}
+
+input MatchAdUnitsForPublisherQueryInput {
+  publisherId: ObjectID!
+  pagination: PaginationInput = {}
+  field: String!
+  phrase: String!
+  position: MatchPosition = contains
+}
+
+input AdUnitsForDeploymentQueryInput {
+  deploymentId: ObjectID!
+  sort: AdUnitSortInput = {}
+  pagination: PaginationInput = {}
+}
+
+input MatchAdUnitsForDeploymentQueryInput {
+  deploymentId: ObjectID!
+  pagination: PaginationInput = {}
+  field: String!
+  phrase: String!
+  position: MatchPosition = contains
 }
 
 `;
