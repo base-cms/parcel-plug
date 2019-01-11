@@ -4,4 +4,7 @@ fragment PublisherEditFragment on Publisher {
   deployments {
     totalCount
   }
+  adunits {
+    totalCount
+  }
 }
