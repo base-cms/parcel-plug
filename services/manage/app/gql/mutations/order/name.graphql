@@ -1,7 +1,6 @@
 mutation OrderName($input: OrderNameMutationInput!) {
   orderName(input: $input) {
     id
-    fullName
     name
   }
 }
