@@ -50,6 +50,13 @@ schema.plugin(referencePlugin, {
   options: { required: true },
 });
 
+schema.plugin(referencePlugin, {
+  name: 'publisherId',
+  connection,
+  modelName: 'publisher',
+  options: { required: true },
+});
+
 schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);
 schema.plugin(paginablePlugin, {
@@ -64,9 +71,10 @@ schema.pre('validate', function setSize() {
 
 // @todo If the publisher+deployment relationship changes, this will need to be updated!
 schema.pre('validate', async function setDeploymentName() {
-  if (this.isModified('deploymentId') || !this.deploymentName || !this.publisherName) {
+  if (this.isModified('deploymentId') || !this.deploymentName || !this.publisherName || !this.publisherId) {
     const deployment = await connection.model('deployment').findOne({ _id: this.deploymentId }, { name: 1, publisherId: 1 });
     const publisher = await connection.model('publisher').findOne({ _id: deployment.publisherId }, { name: 1 });
+    this.publisherId = publisher.id;
     this.deploymentName = deployment.name;
     this.publisherName = publisher.name;
   }
