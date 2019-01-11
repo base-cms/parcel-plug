@@ -6,6 +6,9 @@ extend type Query {
   order(input: OrderQueryInput!): Order @requiresAuth @retrieve(modelName: "order")
   orders(input: OrdersQueryInput = {}): OrderConnection! @requiresAuth @retrieveMany(modelName: "order")
   matchOrders(input: MatchOrdersQueryInput!): OrderConnection! @requiresAuth @matchMany(modelName: "order")
+
+  ordersForAdvertiser(input: OrdersForAdvertiserQueryInput!): OrderConnection! @requiresAuth @retrieveMany(modelName: "order", using: { advertiserId: "advertiserId" })
+  matchOrdersForAdvertiser(input: MatchOrdersForAdvertiserQueryInput!): OrderConnection! @requiresAuth @matchMany(modelName: "order", using: { advertiserId: "advertiserId" })
 }
 
 extend type Mutation {
@@ -87,6 +90,20 @@ input OrderAdvertiserMutationInput {
 }
 
 input MatchOrdersQueryInput {
+  pagination: PaginationInput = {}
+  field: String!
+  phrase: String!
+  position: MatchPosition = contains
+}
+
+input OrdersForAdvertiserQueryInput {
+  advertiserId: ObjectID!
+  sort: OrderSortInput = {}
+  pagination: PaginationInput = {}
+}
+
+input MatchOrdersForAdvertiserQueryInput {
+  advertiserId: ObjectID!
   pagination: PaginationInput = {}
   field: String!
   phrase: String!
