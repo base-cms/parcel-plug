@@ -25,6 +25,7 @@ type Deployment implements Timestampable & UserAttributable @applyInterfaceField
   name: String!
   fullName: String!
   publisher: Publisher! @refOne(modelName: "publisher", localField: "publisherId", foreignField: "_id")
+  adunits(input: DeploymentAdUnitsInput = {}): AdUnitConnection! @refMany(modelName: "adunit", localField: "_id", foreignField: "deploymentId")
 }
 
 type DeploymentConnection {
@@ -108,6 +109,11 @@ input MatchDeploymentsForPublisherQueryInput {
   field: String!
   phrase: String!
   position: MatchPosition = contains
+}
+
+input DeploymentAdUnitsInput {
+  sort: AdUnitSortInput = {}
+  pagination: PaginationInput = {}
 }
 
 `;
