@@ -1,0 +1,36 @@
+{{#auto-save/form id="order-edit" as |form|}}
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{order/-fields/name
+          form=form
+          value=model.name
+          on-change=(action "setName")
+        }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{order/-fields/advertiser
+          class="mb-0"
+          form=form
+          value=model.advertiser
+          on-change=(action "setAdvertiser")
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    {{confirm-button
+      icon="trash"
+      label="Delete"
+      runningLabel="Deleting..."
+      class="btn-danger"
+      disabled=isActionRunning
+      isRunning=isDeleting
+      onConfirm=(action "delete")
+    }}
+  </div>
+{{/auto-save/form}}
+
+{{order/create-button}}

@@ -13,43 +13,20 @@
   {{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-
-{{#auto-save/form id="order-edit" as |form|}}
-  <div class="card">
-    <div class="card-header"></div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col">
-          {{order/-fields/name
-            form=form
-            value=model.name
-            on-change=(action "setName")
-          }}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{order/-fields/advertiser
-            class="mb-0"
-            form=form
-            value=model.advertiser
-            on-change=(action "setAdvertiser")
-          }}
-        </div>
-      </div>
-    </div>
-    <div class="card-footer text-right">
-      {{confirm-button
-        icon="trash"
-        label="Delete"
-        runningLabel="Deleting..."
-        class="btn-danger"
-        disabled=isActionRunning
-        isRunning=isDeleting
-        onConfirm=(action "delete")
-      }}
-    </div>
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item">
+        {{#link-to "manage.orders.edit.index" class="nav-link" role="tab"}}
+          {{entypo-icon "text"}} Details
+        {{/link-to}}
+      </li>
+      <li class="nav-item">
+        {{#link-to "manage.orders.edit.lineitems"  class="nav-link" role="tab"}}
+          {{lineitem/-icon}} Line Items <span class="badge badge-light">{{model.lineitems.totalCount}}</span>
+        {{/link-to}}
+      </li>
+    </ul>
   </div>
-{{/auto-save/form}}
-
-{{order/create-button}}
+  {{outlet}}
+</div>

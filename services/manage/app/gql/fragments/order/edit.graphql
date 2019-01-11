@@ -5,4 +5,7 @@ fragment OrderEditFragment on Order {
     id
     name
   }
+  lineitems {
+    totalCount
+  }
 }
