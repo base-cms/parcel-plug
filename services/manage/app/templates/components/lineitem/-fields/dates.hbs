@@ -1,0 +1,27 @@
+<label for="lineitem-dates">Dates</label>
+{{#form-elements/select
+  id="lineitem-dates"
+  class="custom-select mb-2"
+  name="dates"
+  value=type
+  on-change=(action "setType")
+as |select|
+}}
+  {{#each options as |option|}}
+    {{#select.option value=option.key}}
+      {{option.label}}
+    {{/select.option}}
+  {{/each}}
+{{/form-elements/select}}
+
+{{#if showDateRange}}
+  {{lineitem/-fields/dates/calendar-range
+    range=_range
+    onSelect=(action "setRange")
+  }}
+{{else}}
+  {{lineitem/-fields/dates/calendar-days
+    days=_days
+    onSelect=(action "setDays")
+  }}
+{{/if}}

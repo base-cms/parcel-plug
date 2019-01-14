@@ -80,6 +80,17 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
       }
     },
 
+    async setDays(values) {
+      this.set('model.dates.days', values);
+    },
+
+    async setRange(value) {
+      const { start, end } = value;
+      console.info('setRange', start, end);
+      this.set('model.dates.start', start);
+      this.set('model.dates.end', end);
+    },
+
     /**
      *
      */

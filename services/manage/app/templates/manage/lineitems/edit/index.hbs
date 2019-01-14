@@ -29,6 +29,15 @@
               }}
               <small id="lineitem-priority-help" class="form-text text-muted">From 1 to 5. A higher number wins.</small>
             </div>
+            {{lineitem/-fields/dates
+              class="mb-0"
+              type=model.dates.type
+              start=model.dates.start
+              end=model.dates.end
+              days=model.dates.days
+              on-days-change=(action "setDays")
+              on-range-change=(action "setRange")
+            }}
           </div>
         </div>
       </div>
