@@ -1,0 +1,20 @@
+<label for="lineitem-criteria-deployments">Deployments</label>
+{{log 'value' value}}
+{{#form.elements.typeahead
+  id="lineitem-criteria-deployments"
+  class="form-control"
+  autocomplete="off"
+  name="deployments"
+  label="Deployments"
+  multiple=true
+  value=value
+  on-change=on-change
+  on-search=(action "search")
+  required=true
+as |input|
+}}
+  {{#input.element as |deployment|}}
+    {{deployment.fullName}}
+  {{/input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.typeahead}}

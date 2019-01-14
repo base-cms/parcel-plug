@@ -1,0 +1,19 @@
+<label for="lineitem-criteria-publishers">Publishers</label>
+{{#form.elements.typeahead
+  id="lineitem-criteria-publishers"
+  class="form-control"
+  autocomplete="off"
+  name="publishers"
+  label="Publishers"
+  multiple=true
+  value=value
+  on-change=on-change
+  on-search=(action "search")
+  required=true
+as |input|
+}}
+  {{#input.element as |publisher|}}
+    {{publisher.name}}
+  {{/input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.typeahead}}
