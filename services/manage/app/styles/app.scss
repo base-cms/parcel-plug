@@ -73,6 +73,10 @@ body.transitioning {
   box-shadow: $z-depth-1;
   border: none !important;
 }
+.card.lineitem-criteria {
+  box-shadow: $z-depth-half;
+  border: none !important;
+}
 
 // Add depth to dropdowns
 .dropdown-menu {
