@@ -35,7 +35,7 @@ module.exports = function referencePlugin(schema, {
     options,
   });
   if (many) {
-    schema.add([{ [name]: definition }]);
+    schema.add({ [name]: [definition] });
   } else {
     schema.add({ [name]: definition });
   }
