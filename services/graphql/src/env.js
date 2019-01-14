@@ -18,7 +18,7 @@ module.exports = cleanEnv(process.env, {
   ACCOUNT_KEY: nonemptystr({ desc: 'The account/tenant key. Is used for querying the account information and settings from the core database connection.' }),
   MONGO_DSN: nonemptystr({ desc: 'The MongoDB DSN to connect to.' }),
   REDIS_DSN: nonemptystr({ desc: 'The Redis DSN to connect to.' }),
-  INTERNAL_PORT: port({ desc: 'The internal port that express will run on.' }),
-  EXTERNAL_PORT: port({ desc: 'The external port that express is exposed on.' }),
+  INTERNAL_PORT: port({ desc: 'The internal port that express will run on.', default: 80 }),
+  EXTERNAL_PORT: port({ desc: 'The external port that express is exposed on.', default: 80 }),
   GRAPHQL_ENDPOINT: nonemptystr({ desc: 'The endpoint that GraphQL will use.', default: '/graphql' }),
 });
