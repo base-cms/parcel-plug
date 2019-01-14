@@ -35,7 +35,7 @@ as |select|
         <small class="d-block">End: {{moment-format _range.end "ddd MMM Do, YYYY"}}</small>
       {{/if}}
     {{else}}
-      {{#each _days as |date|}}
+      {{#each daysSorted as |date|}}
         <small class="d-block">{{moment-format date "ddd MMM Do, YYYY"}}</small>
       {{/each}}
     {{/if}}

@@ -29,6 +29,10 @@ export default Component.extend({
     }
   }),
 
+  daysSorted: computed('_days.[]', function() {
+    return this.get('days').sort();
+  }),
+
   isRangeSet: computed('start', 'end', function() {
     if (this.get('start') && this.get('end')) return true;
     return false;
