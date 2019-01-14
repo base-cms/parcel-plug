@@ -14,7 +14,9 @@ export default Component.extend({
      * @param {*} phrase
      */
     search(phrase) {
-      return this.get('autocomplete').query('publishers', phrase);
+      const excludeIds = (this.get('value') || []).map(v => v.id);
+      const vars = { excludeIds };
+      return this.get('autocomplete').query('publishers', phrase, { vars });
     },
   },
 });
