@@ -43,6 +43,7 @@ type LineItemTargeting {
 }
 
 type LineItemDates {
+  type: LineItemDateType
   start: Date
   end: Date
   days: [Date]!
@@ -57,6 +58,11 @@ type LineItemConnection {
 type LineItemEdge {
   node: LineItem!
   cursor: String!
+}
+
+enum LineItemDateType {
+  range
+  days
 }
 
 enum LineItemSortField {

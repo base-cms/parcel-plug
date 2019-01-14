@@ -29,6 +29,11 @@ targetingSchema.plugin(referencePlugin, {
 });
 
 const datesSchema = new Schema({
+  type: {
+    type: String,
+    enum: ['range', 'days'],
+    default: 'days',
+  },
   start: {
     type: Date,
   },
