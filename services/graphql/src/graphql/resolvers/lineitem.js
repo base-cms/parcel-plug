@@ -39,7 +39,7 @@ module.exports = {
       const doc = await LineItem.strictFindActiveById(id);
       doc.setUserContext(auth.user);
       doc.set({
-        date: {
+        dates: {
           type: 'days',
           days,
           start: undefined,
@@ -54,8 +54,8 @@ module.exports = {
       const doc = await LineItem.strictFindActiveById(id);
       doc.setUserContext(auth.user);
       doc.set({
-        date: {
-          type: 'days',
+        dates: {
+          type: 'range',
           days: undefined,
           start,
           end,
