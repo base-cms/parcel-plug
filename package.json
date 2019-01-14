@@ -16,5 +16,8 @@
     "gulp-cached": "^1.1.1",
     "gulp-eslint": "^5.0.0",
     "lerna": "^3.8.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/lerna run test"
   }
 }
