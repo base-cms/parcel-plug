@@ -2,7 +2,7 @@
   {{#crumbs.item}}{{#link-to "manage.adunits.index"}}{{adunit/-icon}} Ad Units{{/link-to}}{{/crumbs.item}}
   {{#crumbs.item active=true}}
     {{#link-to
-      "manage.publishers.edit"
+      "manage.publishers.edit.deployments"
       model.publisher.id
       class="text-secondary"
     }}
@@ -10,7 +10,7 @@
     {{/link-to}}
     >
     {{#link-to
-      "manage.deployments.edit"
+      "manage.deployments.edit.adunits"
       model.deployment.id
       class="text-secondary"
     }}

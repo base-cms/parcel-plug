@@ -2,7 +2,7 @@
   {{#crumbs.item}}{{#link-to "manage.lineitems.index"}}{{lineitem/-icon}} Line Items{{/link-to}}{{/crumbs.item}}
   {{#crumbs.item active=true}}
     {{#link-to
-      "manage.advertisers.edit"
+      "manage.advertisers.edit.orders"
       model.advertiser.id
       class="text-secondary"
     }}
@@ -10,7 +10,7 @@
     {{/link-to}}
     >
     {{#link-to
-      "manage.orders.edit"
+      "manage.orders.edit.lineitems"
       model.order.id
       class="text-secondary"
     }}
