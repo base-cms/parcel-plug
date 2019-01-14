@@ -24,6 +24,18 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
       }
     },
 
+    async setAdUnits({ value }) {
+      console.log('setAdUnits', value);
+    },
+
+    async setDeployments({ value }) {
+      console.log('setDeployments', value);
+    },
+
+    async setPublishers({ value }) {
+      console.log('setPublishers', value);
+    },
+
     /**
      *
      */

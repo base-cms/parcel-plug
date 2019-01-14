@@ -3,11 +3,40 @@
     <div class="row">
       <div class="col">
         {{lineitem/-fields/name
-          class="mb-0"
           form=form
           value=model.name
           on-change=(action "setName")
         }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card lineitem-criteria">
+          <div class="card-header">
+            Criteria
+          </div>
+          <div class="card-body">
+            {{lineitem/-fields/adunits
+              form=form
+              value=model.criteria.adunits
+              on-change=(action "setAdUnits")
+            }}
+
+            {{lineitem/-fields/deployments
+              form=form
+              value=model.criteria.deployments
+              on-change=(action "setDeployments")
+            }}
+
+            {{lineitem/-fields/publishers
+              class="mb-0"
+              form=form
+              value=model.criteria.publishers
+              on-change=(action "setPublishers")
+            }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
