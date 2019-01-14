@@ -23,6 +23,8 @@ extend type Mutation {
   lineitemAdUnits(input: LineItemAdUnitsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.adunitIds")
   lineitemDeployments(input: LineItemDeploymentsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.deploymentIds")
   lineitemPublishers(input: LineItemPublishersMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.publisherIds")
+  lineitemDateDays(input: LineItemDateDaysMutationInput): LineItem! @requiresAuth
+  lineitemDateRange(input: LineItemDateRangeMutationInput): LineItem! @requiresAuth
 }
 
 type LineItem implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -125,6 +127,17 @@ input LineItemAdUnitsMutationInput {
 input LineItemDeploymentsMutationInput {
   id: ObjectID!
   value: [ObjectID!]!
+}
+
+input LineItemDateDaysMutationInput {
+  id: ObjectID!
+  days: [Date!]!
+}
+
+input LineItemDateRangeMutationInput {
+  id: ObjectID!
+  start: Date!
+  end: Date!
 }
 
 input LineItemPublishersMutationInput {

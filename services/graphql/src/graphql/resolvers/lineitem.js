@@ -1,6 +1,8 @@
 const AdUnit = require('../../mongoose/models/adunit');
 const Deployment = require('../../mongoose/models/deployment');
+const LineItem = require('../../mongoose/models/lineitem');
 const Publisher = require('../../mongoose/models/publisher');
+const handleValidation = require('../utils/handle-validation');
 
 const isObject = v => v && typeof v === 'object';
 
@@ -29,5 +31,37 @@ module.exports = {
 
   LineItemDates: {
     days: ({ days }) => (isArray(days) ? days : []),
+  },
+
+  Mutation: {
+    lineitemDateDays: async (_, { input }, { auth }) => {
+      const { id, days } = input;
+      const doc = await LineItem.strictFindActiveById(id);
+      doc.setUserContext(auth.user);
+      doc.set({
+        date: {
+          type: 'days',
+          days,
+          start: undefined,
+          end: undefined,
+        },
+      });
+      return handleValidation(doc);
+    },
+
+    lineitemDateRange: async (_, { input }, { auth }) => {
+      const { id, start, end } = input;
+      const doc = await LineItem.strictFindActiveById(id);
+      doc.setUserContext(auth.user);
+      doc.set({
+        date: {
+          type: 'days',
+          days: undefined,
+          start,
+          end,
+        },
+      });
+      return handleValidation(doc);
+    },
   },
 };
