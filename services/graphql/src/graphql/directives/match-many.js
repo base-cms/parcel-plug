@@ -3,6 +3,8 @@ const escapeRegex = require('escape-string-regexp');
 const { account: connection } = require('../../mongoose/connections');
 const applyInput = require('../utils/apply-input');
 
+const { isArray } = Array;
+
 const buildRegex = (term, position) => {
   let start = '';
   let end = '';
@@ -35,6 +37,7 @@ class MatchManyDirective extends SchemaDirectiveVisitor {
         pagination,
         field: searchField,
         phrase,
+        excludeIds = [],
         position,
       } = input;
 
@@ -46,6 +49,9 @@ class MatchManyDirective extends SchemaDirectiveVisitor {
         using,
         input,
       });
+      if (isArray(excludeIds) && excludeIds.length) {
+        query._id = { $nin: excludeIds };
+      }
       const sort = { field: searchField, order: 'asc' };
       const Model = connection.model(modelName);
       return Model.paginate({ query, sort, ...pagination });

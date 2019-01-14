@@ -94,6 +94,7 @@ input MatchDeploymentsQueryInput {
   pagination: PaginationInput = {}
   field: String!
   phrase: String!
+  excludeIds: [ObjectID!] = []
   position: MatchPosition = contains
 }
 
