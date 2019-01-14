@@ -51,22 +51,6 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
   },
 
   /**
-   * Sets the internal value and fires the `on-change` event.
-   *
-   * @param {*} value
-   */
-  change(value) {
-    // Reset the internal validation states.
-    this.set('validationMessage', '');
-    // Set the internal value.
-    this.set('_value', value);
-    const fn = this.get('on-change');
-    if (typeof fn === 'function') {
-      fn(...arguments);
-    }
-  },
-
-  /**
    * This is here to mimic the `checkValidity` method of a
    * traditional input element.
    */
@@ -132,6 +116,23 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
      */
     setInputElement(instance) {
       this.set('_input', instance.element);
+    },
+
+    /**
+     * Sets the internal value and fires the `on-change` event.
+     *
+     * @param {*} value
+     */
+    handleChange(value) {
+      console.info('typeahead incoming value', value);
+      // Reset the internal validation states.
+      this.set('validationMessage', '');
+      // Set the internal value.
+      this.set('_value', value);
+      const fn = this.get('on-change');
+      if (typeof fn === 'function') {
+        fn(...arguments);
+      }
     },
   },
 });

@@ -4,7 +4,7 @@
     search=(perform search)
     selected=_value
     placeholder=placeholder
-    onchange=(action change)
+    onchange=(action "handleChange")
     closeOnSelect=closeOnSelect
     disabled=disabled
   as |item|
@@ -20,7 +20,7 @@
     allowClear=allowClear
     closeOnSelect=closeOnSelect
     disabled=disabled
-    onchange=(action change)
+    onchange=(action "handleChange")
   as |item|
   }}
     {{ yield item }}
