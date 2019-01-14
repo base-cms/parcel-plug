@@ -1,5 +1,4 @@
 <label for="lineitem-criteria-adunits">Ad Units</label>
-{{log 'value' value}}
 {{#form.elements.typeahead
   id="lineitem-criteria-adunits"
   class="form-control"
@@ -7,6 +6,7 @@
   name="adunits"
   label="Ad Units"
   multiple=true
+  closeOnSelect=false
   value=value
   on-change=on-change
   on-search=(action "search")
