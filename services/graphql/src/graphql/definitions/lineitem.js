@@ -19,6 +19,7 @@ extend type Mutation {
   deleteLineItem(input: DeleteLineItemMutationInput!): LineItem! @requiresAuth @delete(modelName: "lineitem")
 
   lineitemName(input: LineItemNameMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "name")
+  lineitemPriority(input: LineItemPriorityMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "priority")
   lineitemAdUnits(input: LineItemAdUnitsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.adunitIds")
   lineitemDeployments(input: LineItemDeploymentsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.deploymentIds")
   lineitemPublishers(input: LineItemPublishersMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.publisherIds")
@@ -103,6 +104,11 @@ input LineItemSortInput {
 input LineItemNameMutationInput {
   id: ObjectID!
   value: String!
+}
+
+input LineItemPriorityMutationInput {
+  id: ObjectID!
+  value: Int!
 }
 
 input LineItemAdUnitsMutationInput {
