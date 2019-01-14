@@ -47,14 +47,14 @@ export default Component.extend({
     },
 
     setDays(value) {
-      this.get('on-days-change')(value.map(d => d.valueOf()));
+      this.get('on-days-change')(value.map(d => d.startOf('day').valueOf()));
     },
 
     setRange(value) {
       const { start, end } = value;
       this.get('on-range-change')({
-        start: start ? start.valueOf() : null,
-        end: end ? end.valueOf() : null,
+        start: start ? start.startOf('day').valueOf() : null,
+        end: end ? end.endOf('day').valueOf() : null,
       });
     },
   },
