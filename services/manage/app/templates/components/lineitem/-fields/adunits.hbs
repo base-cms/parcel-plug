@@ -8,15 +8,13 @@
   label="Ad Units"
   multiple=true
   value=value
-  aria-labeledby="lineitem-criteria-adunits-help"
   on-change=on-change
   on-search=(action "search")
   required=true
 as |input|
 }}
-  {{#input.element as |adunits|}}
-    {{adunits.fullName}}
+  {{#input.element as |adunit|}}
+    {{adunit.fullName}}
   {{/input.element}}
   {{input.elements.invalid-feedback}}
 {{/form.elements.typeahead}}
-<small id="lineitem-criteria-adunits-help" class="form-text text-muted">Ad Unit criteria.</small>
