@@ -7,6 +7,8 @@ import lineitemPriority from '@base-cms/parcel-plug-manage/gql/mutations/lineite
 import lineitemAdUnits from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/adunits';
 import lineitemDeployments from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/deployments';
 import lineitemPublishers from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/publishers';
+import lineitemDateDays from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/date-days';
+import lineitemDateRange from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/date-range';
 import deleteLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/delete';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
@@ -80,15 +82,34 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
       }
     },
 
-    async setDays(values) {
-      this.set('model.dates.days', values);
+    async setDays(days) {
+      this.startAction();
+      const input = { id: this.get('model.id'), days };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: lineitemDateDays, variables }, 'lineitemDateDays');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
     },
 
-    async setRange(value) {
-      const { start, end } = value;
-      console.info('setRange', start, end);
+    async setRange({ start, end }) {
       this.set('model.dates.start', start);
       this.set('model.dates.end', end);
+      if (start && end) {
+        this.startAction();
+        const input = { id: this.get('model.id'), start, end };
+        const variables = { input };
+        try {
+          await this.get('apollo').mutate({ mutation: lineitemDateRange, variables }, 'lineitemDateRange');
+        } catch (e) {
+          throw this.get('graphErrors').handle(e);
+        } finally {
+          this.endAction();
+        }
+      }
     },
 
     /**

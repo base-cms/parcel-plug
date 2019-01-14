@@ -11,6 +11,7 @@ fragment LineItemEditFragment on LineItem {
   }
   priority
   dates {
+    type
     start
     end
     days
