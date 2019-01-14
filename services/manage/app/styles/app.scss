@@ -123,3 +123,9 @@ body.transitioning {
   border-color: $input-focus-border-color;
   box-shadow: $input-focus-box-shadow;
 }
+
+// Fix issue with double select dropdown icons
+.custom-select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
