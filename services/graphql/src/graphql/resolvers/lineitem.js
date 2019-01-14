@@ -8,11 +8,11 @@ const { isArray } = Array;
 
 module.exports = {
   LineItem: {
-    criteria: ({ criteria }) => (isObject(criteria) ? criteria : {}),
+    targeting: ({ targeting }) => (isObject(targeting) ? targeting : {}),
     dates: ({ dates }) => (isObject(dates) ? dates : {}),
   },
 
-  LineItemCriteria: {
+  LineItemTargeting: {
     adunits: ({ adunitIds }) => {
       if (!isArray(adunitIds)) return [];
       return AdUnit.findActive({ _id: { $in: adunitIds } });

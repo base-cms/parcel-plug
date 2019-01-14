@@ -15,7 +15,7 @@ fragment LineItemEditFragment on LineItem {
     end
     days
   }
-  criteria {
+  targeting {
     adunits {
       id
       fullName
