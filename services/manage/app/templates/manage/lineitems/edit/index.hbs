@@ -15,7 +15,11 @@
         <div class="card lineitem-criteria mnh-100">
           <div class="card-header">Dates and Priority</div>
           <div class="card-body">
-
+            <div class="form-group">
+              <label for="lineitem-priority">Priority ({{model.priority}})</label>
+              {{input type="range" class="custom-range text-primary" min="1" max="5" step="1" id="lineitem-priority" change=(action "setPriority")}}
+              <small id="lineitem-priority-help" class="form-text text-muted">From 1 to 5. A higher number wins.</small>
+            </div>
           </div>
         </div>
       </div>

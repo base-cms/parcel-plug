@@ -3,6 +3,7 @@ import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
 import { ObjectQueryManager } from 'ember-apollo-client';
 
 import lineitemName from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/name';
+import lineitemPriority from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/priority';
 import lineitemAdUnits from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/adunits';
 import lineitemDeployments from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/deployments';
 import lineitemPublishers from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/publishers';
@@ -59,6 +60,19 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
       const variables = { input };
       try {
         await this.get('apollo').mutate({ mutation: lineitemPublishers, variables }, 'lineitemPublishers');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    async setPriority(event) {
+      this.startAction();
+      const input = { id: this.get('model.id'), value: parseInt(event.target.value, 10) };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: lineitemPriority, variables }, 'lineitemPriority');
       } catch (e) {
         throw this.get('graphErrors').handle(e);
       } finally {

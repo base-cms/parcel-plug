@@ -1,0 +1,6 @@
+mutation LineItemPriority($input: LineItemPriorityMutationInput!) {
+  lineitemPriority(input: $input) {
+    id
+    priority
+  }
+}
