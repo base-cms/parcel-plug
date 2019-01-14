@@ -27,6 +27,21 @@ type LineItem implements Timestampable & UserAttributable @applyInterfaceFields 
   fullName: String!
   advertiser: Advertiser! @refOne(modelName: "advertiser", localField: "advertiserId", foreignField: "_id")
   order: Order! @refOne(modelName: "order", localField: "orderId", foreignField: "_id")
+  criteria: LineItemCriteria!
+  dates: LineItemDates!
+  priority: Int!
+}
+
+type LineItemCriteria {
+  adunits: [AdUnit!]!
+  deployments: [Deployment!]!
+  publishers: [Publisher!]!
+}
+
+type LineItemDates {
+  start: Date
+  end: Date
+  days: [Date]!
 }
 
 type LineItemConnection {

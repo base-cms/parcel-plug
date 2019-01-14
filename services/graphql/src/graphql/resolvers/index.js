@@ -2,6 +2,7 @@ const deepAssign = require('deep-assign');
 const { classify } = require('inflection');
 const GraphQLJSON = require('graphql-type-json');
 const User = require('../../mongoose/models/user');
+const lineitem = require('./lineitem');
 const user = require('./user');
 const { DateType, ObjectIDType } = require('../types');
 
@@ -12,6 +13,7 @@ const resolveType = (doc) => {
 };
 
 module.exports = deepAssign(
+  lineitem,
   user,
   {
     /**
