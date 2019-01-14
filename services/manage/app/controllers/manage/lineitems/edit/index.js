@@ -3,6 +3,9 @@ import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
 import { ObjectQueryManager } from 'ember-apollo-client';
 
 import lineitemName from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/name';
+import lineitemAdUnits from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/adunits';
+import lineitemDeployments from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/deployments';
+import lineitemPublishers from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/publishers';
 import deleteLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/delete';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
@@ -25,15 +28,42 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
     },
 
     async setAdUnits({ value }) {
-      console.log('setAdUnits', value);
+      this.startAction();
+      const input = { id: this.get('model.id'), value: value.map(v => v.id) };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: lineitemAdUnits, variables }, 'lineitemAdUnits');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
     },
 
     async setDeployments({ value }) {
-      console.log('setDeployments', value);
+      this.startAction();
+      const input = { id: this.get('model.id'), value: value.map(v => v.id) };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: lineitemDeployments, variables }, 'lineitemDeployments');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
     },
 
     async setPublishers({ value }) {
-      console.log('setPublishers', value);
+      this.startAction();
+      const input = { id: this.get('model.id'), value: value.map(v => v.id) };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: lineitemPublishers, variables }, 'lineitemPublishers');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
     },
 
     /**

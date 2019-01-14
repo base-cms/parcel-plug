@@ -1,0 +1,11 @@
+mutation LineItemAdUnits($input: LineItemAdUnitsMutationInput!) {
+  lineitemAdUnits(input: $input) {
+    id
+    targeting {
+      adunits {
+        id
+        fullName
+      }
+    }
+  }
+}

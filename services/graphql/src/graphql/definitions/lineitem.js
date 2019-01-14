@@ -19,6 +19,9 @@ extend type Mutation {
   deleteLineItem(input: DeleteLineItemMutationInput!): LineItem! @requiresAuth @delete(modelName: "lineitem")
 
   lineitemName(input: LineItemNameMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "name")
+  lineitemAdUnits(input: LineItemAdUnitsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.adunitIds")
+  lineitemDeployments(input: LineItemDeploymentsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.deploymentIds")
+  lineitemPublishers(input: LineItemPublishersMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.publisherIds")
 }
 
 type LineItem implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -100,6 +103,21 @@ input LineItemSortInput {
 input LineItemNameMutationInput {
   id: ObjectID!
   value: String!
+}
+
+input LineItemAdUnitsMutationInput {
+  id: ObjectID!
+  value: [ObjectID!]!
+}
+
+input LineItemDeploymentsMutationInput {
+  id: ObjectID!
+  value: [ObjectID!]!
+}
+
+input LineItemPublishersMutationInput {
+  id: ObjectID!
+  value: [ObjectID!]!
 }
 
 input MatchLineItemsQueryInput {

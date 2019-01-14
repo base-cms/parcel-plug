@@ -1,0 +1,11 @@
+mutation LineItemPublishers($input: LineItemPublishersMutationInput!) {
+  lineitemPublishers(input: $input) {
+    id
+    targeting {
+      publishers {
+        id
+        name
+      }
+    }
+  }
+}
