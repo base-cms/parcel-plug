@@ -14,14 +14,31 @@ as |select|
   {{/each}}
 {{/form-elements/select}}
 
-{{#if showDateRange}}
-  {{lineitem/-fields/dates/calendar-range
-    range=_range
-    onSelect=(action "setRange")
-  }}
-{{else}}
-  {{lineitem/-fields/dates/calendar-days
-    days=_days
-    onSelect=(action "setDays")
-  }}
-{{/if}}
+<div class="row">
+  <div class="col-lg-6">
+    {{#if showDateRange}}
+      {{lineitem/-fields/dates/calendar-range
+        range=_range
+        onSelect=(action "setRange")
+      }}
+    {{else}}
+      {{lineitem/-fields/dates/calendar-days
+        days=_days
+        onSelect=(action "setDays")
+      }}
+    {{/if}}
+  </div>
+  <div class="col-lg-6 text-left text-lg-right pt-2 pt-lg-0">
+    {{#if showDateRange}}
+      {{#if isRangeSet}}
+        <small class="d-block">Start: {{moment-format _range.start "ddd MMM Do, YYYY"}}</small>
+        <small class="d-block">End: {{moment-format _range.end "ddd MMM Do, YYYY"}}</small>
+      {{/if}}
+    {{else}}
+      {{#each _days as |date|}}
+        <small class="d-block">{{moment-format date "ddd MMM Do, YYYY"}}</small>
+      {{/each}}
+    {{/if}}
+  </div>
+</div>
+

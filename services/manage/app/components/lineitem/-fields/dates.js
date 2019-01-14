@@ -29,6 +29,11 @@ export default Component.extend({
     }
   }),
 
+  isRangeSet: computed('start', 'end', function() {
+    if (this.get('start') && this.get('end')) return true;
+    return false;
+  }),
+
   init() {
     this._super(...arguments);
     this.set('options', [
