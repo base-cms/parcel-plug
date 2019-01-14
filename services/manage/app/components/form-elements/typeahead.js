@@ -124,7 +124,6 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
      * @param {*} value
      */
     handleChange(value) {
-      console.info('typeahead incoming value', value);
       // Reset the internal validation states.
       this.set('validationMessage', '');
       // Set the internal value.
