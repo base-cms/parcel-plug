@@ -4,8 +4,14 @@
 
 @import "ember-power-select/themes/bootstrap";
 @import "ember-power-select";
+// Fix z-index issues with dropdowns in boostrap modal
 .in-modal-dropdown {
   z-index: 1100;
+}
+
+// Fix input height issues with form control
+.form-control.ember-power-select-trigger {
+  height: auto !important;
 }
 
 .ember-power-select-trigger {
