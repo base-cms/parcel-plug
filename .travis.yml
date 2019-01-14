@@ -1,0 +1,20 @@
+language: node_js
+node_js: "10.13"
+cache: yarn
+deploy:
+  -
+    provider: script
+    script: bash scripts/deploy-image.sh latest
+    on:
+      branch: master
+  -
+    provider: script
+    script: bash scripts/deploy-image.sh $TRAVIS_TAG
+    on:
+      tags: true
+  -
+    provider: script
+    script: bash scripts/deploy-rancher.sh
+    on:
+      tags: true
+      condition: "$TRAVIS_TAG =~ ^v[0-9]+\\.[0-9]+\\.[0-9]+$"
