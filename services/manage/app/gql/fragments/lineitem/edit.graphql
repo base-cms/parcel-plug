@@ -9,4 +9,24 @@ fragment LineItemEditFragment on LineItem {
     id
     name
   }
+  priority
+  dates {
+    start
+    end
+    days
+  }
+  criteria {
+    adunits {
+      id
+      fullName
+    }
+    deployments {
+      id
+      fullName
+    }
+    publishers {
+      id
+      name
+    }
+  }
 }
