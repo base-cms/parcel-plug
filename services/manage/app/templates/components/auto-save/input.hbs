@@ -28,6 +28,11 @@
       change=(action "debounceChange")
     )
     elements=(hash
+      label=(component "form-elements/label"
+        value=label
+        required=required
+        for=id
+      )
       indicator=(component "auto-save/indicator"
         visible=shouldSave
         isChanging=isChanging
