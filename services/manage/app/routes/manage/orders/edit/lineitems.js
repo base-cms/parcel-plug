@@ -22,6 +22,11 @@ export default Route.extend(ListRouteMixin, {
       searchInput: input,
     }, { limit, field, order, phrase, searchType, searchBy });
   },
+
+  setupController(controller, model) {
+    controller.set('orderModel', this.modelFor('manage.orders.edit'));
+    this._super(controller, model);
+  },
 });
 
 

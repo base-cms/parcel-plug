@@ -38,6 +38,7 @@ Router.map(function() {
       this.route('edit', { path: ':id' }, function() {
         this.route('lineitems', function() {
           this.route('create');
+          this.route('edit', { path: ':lineitem_id' });
         });
       });
     });

@@ -1,0 +1,110 @@
+{{#bs-modal
+  show=true
+  size="xl"
+  backdrop="static"
+  onHidden=(route-action "transitionTo" "manage.orders.edit.lineitems")
+as |modal|
+}}
+  {{#modal.header}}
+    <h5 class="modal-title">{{lineitem/-icon}} {{model.name}}</h5>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      {{action modal.actions.hide}}
+    >
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+  {{progress-bar class="progress-md" show=isActionRunning}}
+  {{#auto-save/form id="lineitem-edit" as |form|}}
+    {{#modal.body}}
+
+      <div class="row">
+        <div class="col">
+          {{lineitem/-fields/name
+            form=form
+            value=model.name
+            on-change=(action "setName")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card lineitem-criteria mnh-100">
+            <div class="card-header">Dates and Priority</div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="lineitem-priority">Priority ({{model.priority}})</label>
+                {{input
+                  type="range"
+                  class="custom-range text-primary"
+                  min="1"
+                  max="5"
+                  value=model.priority
+                  step="1"
+                  id="lineitem-priority"
+                  change=(action "setPriority")
+                }}
+                <small id="lineitem-priority-help" class="form-text text-muted">From 1 to 5. A higher number wins.</small>
+              </div>
+              {{lineitem/-fields/dates
+                class="mb-0"
+                type=model.dates.type
+                start=model.dates.start
+                end=model.dates.end
+                days=model.dates.days
+                on-days-change=(action "setDays")
+                on-range-change=(action "setRange")
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card lineitem-criteria mnh-100">
+            <div class="card-header">
+              Match Inventory
+            </div>
+            <div class="card-body">
+              {{lineitem/-fields/adunits
+                dropdownClass="in-modal-dropdown"
+                form=form
+                value=model.targeting.adunits
+                on-change=(action "setAdUnits")
+              }}
+
+              {{lineitem/-fields/deployments
+                dropdownClass="in-modal-dropdown"
+                form=form
+                value=model.targeting.deployments
+                on-change=(action "setDeployments")
+              }}
+
+              {{lineitem/-fields/publishers
+                class="mb-0"
+                dropdownClass="in-modal-dropdown"
+                form=form
+                value=model.targeting.publishers
+                on-change=(action "setPublishers")
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {{/modal.body}}
+    {{#modal.footer}}
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger"
+        disabled=isActionRunning
+        isRunning=isDeleting
+        onConfirm=(action "delete")
+      }}
+    {{/modal.footer}}
+    {{progress-bar class="progress-md" show=isActionRunning}}
+  {{/auto-save/form}}
+{{/bs-modal}}
