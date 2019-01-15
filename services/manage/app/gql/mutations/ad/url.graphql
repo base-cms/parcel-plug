@@ -1,0 +1,6 @@
+mutation AdUrl($input: AdUrlMutationInput!) {
+  adUrl(input: $input) {
+    id
+    url
+  }
+}

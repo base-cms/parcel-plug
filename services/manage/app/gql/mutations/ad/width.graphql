@@ -1,0 +1,6 @@
+mutation AdWidth($input: AdWidthMutationInput!) {
+  adWidth(input: $input) {
+    id
+    width
+  }
+}

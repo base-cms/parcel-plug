@@ -1,0 +1,5 @@
+mutation DeleteAd($input: DeleteAdMutationInput!) {
+  deleteAd(input: $input) {
+    id
+  }
+}

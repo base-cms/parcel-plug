@@ -1,0 +1,6 @@
+mutation AdHeight($input: AdHeightMutationInput!) {
+  adHeight(input: $input) {
+    id
+    height
+  }
+}

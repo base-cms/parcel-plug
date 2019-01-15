@@ -1,0 +1,6 @@
+mutation AdName($input: AdNameMutationInput!) {
+  adName(input: $input) {
+    id
+    name
+  }
+}
