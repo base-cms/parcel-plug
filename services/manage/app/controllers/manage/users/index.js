@@ -7,14 +7,16 @@ export default ListController.extend({
       { key: 'id', label: 'ID' },
       { key: 'createdAt', label: 'Created' },
       { key: 'updatedAt', label: 'Updated' },
-      { key: 'name', label: 'Name' },
+      { key: 'givenName', label: 'First Name' },
+      { key: 'familyName', label: 'Last Name' },
     ]);
     this.set('field', 'updatedAt');
     this.set('order', 'desc');
 
     this.set('searchFields', [
-      { key: 'name', label: 'Name' },
+      { key: 'givenName', label: 'First Name' },
+      { key: 'familyName', label: 'Last Name' },
     ]);
-    this.set('searchBy', 'name');
+    this.set('searchBy', 'givenName');
   },
 });

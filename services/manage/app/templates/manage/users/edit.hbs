@@ -1,7 +1,7 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.users.index"}}{{user/-icon}} Users{{/link-to}}{{/crumbs.item}}
   {{#crumbs.item active=true}}
-    {{model.name}}
+    {{model.givenName}} {{model.familyName}}
   {{/crumbs.item}}
 {{/nav-breadcrumbs}}
 

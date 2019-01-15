@@ -1,8 +1,19 @@
 fragment UserListFragment on User {
   id
   email
-  name
+  givenName
+  familyName
   role
   updatedAt
   createdAt
+  createdBy {
+    id
+    givenName
+    familyName
+  }
+  updatedBy {
+    id
+    givenName
+    familyName
+  }
 }
