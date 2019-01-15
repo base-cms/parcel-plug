@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card z-depth-0">
   {{#fetch-more
     query=observable
     edges=model.edges
@@ -16,18 +16,24 @@
       {{/each}}
     </ul>
 
-    <div class="card-footer border-0">
-      {{#if fetch.hasNextPage}}
-        <button
-          class="btn btn-primary"
-          disabled={{fetch.isFetching}}
-          {{action fetch.actions.loadMore}}
-        >
-          {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
-        </button>
-      {{/if}}
-    </div>
+    {{#if fetch.hasNextPage}}
+      <button
+        class="mt-3 btn btn-primary"
+        disabled={{fetch.isFetching}}
+        {{action fetch.actions.loadMore}}
+      >
+        {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
+      </button>
+    {{/if}}
 
   {{/fetch-more}}
 </div>
+{{#bs-modal/footer}}
+  <button
+    class="btn btn-success btn-lg"
+    {{action (route-action "transitionTo" "manage.orders.edit.lineitems.edit.ads.create")}}
+  >
+    {{ad/-icon}} {{entypo-icon "plus"}}
+  </button>
+{{/bs-modal/footer}}
 
