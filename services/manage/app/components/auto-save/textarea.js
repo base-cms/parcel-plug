@@ -33,6 +33,12 @@ export default Component.extend(OnInsertMixin, {
     return this.get('isChanging');
   }),
 
+  id: computed('formId', function() {
+    const { formId, name } = this.getProperties('formId', 'name');
+    if (formId && name) return `${formId}-${name}`;
+    return undefined;
+  }),
+
   /**
    * Whether the change event is currently being processed.
    */

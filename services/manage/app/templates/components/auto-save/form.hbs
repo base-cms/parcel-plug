@@ -5,21 +5,25 @@
       elements=(hash
         input=(component "auto-save/input"
           shouldSave=shouldAutosave
+          formId=id
           on-insert=(action "addFormElement")
           on-destroy=(action "removeFormElement")
         )
         textarea=(component "auto-save/textarea"
           shouldSave=shouldAutosave
+          formId=id
           on-insert=(action "addFormElement")
           on-destroy=(action "removeFormElement")
         )
         typeahead=(component "auto-save/typeahead"
           shouldSave=shouldAutosave
+          formId=id
           on-insert=(action "addFormElement")
           on-destroy=(action "removeFormElement")
         )
         select=(component "auto-save/select"
           shouldSave=shouldAutosave
+          formId=id
           on-insert=(action "addFormElement")
           on-destroy=(action "removeFormElement")
         )

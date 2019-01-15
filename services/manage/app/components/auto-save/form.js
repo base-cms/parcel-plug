@@ -1,12 +1,24 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   tagName: 'form',
-  attributeBindings: ['novalidate'],
+  attributeBindings: ['novalidate', 'id'],
   novalidate: true,
 
   shouldAutosave: true,
   disabled: false,
+
+  name: null,
+  identifier: null,
+
+  id: computed('name', 'identifier', function() {
+    const values = [];
+    const { name, identifier } = this.getProperties('name', 'identifier');
+    if (name) values.push(name);
+    if (identifier) values.push(identifier);
+    return values.length ? values.join('-') : undefined;
+  }),
 
   init() {
     this._super(...arguments);

@@ -20,6 +20,12 @@ export default Component.extend(OnInsertMixin, {
    */
   readOnlyWhileChanging: true,
 
+  id: computed('formId', function() {
+    const { formId, name } = this.getProperties('formId', 'name');
+    if (formId && name) return `${formId}-${name}`;
+    return undefined;
+  }),
+
   /**
    * Determines if the field should be readonly.
    * Is passed to the input element.

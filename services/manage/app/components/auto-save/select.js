@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import OnInsertMixin from '../form-elements/mixins/on-insert';
+import { computed } from '@ember/object';
 
 export default Component.extend(OnInsertMixin, {
   /**
@@ -38,6 +39,12 @@ export default Component.extend(OnInsertMixin, {
    * Whether the change event has completed.
    */
   changeComplete: false,
+
+  id: computed('formId', function() {
+    const { formId, name } = this.getProperties('formId', 'name');
+    if (formId && name) return `${formId}-${name}`;
+    return undefined;
+  }),
 
   /**
    * Sends the on-change events.
