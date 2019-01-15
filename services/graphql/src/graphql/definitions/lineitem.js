@@ -36,6 +36,7 @@ type LineItem implements Timestampable & UserAttributable @applyInterfaceFields 
   targeting: LineItemTargeting!
   dates: LineItemDates!
   priority: Int!
+  ads(input: LineItemAdsInput = {}): AdConnection! @refMany(modelName: "ad", localField: "_id", foreignField: "lineitemId")
 }
 
 type LineItemTargeting {
@@ -178,6 +179,11 @@ input MatchLineItemsForAdvertiserQueryInput {
   field: String!
   phrase: String!
   position: MatchPosition = contains
+}
+
+input LineItemAdsInput {
+  sort: AdSortInput = {}
+  pagination: PaginationInput = {}
 }
 
 `;
