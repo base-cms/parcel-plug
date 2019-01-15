@@ -1,0 +1,84 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.users.index"}}{{user/-icon}} Users{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}Create New{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+{{#auto-save/form
+  id="user-create"
+  shouldAutosave=false
+  model=model
+  disabled=isActionRunning
+  on-submit=(action "create")
+as |form|
+}}
+
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-md-6">
+          {{user/-fields/given-name
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.givenName
+            autofocus=true
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+        <div class="col-md-6">
+          {{user/-fields/family-name
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.familyName
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          {{user/-fields/email
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.email
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+        <div class="col-md-6">
+          {{user/-fields/role
+            form=form
+            value=model.role
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          {{user/-fields/password
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.password
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+        <div class="col-md-6">
+          {{user/-fields/confirm-password
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.confirmPassword
+            on-change=(action "setFieldValue")
+          }}
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      {{form-elements/save-button
+        class="btn btn-success"
+        isSaving=isActionRunning
+      }}
+    </div>
+  </div>
+{{/auto-save/form}}

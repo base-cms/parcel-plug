@@ -1,0 +1,8 @@
+fragment UserEditFragment on User {
+  id
+  email
+  name
+  givenName
+  familyName
+  role
+}

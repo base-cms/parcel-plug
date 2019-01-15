@@ -1,0 +1,19 @@
+<label for="user-givenName">First Name {{form-elements/required-field}}</label>
+{{#form.elements.input
+  id="user-givenName"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="text"
+  name="givenName"
+  label="First Name"
+  value=value
+  aria-labeledby="user-givenName-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.input}}
+<small id="user-givenName-help" class="form-text text-muted">The user's first name.</small>

@@ -1,0 +1,6 @@
+mutation UserRole($input: UserRoleMutationInput!) {
+  userRole(input: $input) {
+    id
+    role
+  }
+}

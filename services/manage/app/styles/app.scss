@@ -129,3 +129,8 @@ body.transitioning {
   -moz-appearance: none;
   -webkit-appearance: none;
 }
+
+.hidden-input {
+  position: absolute;
+  left: -10000px;
+}
