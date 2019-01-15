@@ -1,4 +1,4 @@
-import LineItemListController from '../../lineitems/index';
+import LineItemListController from '../../lineitems';
 
 export default LineItemListController.extend({
 

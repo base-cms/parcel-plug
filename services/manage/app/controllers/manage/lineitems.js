@@ -1,4 +1,4 @@
-import ListController from '../../abstract-list';
+import ListController from '../abstract-list';
 
 export default ListController.extend({
   init() {
