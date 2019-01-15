@@ -1,19 +1,17 @@
-<label for="ad-name">Name {{form-elements/required-field}}</label>
 {{#form.elements.input
-  id="ad-name"
   class="form-control"
   autocomplete="off"
   autofocus=autofocus
-  type="text"
-  name="name"
-  label="Name"
+  type=type
+  name=name
+  label=label
   value=value
-  aria-labeledby="ad-name-help"
   on-change=on-change
   required=true
 as |input|
 }}
+  {{input.elements.label}}
   {{input.element}}
   {{input.elements.invalid-feedback}}
 {{/form.elements.input}}
-<small id="ad-name-help" class="form-text text-muted">The ad name.</small>
+<small class="form-text text-muted">The ad name.</small>
