@@ -1,0 +1,16 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/ad/list'
+
+query MatchAdListForLineItem($input: MatchAdsForLineItemQueryInput!) {
+  matchAdsForLineItem(input: $input) {
+    totalCount
+    edges {
+      node {
+        ...AdListFragment
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
