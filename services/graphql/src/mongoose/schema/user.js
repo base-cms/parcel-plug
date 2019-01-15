@@ -99,6 +99,10 @@ schema.static('validatePassword', (value, confirm) => {
  * Indexes
  */
 schema.index({ email: 1, isEmailVerified: 1 });
+schema.index({ givenName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ familyName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ updatedAt: 1, _id: 1 });
+schema.index({ createdAt: 1, _id: 1 });
 
 /**
  * Hooks.
