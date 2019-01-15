@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 
 export default Controller.extend({
   router: inject(),
+  loadingDisplay: inject(),
 
   adsDropdownClass: computed('router.currentRouteName', function() {
     if (this.get('router.currentRouteName').indexOf('manage.orders.edit.lineitems.edit.ad') === 0) {

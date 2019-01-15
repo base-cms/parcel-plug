@@ -1,0 +1,9 @@
+fragment AdEditFragment on Ad {
+  id
+  name
+  size
+  width
+  height
+  active
+  url
+}

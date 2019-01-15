@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  classNames: ['accordian z-depth-half'],
+  classNames: ['accordian'],
   elementId: 'ads-accordian',
 
-  activeUID: null,
+  activeId: null,
 
   init() {
     this._super(...arguments);
@@ -14,9 +14,9 @@ export default Component.extend({
   },
 
   actions: {
-    toggle(uid) {
-      const active = this.get('activeUID');
-      this.set('activeUID', uid === active ? null : uid);
+    toggle(id) {
+      const active = this.get('activeId');
+      this.set('activeId', id === active ? null : id);
     },
   },
 });

@@ -1,18 +1,6 @@
-#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
-
 fragment AdListFragment on Ad {
   id
   name
   size
-  width
-  height
-  url
-  createdAt
-  updatedAt
-  createdBy {
-    ...UserListFragment
-  }
-  updatedBy {
-    ...UserListFragment
-  }
+  active
 }

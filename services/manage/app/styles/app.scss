@@ -94,6 +94,9 @@ body.transitioning {
 .btn {
   box-shadow: $z-depth-half;
 }
+.accordian .card-header .btn {
+  box-shadow: $z-depth-0;
+}
 
 // Add depth to active pill tabs
 .nav-pills .nav-link.active {

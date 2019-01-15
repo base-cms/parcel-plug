@@ -1,0 +1,107 @@
+<div class="card-header" id="heading{{id}}">
+  <button
+    class="btn btn-link collapsed d-inline-block p-0"
+    data-toggle="collapse"
+    data-target="#collapse{{id}}"
+    aria-controls="collapse{{id}}"
+    {{action toggle id}}
+  >
+    {{title}}
+  </button>
+</div>
+<div
+  id="collapse{{id}}"
+  class="collapse"
+  aria-labelledby="heading{{id}}"
+  data-parent="#{{parentId}}"
+>
+  <div class="card-body py-2">
+    {{#if isActionRunning}}
+      <small class="text-muted">Loading ad details...</small>
+    {{else}}
+      <p>{{ad.name}}</p>
+      {{!-- <div class="row">
+        <div class="col mb-2">
+          <small class="text-muted">
+            Ad ID:
+            {{inline-copy value=ad.id}}
+            ({{inline-copy value=ad.id}})
+          </small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p class="mb-2"><strong>{{ad.type}}</strong> {{#if ad.third_party_server}}({{ad.third_party_server}}){{/if}} [ {{lineitem-status value=ad.status}} ]</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-5">
+          {{copy-field value=ad.name label="Name" small=true}}
+        </div>
+        <div class="col-lg-5">
+          {{copy-field value=ad.click_url label="Click URL" small=true}}
+        </div>
+        <div class="col-lg-2">
+          {{copy-field value=ad.size label="Size" small=true}}
+        </div>
+      </div>
+      {{#if ad.source}}
+        <div class="row">
+          <div class="col">
+            <label>Source Code</label>
+            <div class="card">
+              <div class="card-body p-1">
+                {{ember-ace
+                  lines=10
+                  value=ad.source
+                  theme="ace/theme/chrome"
+                  mode="ace/mode/html"
+                  useSoftTabs=true
+                  tabSize=2
+                  useWrapMode=false
+                  showPrintMargin=false
+                  disabled=true
+                  readOnly=true
+                }}
+                <div class="btn-group">
+                  {{copy-field/button
+                    showButtonLabel=true
+                    label="<source code>"
+                    value=ad.source
+                  }}
+                  {{#if ad.download_url}}
+                    <a class="btn btn-secondary" href={{ad.download_url}}>
+                      {{entypo-icon "download"}} Download
+                    </a>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {{/if}}
+      {{#if ad.creative.id}}
+        <label>Creative</label>
+        <div class="row">
+          <div class="col">
+            {{#if (eq ad.creative.type "Image")}}
+              <a href={{ad.creative.download_url}}>
+                <img
+                  src={{ad.creative.url}}
+                  alt={{ad.creative.name}}
+                  class="img-flid img-thumbnail"
+                >
+              </a>
+            {{/if}}
+            <small class="text-muted d-block mt-2">
+              Creative ID:
+              {{inline-copy value=ad.creative.id}}
+              ({{inline-copy value=ad.creative.id}})
+            </small>
+          </div>
+        </div>
+      {{/if}} --}}
+    {{/if}}
+  </div>
+</div>

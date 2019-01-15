@@ -53,7 +53,6 @@ as |modal|
       {{entypo-icon "cross"}}
     </button>
   {{/modal.header}}
-  {{progress-bar class="progress-md" show=isActionRunning}}
+  {{progress-bar class="progress-md" show=loadingDisplay.isShowing}}
   {{outlet}}
-  {{progress-bar class="progress-md" show=isActionRunning}}
 {{/bs-modal}}

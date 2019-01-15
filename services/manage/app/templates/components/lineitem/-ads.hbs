@@ -1,32 +1,10 @@
-{{!-- <div class="card-header" id="heading-create">
-  <button
-    class="btn btn-link collapsed d-inline-block p-0"
-    data-toggle="collapse"
-    data-target="#collapse-create"
-    aria-controls="collapse-create"
-    {{action "toggle" "-create"}}
-  >
-    Create Ad
-  </button>
-</div>
-<div
-  id="collapse-create"
-  class="collapse"
-  aria-labelledby="heading-create"
-  data-parent="#{{elementId}}"
->
-  <div class="card-body py-2">
-
-  </div>
-</div> --}}
-
 {{#each ads as |ad|}}
-  {{!-- {{lineitem-ad
-    activeUID=activeUID
-    uid=ad.uid
-    name=ad.name
-    link=ad.link
+  {{lineitem/-ads/item
+    activeId=activeId
+    id=ad.id
+    title=(concat ad.name " (" ad.size ")")
     parentId=elementId
+    isActionRunning=isActionRunning
     toggle=(action "toggle")
-  }} --}}
+  }}
 {{/each}}

@@ -10,7 +10,7 @@
   as |fetch|
   }}
     <h5 class="text-muted">Total Results: {{model.totalCount}}</h5>
-    {{lineitem/-ads ads=fetch.nodes}}
+    {{lineitem/-ads ads=fetch.nodes isActionRunning=isActionRunning}}
 
     {{#if fetch.hasNextPage}}
       <button
