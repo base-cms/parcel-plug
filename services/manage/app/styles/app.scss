@@ -132,3 +132,8 @@ body.transitioning {
   -moz-appearance: none;
   -webkit-appearance: none;
 }
+
+.no-autofill {
+  position: absolute;
+  left: -10000px;
+}

@@ -1,0 +1,6 @@
+mutation UserEmail($input: UserEmailMutationInput!) {
+  userEmail(input: $input) {
+    id
+    email
+  }
+}

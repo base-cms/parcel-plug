@@ -6,6 +6,7 @@ const {
   deleteablePlugin,
   paginablePlugin,
   repositoryPlugin,
+  userAttributionPlugin,
 } = require('../plugins');
 
 
@@ -85,6 +86,7 @@ const schema = new Schema({
 schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);
 schema.plugin(paginablePlugin);
+schema.plugin(userAttributionPlugin);
 
 schema.static('validatePassword', (value, confirm) => {
   if (!value || !confirm) throw new Error('You must provide and confirm your password.');
@@ -97,6 +99,10 @@ schema.static('validatePassword', (value, confirm) => {
  * Indexes
  */
 schema.index({ email: 1, isEmailVerified: 1 });
+schema.index({ givenName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ familyName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
+schema.index({ updatedAt: 1, _id: 1 });
+schema.index({ createdAt: 1, _id: 1 });
 
 /**
  * Hooks.

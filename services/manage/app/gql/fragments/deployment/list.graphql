@@ -1,4 +1,4 @@
-#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/attribution'
 
 fragment DeploymentListFragment on Deployment {
   id
@@ -13,9 +13,9 @@ fragment DeploymentListFragment on Deployment {
   createdAt
   updatedAt
   createdBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
   updatedBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
 }

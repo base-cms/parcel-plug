@@ -1,0 +1,16 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+
+query UsersListMatch($input: MatchUsersQueryInput!) {
+  matchUsers(input: $input) {
+    totalCount
+    edges {
+      node {
+        ...UserListFragment
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

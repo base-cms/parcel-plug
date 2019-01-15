@@ -2,6 +2,7 @@ const { ApolloError } = require('apollo-server-express');
 const User = require('../../mongoose/models/user');
 const userService = require('../../services/user');
 const sessionService = require('../../services/session');
+const handleValidation = require('../utils/handle-validation');
 
 module.exports = {
   /**
@@ -25,7 +26,7 @@ module.exports = {
     /**
      *
      */
-    createUser: (_, { input }) => {
+    createUser: (_, { input }, { auth }) => {
       const {
         email,
         givenName,
@@ -35,13 +36,16 @@ module.exports = {
         role,
       } = input;
       User.validatePassword(password, confirmPassword);
-      return User.create({
+      const user = new User({
         email,
         givenName,
         familyName,
         password,
+        confirmPassword,
         role,
       });
+      user.setUserContext(auth.user);
+      return handleValidation(user);
     },
 
     /**
@@ -76,8 +80,9 @@ module.exports = {
       if (`${auth.user.id}` === `${id}` || auth.isAdmin()) {
         User.validatePassword(value, confirm);
         const user = await User.strictFindById(id);
+        user.setUserContext(auth.user);
         user.password = value;
-        return user.save();
+        return handleValidation(user);
       }
       throw new Error('Only administrators can change passwords for other users.');
     },
@@ -88,8 +93,9 @@ module.exports = {
     updateCurrentUserProfile: (_, { input }, { auth }) => {
       const { givenName, familyName } = input;
       const { user } = auth;
+      user.setUserContext(auth.user);
       user.set({ givenName, familyName });
-      return user.save();
+      return handleValidation(user);
     },
   },
 };

@@ -1,0 +1,79 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.users.index"}}{{user/-icon}} Users{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}
+    {{model.givenName}} {{model.familyName}}
+  {{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+
+{{#auto-save/form id="user-edit" as |form|}}
+
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-md-6">
+          {{user/-fields/given-name
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.givenName
+            on-change=(action "setGivenName")
+          }}
+        </div>
+        <div class="col-md-6">
+          {{user/-fields/family-name
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.familyName
+            on-change=(action "setFamilyName")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          {{user/-fields/email
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.email
+            on-change=(action "setEmail")
+          }}
+        </div>
+        <div class="col-md-6">
+          {{user/-fields/role
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.role
+            on-change=(action "setRole")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          {{user/-fields/password
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.password
+            on-change=(action "setPassword")
+          }}
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer text-right">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger"
+        disabled=isActionRunning
+        isRunning=isDeleting
+        onConfirm=(action "delete")
+      }}
+    </div>
+  </div>
+{{/auto-save/form}}
+
+{{user/create-button}}

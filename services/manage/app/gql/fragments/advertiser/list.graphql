@@ -1,4 +1,4 @@
-#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/attribution'
 
 fragment AdvertiserListFragment on Advertiser {
   id
@@ -9,9 +9,9 @@ fragment AdvertiserListFragment on Advertiser {
   createdAt
   updatedAt
   createdBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
   updatedBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
 }
