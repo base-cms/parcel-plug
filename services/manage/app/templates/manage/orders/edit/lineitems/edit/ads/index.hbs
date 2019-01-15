@@ -1,0 +1,25 @@
+{{#bs-modal/body}}
+  {{#fetch-more
+    query=observable
+    edges=model.edges
+    hasNextPage=model.pageInfo.hasNextPage
+    endCursor=model.pageInfo.endCursor
+    on-fetch-start=(route-action "showLoading")
+    on-fetch-end=(route-action "hideLoading")
+    resultKey=resultKey
+  as |fetch|
+  }}
+    <h5 class="text-muted">Total Results: {{model.totalCount}}</h5>
+    {{lineitem/-ads ads=fetch.nodes}}
+
+    {{#if fetch.hasNextPage}}
+      <button
+        class="btn btn-primary"
+        disabled={{fetch.isFetching}}
+        {{action fetch.actions.loadMore}}
+      >
+        {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
+      </button>
+    {{/if}}
+  {{/fetch-more}}
+{{/bs-modal/body}}

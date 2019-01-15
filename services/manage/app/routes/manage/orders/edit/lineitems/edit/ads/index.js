@@ -10,8 +10,10 @@ export default Route.extend(RouteObservableMixin, {
    * @param {object} params
    */
   async model() {
+    const pagination = { limit: 50 };
     const input = {
       lineitemId: this.modelFor('manage.orders.edit.lineitems.edit').id,
+      pagination,
     };
     const variables = { input };
     const queryKey = 'adsForLineItem';

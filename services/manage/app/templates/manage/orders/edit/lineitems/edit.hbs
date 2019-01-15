@@ -8,14 +8,40 @@ as |modal|
   {{#modal.header}}
     <ul class="nav nav-pills">
       <li class="nav-item">
-        {{#link-to "manage.orders.edit.lineitems.edit.index" class="nav-link"}}
+        {{#link-to
+          "manage.orders.edit.lineitems.edit.index"
+          class="nav-link"
+        }}
           {{lineitem/-icon}} Line Item
         {{/link-to}}
       </li>
+
       <li class="nav-item">
-        {{#link-to "manage.orders.edit.lineitems.edit.ads" class="nav-link"}}
-          {{ad/-icon}} Ads
-        {{/link-to}}
+        <div class="btn-group">
+          {{#link-to
+            "manage.orders.edit.lineitems.edit.ads"
+            class="nav-link"
+          }}
+            {{ad/-icon}} Ads
+          {{/link-to}}
+          <a
+            href="#"
+            data-toggle="dropdown"
+            class="nav-link dropdown-toggle dropdown-toggle-split {{adsDropdownClass}}"
+            title="Line Item Ads"
+          >
+            <span class="sr-only">Toggle Ad Dropdown</span>
+          </a>
+          <div class="dropdown-menu">
+            {{#link-to
+              "manage.orders.edit.lineitems.edit.ads.create"
+              class="dropdown-item"
+              title="Create Ad"
+            }}
+              Create
+            {{/link-to}}
+          </div>
+        </div>
       </li>
     </ul>
     <button
