@@ -1,0 +1,65 @@
+<div class="card">
+  <div class="card-header">
+    <strong>{{ad/-icon}} {{model.name}} ({{model.size}})</strong>
+  </div>
+
+  <div class="card-body">
+    {{#auto-save/form
+      name="edit-ad"
+      identifier=model.id
+    as |form|
+    }}
+      {{log "writing form" model.id}}
+      <div class="row">
+        <div class="col-md-6">
+          {{ad/-fields/name
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.name
+            on-change=(action "setName")
+          }}
+        </div>
+        <div class="col-md-3">
+          {{ad/-fields/width
+            class="mb-3 mb-lg-0"
+            form=form
+            value=model.width
+            on-change=(action "setWidth")
+          }}
+        </div>
+        <div class="col-md-3">
+          {{ad/-fields/height
+            class="mb-3"
+            form=form
+            value=model.height
+            on-change=(action "setHeight")
+          }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          {{ad/-fields/url
+            class="mb-0"
+            form=form
+            value=model.url
+            on-change=(action "setUrl")
+          }}
+        </div>
+      </div>
+    {{/auto-save/form}}
+  </div>
+
+  <div class="card-footer text-right">
+    {{confirm-button
+      icon="trash"
+      label="Delete"
+      runningLabel="Deleting..."
+      class="btn-danger"
+      disabled=isActionRunning
+      isRunning=isDeleting
+      onConfirm=(action "delete")
+    }}
+  </div>
+
+</div>

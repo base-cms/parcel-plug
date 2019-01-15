@@ -2,7 +2,6 @@ import Route from '@ember/routing/route';
 import RouteObservableMixin from '@base-cms/parcel-plug-manage/mixins/route-observable-mixin';
 
 import query from '@base-cms/parcel-plug-manage/gql/queries/ad/list-for-lineitem';
-// import search from '@base-cms/parcel-plug-manage/gql/queries/ad/match-for-lineitem';
 
 export default Route.extend(RouteObservableMixin, {
   /**
@@ -26,19 +25,6 @@ export default Route.extend(RouteObservableMixin, {
       this.get('graphErrors').show(e);
     }
   },
-  // model({ limit, field, order, phrase, searchType, searchBy }) {
-  //   const input = {
-  //     lineitemId: this.modelFor('manage.orders.edit.lineitems.edit').id,
-  //   };
-  //   return this.getResults({
-  //     query,
-  //     queryKey: 'adsForLineItem',
-  //     queryInput: input,
-  //     search,
-  //     searchKey: 'matchAdsForLineItem',
-  //     searchInput: input,
-  //   }, { limit, field, order, phrase, searchType, searchBy });
-  // },
 });
 
 

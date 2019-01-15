@@ -1,4 +1,4 @@
-{{#bs-modal/body}}
+<div class="card">
   {{#fetch-more
     query=observable
     edges=model.edges
@@ -9,17 +9,25 @@
     resultKey=resultKey
   as |fetch|
   }}
-    <h5 class="text-muted">Total Results: {{model.totalCount}}</h5>
-    {{lineitem/-ads ads=fetch.nodes isActionRunning=isActionRunning}}
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><h5 class="mb-0 text-muted">Total Results: {{model.totalCount}}</h5></li>
+      {{#each fetch.nodes as |item|}}
+        {{ad/list-item item=item}}
+      {{/each}}
+    </ul>
 
-    {{#if fetch.hasNextPage}}
-      <button
-        class="btn btn-primary"
-        disabled={{fetch.isFetching}}
-        {{action fetch.actions.loadMore}}
-      >
-        {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
-      </button>
-    {{/if}}
+    <div class="card-footer border-0">
+      {{#if fetch.hasNextPage}}
+        <button
+          class="btn btn-primary"
+          disabled={{fetch.isFetching}}
+          {{action fetch.actions.loadMore}}
+        >
+          {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
+        </button>
+      {{/if}}
+    </div>
+
   {{/fetch-more}}
-{{/bs-modal/body}}
+</div>
+

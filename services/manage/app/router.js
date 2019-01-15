@@ -41,6 +41,7 @@ Router.map(function() {
           this.route('edit', { path: ':lineitem_id' }, function() {
             this.route('ads', function() {
               this.route('create');
+              this.route('edit', { path: ':ad_id' });
             });
           });
         });
