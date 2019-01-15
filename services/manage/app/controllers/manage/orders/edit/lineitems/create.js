@@ -17,8 +17,9 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
       const input = { name, orderId };
       const variables = { input };
       try {
-        const response = await this.get('apollo').mutate({ mutation: createLineItem, variables }, 'createLineItem');
-        await this.transitionToRoute('manage.lineitems.edit', response.id);
+        const refetchQueries = ['LineItemListForOrder', 'MatchLineItemListForOrder'];
+        const response = await this.get('apollo').mutate({ mutation: createLineItem, variables, refetchQueries }, 'createLineItem');
+        await this.transitionToRoute('manage.orders.edit.lineitems.edit', orderId, response.id);
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

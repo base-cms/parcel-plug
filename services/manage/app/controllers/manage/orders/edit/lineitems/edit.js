@@ -122,8 +122,9 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
       const variables = { input: { id } };
       const mutation = deleteLineItem;
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'deleteLineItem');
-        await this.transitionToRoute('manage.lineitems.index');
+        const refetchQueries = ['LineItemListForOrder', 'MatchLineItemListForOrder'];
+        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'deleteLineItem');
+        await this.transitionToRoute('manage.orders.edit.lineitems', this.get('model.order.id'));
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
