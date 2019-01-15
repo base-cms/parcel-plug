@@ -39,4 +39,26 @@ export default Component.extend(ComponentQueryManager, ActionMixin, {
       this.endAction();
     }
   },
+
+  actions: {
+    async setName() {
+
+    },
+
+    async setWidth() {
+
+    },
+
+    async setHeight() {
+
+    },
+
+    async setUrl() {
+
+    },
+
+    async delete() {
+
+    },
+  },
 });
