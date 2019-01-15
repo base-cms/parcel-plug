@@ -14,12 +14,12 @@ extend type Mutation {
   loginUser(input: LoginUserMutationInput!): Authentication
   changeUserPassword(input: ChangeUserPasswordMutationInput!): User! @requiresAuth
   updateCurrentUserProfile(input: UpdateCurrentUserProfileMutationInput!): User! @requiresAuth
-  deleteUser(input: DeleteUserMutationInput!): User! @requiresAuth @delete(modelName: "user")
+  deleteUser(input: DeleteUserMutationInput!): User! @requiresAuth(role: Admin) @delete(modelName: "user")
 
-  userGivenName(input: UserGivenNameMutationInput!): User! @requiresAuth @setAndUpdate(modelName: "user", path: "givenName")
-  userFamilyName(input: UserFamilyNameMutationInput!): User! @requiresAuth @setAndUpdate(modelName: "user", path: "familyName")
-  userEmail(input: UserEmailMutationInput!): User! @requiresAuth @setAndUpdate(modelName: "user", path: "email")
-  userRole(input: UserRoleMutationInput!): User! @requiresAuth @setAndUpdate(modelName: "user", path: "role")
+  userGivenName(input: UserGivenNameMutationInput!): User! @requiresAuth(role: Admin) @setAndUpdate(modelName: "user", path: "givenName")
+  userFamilyName(input: UserFamilyNameMutationInput!): User! @requiresAuth(role: Admin) @setAndUpdate(modelName: "user", path: "familyName")
+  userEmail(input: UserEmailMutationInput!): User! @requiresAuth(role: Admin) @setAndUpdate(modelName: "user", path: "email")
+  userRole(input: UserRoleMutationInput!): User! @requiresAuth(role: Admin) @setAndUpdate(modelName: "user", path: "role")
 }
 
 enum UserRole {
@@ -40,7 +40,8 @@ type UserEdge {
 
 enum UserSortField {
   id
-  name
+  givenName
+  familyName
   createdAt
   updatedAt
 }
