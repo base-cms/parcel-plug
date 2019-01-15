@@ -1,4 +1,4 @@
-#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/attribution'
 
 fragment LineItemListFragment on LineItem {
   id
@@ -14,9 +14,9 @@ fragment LineItemListFragment on LineItem {
   createdAt
   updatedAt
   createdBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
   updatedBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
 }

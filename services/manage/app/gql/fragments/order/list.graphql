@@ -1,4 +1,4 @@
-#import '@base-cms/parcel-plug-manage/gql/fragments/user/list'
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/attribution'
 
 fragment OrderListFragment on Order {
   id
@@ -13,9 +13,9 @@ fragment OrderListFragment on Order {
   createdAt
   updatedAt
   createdBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
   updatedBy {
-    ...UserListFragment
+    ...UserAttributionFragment
   }
 }

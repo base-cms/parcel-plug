@@ -1,3 +1,5 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/attribution'
+
 fragment UserListFragment on User {
   id
   email
@@ -7,13 +9,9 @@ fragment UserListFragment on User {
   updatedAt
   createdAt
   createdBy {
-    id
-    givenName
-    familyName
+    ...UserAttributionFragment
   }
   updatedBy {
-    id
-    givenName
-    familyName
+    ...UserAttributionFragment
   }
 }
