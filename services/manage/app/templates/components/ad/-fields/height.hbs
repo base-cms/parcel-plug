@@ -1,0 +1,20 @@
+<label for="ad-height">Height {{form-elements/required-field}}</label>
+{{#form.elements.input
+  id="ad-height"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="number"
+  min=1
+  name="height"
+  label="Name"
+  value=value
+  aria-labeledby="ad-height-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.input}}
+<small id="ad-height-help" class="form-text text-muted">The ad height (in pixels).</small>

@@ -1,0 +1,20 @@
+<label for="ad-width">Width {{form-elements/required-field}}</label>
+{{#form.elements.input
+  id="ad-width"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="number"
+  min=1
+  name="width"
+  label="Name"
+  value=value
+  aria-labeledby="ad-width-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.input}}
+<small id="ad-width-help" class="form-text text-muted">The ad width (in pixels).</small>

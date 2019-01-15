@@ -1,0 +1,19 @@
+<label for="ad-url">Click URL {{form-elements/required-field}}</label>
+{{#form.elements.input
+  id="ad-url"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="url"
+  name="url"
+  label="URL"
+  value=value
+  aria-labeledby="ad-url-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.input}}
+<small id="ad-url-help" class="form-text text-muted">The ad click-through URL.</small>

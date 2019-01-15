@@ -1,0 +1,5 @@
+mutation CreateAd($input: CreateAdMutationInput!) {
+  createAd(input: $input) {
+    id
+  }
+}
