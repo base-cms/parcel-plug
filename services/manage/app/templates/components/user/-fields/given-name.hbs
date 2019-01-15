@@ -1,6 +1,6 @@
-<label for="user-givenName">First Name {{form-elements/required-field}}</label>
+<label for="user-given-name">First Name {{form-elements/required-field}}</label>
 {{#form.elements.input
-  id="user-givenName"
+  id="user-given-name"
   class="form-control"
   autocomplete="off"
   autofocus=autofocus
@@ -8,7 +8,7 @@
   name="givenName"
   label="First Name"
   value=value
-  aria-labeledby="user-givenName-help"
+  aria-labeledby="user-given-name-help"
   on-change=on-change
   required=true
 as |input|
@@ -16,4 +16,4 @@ as |input|
   {{input.element}}
   {{input.elements.invalid-feedback}}
 {{/form.elements.input}}
-<small id="user-givenName-help" class="form-text text-muted">The user's first name.</small>
+<small id="user-given-name-help" class="form-text text-muted">The user's first name.</small>
