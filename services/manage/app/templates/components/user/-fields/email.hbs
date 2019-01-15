@@ -1,0 +1,19 @@
+<label for="user-email">Email {{form-elements/required-field}}</label>
+{{#form.elements.input
+  id="user-email"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="email"
+  name="email"
+  label="Email"
+  value=value
+  aria-labeledby="user-email-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.input}}
+<small id="user-email-help" class="form-text text-muted">The user's email address.</small>

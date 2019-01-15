@@ -1,0 +1,26 @@
+<label for="user-role">Role {{form-elements/required-field}}</label>
+{{#form.elements.select
+  id="user-role"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  name="role"
+  label="Role"
+  options=options
+  value=value
+  aria-labeledby="user-role-help"
+  on-change=on-change
+  required=true
+as |input|
+}}
+  {{#input.element as |select|}}
+    {{#each options as |option|}}
+      {{#select.option value=option.key}}
+        {{option.label}}
+      {{/select.option}}
+    {{/each}}
+  {{/input.element}}
+
+  {{input.elements.invalid-feedback}}
+{{/form.elements.select}}
+<small id="user-role-help" class="form-text text-muted">The user's role.</small>

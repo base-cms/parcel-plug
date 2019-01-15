@@ -1,0 +1,6 @@
+mutation UserGivenName($input: UserGivenNameMutationInput!) {
+  userGivenName(input: $input) {
+    id
+    givenName
+  }
+}

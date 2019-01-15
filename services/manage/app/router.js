@@ -14,6 +14,10 @@ Router.map(function() {
         this.route('orders');
       });
     });
+    this.route('users', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
     this.route('deployments', function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {

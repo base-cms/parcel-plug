@@ -1,0 +1,5 @@
+fragment UserAttributionFragment on User {
+  id
+  givenName
+  familyName
+}

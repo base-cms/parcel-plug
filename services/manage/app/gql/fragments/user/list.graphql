@@ -1,7 +1,17 @@
+#import '@base-cms/parcel-plug-manage/gql/fragments/user/attribution'
+
 fragment UserListFragment on User {
   id
   email
   givenName
   familyName
   role
+  updatedAt
+  createdAt
+  createdBy {
+    ...UserAttributionFragment
+  }
+  updatedBy {
+    ...UserAttributionFragment
+  }
 }
