@@ -15,6 +15,7 @@ export default Component.extend({
   isShowing: false,
   isShown: false,
   isHiding: false,
+  isClosing: false,
   isHidden: true,
   isTransitioning: false,
 
@@ -52,8 +53,14 @@ export default Component.extend({
       this.$().modal('show');
     },
 
+    /**
+     * Fires an explicit hide action via a close button.
+     * Will set an isClosing flag, which is different than the modal being
+     * hidden by other means (transition between routes, etc.)
+     */
     hide() {
       if (this.get('isTransitioning')) return;
+      this.set('isClosing', true);
       this.$().modal('hide');
     },
   },
@@ -74,6 +81,8 @@ export default Component.extend({
     // Replace with the Ember hide() action.
     $obj.on('click.dismiss.bs.modal', (event) => {
       if ($(event.currentTarget).is(event.target) && true === this.get('backdrop')) {
+        // Flag that the modal is explicitally being closed by the user
+        this.set('isClosing', true);
         this.send('hide');
       }
     });
@@ -125,7 +134,12 @@ export default Component.extend({
       this.set('isHiding', false);
       this.set('isTransitioning', false);
       this.sendEvent('onHidden');
-      if (!this.get('isDestroyed')) this.set('show', false);
+      // If this is an explicit close, fire the `onClose` event.
+      if (this.get('isClosing')) this.sendEvent('onClose');
+      if (!this.get('isDestroyed')) {
+        this.set('show', false);
+        this.set('isClosing', false);
+      }
     });
   },
 
