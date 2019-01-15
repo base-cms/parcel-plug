@@ -1,7 +1,6 @@
 mutation UserFamilyName($input: UserFamilyNameMutationInput!) {
   userFamilyName(input: $input) {
     id
-    name
     familyName
   }
 }
