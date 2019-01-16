@@ -1,5 +1,8 @@
 const { Schema } = require('mongoose');
 const { isURL } = require('validator');
+const uuid = require('uuid/v4');
+const { extname } = require('path');
+const upload = require('../../s3/upload');
 const connection = require('../connections/account');
 const {
   deleteablePlugin,
@@ -8,6 +11,7 @@ const {
   repositoryPlugin,
   userAttributionPlugin,
 } = require('../plugins');
+const imageSchema = require('./image');
 
 const schema = new Schema({
   name: {
@@ -57,6 +61,9 @@ const schema = new Schema({
       message: 'Invalid URL for {VALUE}',
     },
   },
+  image: {
+    type: imageSchema,
+  },
 }, { timestamps: true });
 
 schema.plugin(referencePlugin, {
@@ -78,6 +85,43 @@ schema.plugin(paginablePlugin, {
   collateWhen: ['name', 'advertiserName', 'size'],
 });
 schema.plugin(userAttributionPlugin);
+
+schema.method('uploadImage', async function uploadImage(file) {
+  const {
+    createReadStream,
+    filename: name,
+    mimetype,
+  } = await file;
+
+  const filename = `ads/${uuid()}${extname(name)}`;
+  const params = {
+    Metadata: {
+      name,
+      ad: this.id,
+    },
+  };
+
+  const {
+    Location: src,
+    ETag: etag,
+    Key: key,
+    Bucket: bucket,
+  } = await upload({
+    stream: createReadStream(),
+    filename,
+    mimetype,
+    params,
+  });
+  const image = {
+    filename: name,
+    src,
+    s3: { bucket, key, etag: etag.replace(/"/g, '') },
+    uploadedAt: new Date(),
+    mimetype,
+  };
+  this.set('image', image);
+  return this.save();
+});
 
 schema.pre('validate', function setSize() {
   const { width, height } = this;
