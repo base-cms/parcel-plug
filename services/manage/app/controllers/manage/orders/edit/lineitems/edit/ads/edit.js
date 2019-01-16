@@ -3,6 +3,7 @@ import { ObjectQueryManager } from 'ember-apollo-client';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
 
 import adName from '@base-cms/parcel-plug-manage/gql/mutations/ad/name';
+import adImage from '@base-cms/parcel-plug-manage/gql/mutations/ad/image';
 import adWidth from '@base-cms/parcel-plug-manage/gql/mutations/ad/width';
 import adHeight from '@base-cms/parcel-plug-manage/gql/mutations/ad/height';
 import adUrl from '@base-cms/parcel-plug-manage/gql/mutations/ad/url';
@@ -64,6 +65,20 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
       } catch (e) {
         throw this.get('graphErrors').handle(e);
       } finally {
+        this.endAction();
+      }
+    },
+
+    async setImage(file) {
+      this.startAction();
+      const input = { id: this.get('model.id'), value: file.get('blob') };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: adImage, variables }, 'adImage');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        file.queue.remove(file);
         this.endAction();
       }
     },

@@ -6,4 +6,8 @@ fragment AdEditFragment on Ad {
   height
   active
   url
+  image {
+    id
+    src
+  }
 }

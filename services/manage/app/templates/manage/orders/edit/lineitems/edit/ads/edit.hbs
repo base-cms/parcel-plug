@@ -46,6 +46,32 @@
           }}
         </div>
       </div>
+
+      <div class="row">
+        <div class="col">
+          {{#if model.image.src}}
+            <img src={{model.image.src}} class="img-thumbnail">
+          {{/if}}
+          {{#file-upload
+            class="d-block"
+            name="logo"
+            for="upload-logo"
+            accept="image/*"
+            multiple=false
+            onfileadd=(action "setImage")
+            as |queue|
+          }}
+            <a class="btn btn-block btn-sm btn-primary text-white">
+              {{#if queue.files.firstObject}}
+                {{entypo-icon "hour-glass"}} Uploading...
+              {{else}}
+                {{entypo-icon "upload"}} Upload new logo
+              {{/if}}
+            </a>
+            {{!-- {{progress-bar show=isActionRunning value=queue.files.firstObject.progress}} --}}
+          {{/file-upload}}
+        </div>
+      </div>
     {{/auto-save/form}}
   </div>
 

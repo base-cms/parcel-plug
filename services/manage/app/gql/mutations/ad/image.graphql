@@ -1,0 +1,9 @@
+mutation AdImage($input: AdImageMutationInput!) {
+  adImage(input: $input) {
+    id
+    image {
+      id
+      src
+    }
+  }
+}
