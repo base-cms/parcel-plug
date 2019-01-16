@@ -40,6 +40,14 @@ type PageInfo {
   endCursor: String
 }
 
+type Image {
+  id: ObjectID!
+  src: String!
+  filename: String!
+  uploadedAt: Date!
+  mimetype: String!
+}
+
 interface Timestampable {
   createdAt: Date
   updatedAt: Date

@@ -34,6 +34,7 @@ type Ad implements Timestampable & UserAttributable @applyInterfaceFields {
   size: String!
   url: String!
   lineitem: LineItem! @refOne(modelName: "lineitem", localField: "lineitemId", foreignField: "_id")
+  image: Image
 }
 
 type AdConnection {
