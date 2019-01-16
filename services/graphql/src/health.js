@@ -1,6 +1,7 @@
 const { HealthCheckError } = require('@godaddy/terminus');
 const mongoose = require('./mongoose/connections');
 const redis = require('./redis');
+const s3 = require('./s3/ping');
 const pkg = require('../package.json');
 
 const { log } = console;
@@ -17,11 +18,12 @@ const mongodb = () => {
   ]);
 };
 
-module.exports = () => () => {
+module.exports = () => {
   const errors = [];
   return Promise.all([
     ping(mongodb(), 'MongoDB'),
     ping(redis.pingAsync(), 'Redis'),
+    ping(s3(), 'S3'),
   ].map(p => p.catch((err) => {
     errors.push(err);
   }))).then((res) => {

@@ -4,6 +4,7 @@ const Account = require('./mongoose/models/account');
 const { log } = require('./output');
 const { NODE_ENV, ACCOUNT_KEY } = require('./env');
 const redis = require('./redis');
+const s3 = require('./s3/ping');
 
 const start = (promise, name, url) => {
   log(`> Connecting to ${name}...`);
@@ -57,4 +58,5 @@ module.exports = () => Promise.all([
     redis.on('connect', resolve);
     redis.on('error', reject);
   }), 'Redis', () => redis.options.url),
+  start(s3(), 'S3'),
 ]);
