@@ -1,4 +1,4 @@
-const { mongo, redis } = require('../connections');
+const { mongo } = require('../connections');
 const { log } = require('../utils');
 
 const start = (promise, name, url) => {
@@ -12,8 +12,4 @@ const start = (promise, name, url) => {
 
 module.exports = () => Promise.all([
   start(mongo.connect(), 'MongoDB', c => c.s.url),
-  start(new Promise((resolve, reject) => {
-    redis.on('connect', resolve);
-    redis.on('error', reject);
-  }), 'Redis', () => redis.options.url),
 ]);
