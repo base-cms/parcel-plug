@@ -8,6 +8,6 @@ module.exports = (app) => {
     const winner = await deliver(adunit, 'view', query);
     if (!winner) return res.status(204).send();
 
-    return res.redirect(winner.src);
+    return res.redirect(winner.src, 302);
   }));
 };
