@@ -44,7 +44,6 @@ services:
       EXTERNAL_PORT: 11004
       ACCOUNT_KEY: devel
       MONGO_DSN: mongodb://mongodb:27017/parcel-plug-devel
-      REDIS_DSN: redis://redis:6379/1
     depends_on:
       - mongodb
       - redis
