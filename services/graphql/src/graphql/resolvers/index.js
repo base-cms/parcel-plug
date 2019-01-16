@@ -1,6 +1,7 @@
 const deepAssign = require('deep-assign');
 const { classify } = require('inflection');
 const GraphQLJSON = require('graphql-type-json');
+const { GraphQLUpload } = require('apollo-server-express');
 const User = require('../../mongoose/models/user');
 const lineitem = require('./lineitem');
 const user = require('./user');
@@ -22,6 +23,7 @@ module.exports = deepAssign(
     Date: DateType,
     JSON: GraphQLJSON,
     ObjectID: ObjectIDType,
+    Upload: GraphQLUpload,
 
     /**
      * Interfaces

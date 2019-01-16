@@ -13,6 +13,7 @@ module.exports = gql`
 scalar Date
 scalar ObjectID
 scalar JSON
+scalar Upload
 
 directive @applyInterfaceFields on OBJECT
 directive @create(modelName: String!) on FIELD_DEFINITION
