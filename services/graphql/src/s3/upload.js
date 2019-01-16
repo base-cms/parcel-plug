@@ -1,4 +1,3 @@
-const uuid = require('uuid/v4');
 const s3 = require('./client');
 const { S3_BUCKET: Bucket, ACCOUNT_KEY } = require('../env');
 
@@ -6,10 +5,11 @@ module.exports = ({
   stream: Body,
   filename,
   mimetype: ContentType,
-  folder = 'ads',
+  params = {},
 } = {}) => s3.upload({
+  ...params,
   Bucket,
-  Key: `${ACCOUNT_KEY}/${folder}/${uuid()}/${filename}`,
+  Key: `${ACCOUNT_KEY}/${filename}`,
   Body,
   ACL: 'public-read',
   ContentType,
