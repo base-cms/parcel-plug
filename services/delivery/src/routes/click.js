@@ -1,4 +1,5 @@
-const { asyncRoute, deliver, getAdUnit } = require('../utils');
+const { asyncRoute, getAdUnit } = require('../utils');
+const deliver = require('../deliver');
 
 module.exports = (app) => {
   app.get('/click/:id', asyncRoute(async ({ params, query }, res) => {
