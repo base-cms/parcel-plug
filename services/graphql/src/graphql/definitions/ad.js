@@ -21,6 +21,7 @@ extend type Mutation {
   adHeight(input: AdHeightMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "height")
   adUrl(input: AdUrlMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "url")
   adActive(input: AdActiveMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "active")
+  adImage(input: AdImageMutationInput!): Ad! @requiresAuth
 }
 
 type Ad implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -126,6 +127,11 @@ input AdUrlMutationInput {
 input AdActiveMutationInput {
   id: ObjectID!
   value: Boolean!
+}
+
+input AdImageMutationInput {
+  id: ObjectID!
+  value: Upload!
 }
 
 input AdsForLineItemQueryInput {

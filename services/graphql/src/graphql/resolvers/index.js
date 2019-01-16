@@ -3,6 +3,7 @@ const { classify } = require('inflection');
 const GraphQLJSON = require('graphql-type-json');
 const { GraphQLUpload } = require('apollo-server-express');
 const User = require('../../mongoose/models/user');
+const ad = require('./ad');
 const lineitem = require('./lineitem');
 const user = require('./user');
 const { DateType, ObjectIDType } = require('../types');
@@ -14,6 +15,7 @@ const resolveType = (doc) => {
 };
 
 module.exports = deepAssign(
+  ad,
   lineitem,
   user,
   {
