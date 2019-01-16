@@ -6,9 +6,10 @@ module.exports = ({
   stream: Body,
   filename,
   mimetype: ContentType,
+  folder = 'ads',
 } = {}) => s3.upload({
   Bucket,
-  Key: `${ACCOUNT_KEY}/ads/${uuid()}/${filename}`,
+  Key: `${ACCOUNT_KEY}/${folder}/${uuid()}/${filename}`,
   Body,
   ACL: 'public-read',
   ContentType,
