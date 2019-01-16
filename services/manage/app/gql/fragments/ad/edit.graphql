@@ -9,5 +9,8 @@ fragment AdEditFragment on Ad {
   image {
     id
     src
+    width
+    height
+    filename
   }
 }

@@ -27,6 +27,12 @@
           on-insert=(action "addFormElement")
           on-destroy=(action "removeFormElement")
         )
+        file=(component "auto-save/file"
+          shouldSave=shouldAutosave
+          formId=id
+          on-insert=(action "addFormElement")
+          on-destroy=(action "removeFormElement")
+        )
       )
     )
   }}

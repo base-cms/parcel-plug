@@ -4,6 +4,9 @@ mutation AdImage($input: AdImageMutationInput!) {
     image {
       id
       src
+      width
+      height
+      filename
     }
   }
 }

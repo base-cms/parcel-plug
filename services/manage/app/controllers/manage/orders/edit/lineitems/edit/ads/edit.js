@@ -69,16 +69,24 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
       }
     },
 
-    async setImage(file) {
+    async setImage({ file, info }) {
+      const { width, height, bytes } = info.getProperties('width', 'height', 'bytes');
       this.startAction();
-      const input = { id: this.get('model.id'), value: file.get('blob') };
+      this.set('isUploading', true);
+      const input = {
+        id: this.get('model.id'),
+        file,
+        width,
+        height,
+        bytes,
+      };
       const variables = { input };
       try {
         await this.get('apollo').mutate({ mutation: adImage, variables }, 'adImage');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
-        file.queue.remove(file);
+        this.set('isUploading', false);
         this.endAction();
       }
     },

@@ -45,6 +45,17 @@ as |form|
         }}
       </div>
     </div>
+
+    <div class="row">
+      <div class="col">
+        {{ad/-fields/image
+          class="mb-0"
+          form=form
+          value=model.image
+          on-change=(action "setFieldValue")
+        }}
+      </div>
+    </div>
   {{/bs-modal/body}}
   {{#bs-modal/footer}}
     {{form-elements/save-button
