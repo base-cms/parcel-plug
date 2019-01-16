@@ -46,7 +46,6 @@ services:
       MONGO_DSN: mongodb://mongodb:27017/parcel-plug-devel
     depends_on:
       - mongodb
-      - redis
     ports:
       - "11004:80"
 
