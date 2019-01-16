@@ -20,6 +20,7 @@
     "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "^0.6.3",
     "apollo-link-context": "^1.0.12",
+    "apollo-upload-client": "^10.0.0",
     "bootstrap": "4.2.1",
     "bootswatch": "4.2.1",
     "broccoli-asset-rev": "^2.7.0",
