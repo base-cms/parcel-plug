@@ -33,6 +33,24 @@ services:
     ports:
       - "11003:6379"
 
+  delivery:
+    <<: *node
+    working_dir: /parcel-plug/services/delivery
+    entrypoint: ["/parcel-plug/node_modules/.bin/gulp"]
+    environment:
+      YARN_CACHE_FOLDER: /.yarn-cache
+      NODE_ENV: development
+      INTERNAL_PORT: 80
+      EXTERNAL_PORT: 11004
+      ACCOUNT_KEY: devel
+      MONGO_DSN: mongodb://mongodb:27017/parcel-plug-devel
+      REDIS_DSN: redis://redis:6379/1
+    depends_on:
+      - mongodb
+      - redis
+    ports:
+      - "11004:80"
+
   graphql:
     <<: *node
     working_dir: /parcel-plug/services/graphql

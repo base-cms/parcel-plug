@@ -1,0 +1,22 @@
+{
+  "name": "@base-cms/parcel-plug-delivery",
+  "version": "0.0.0",
+  "description": "The Parcel Plug Express Delivery Service.",
+  "main": "src/index.js",
+  "author": "Josh Worden <josh@limit0.io>",
+  "repository": "https://github.com/base-cms/parcel-plug/tree/master/services/delivery",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@godaddy/terminus": "^4.1.0",
+    "bluebird": "^3.5.3",
+    "envalid": "^4.1.4",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "mongodb-extended-json": "^1.10.1",
+    "mongodb": "^3.1.10",
+    "object-path": "^0.11.4",
+    "redis": "^2.8.0",
+    "uuid": "^3.3.2"
+  }
+}
