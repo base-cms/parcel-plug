@@ -9,10 +9,16 @@ module.exports = {
      *
      */
     adImage: async (_, { input }, { auth }) => {
-      const { id, value: file } = input;
+      const {
+        id,
+        file,
+        width,
+        height,
+        bytes,
+      } = input;
       const ad = await Ad.strictFindActiveById(id);
       ad.setUserContext(auth.user);
-      return ad.uploadImage(file);
+      return ad.uploadImage(file, { width, height, bytes });
     },
   },
 };

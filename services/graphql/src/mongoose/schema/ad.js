@@ -86,7 +86,7 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
-schema.method('uploadImage', async function uploadImage(file) {
+schema.method('uploadImage', async function uploadImage(file, { width, height, bytes }) {
   const {
     createReadStream,
     filename: name,
@@ -118,6 +118,9 @@ schema.method('uploadImage', async function uploadImage(file) {
     s3: { bucket, key, etag: etag.replace(/"/g, '') },
     uploadedAt: new Date(),
     mimetype,
+    width,
+    height,
+    size: parseInt(bytes, 10),
   };
   this.set('image', image);
   return this.save();

@@ -132,7 +132,10 @@ input AdActiveMutationInput {
 
 input AdImageMutationInput {
   id: ObjectID!
-  value: Upload!
+  file: Upload!
+  bytes: String!
+  width: Int!
+  height: Int!
 }
 
 input AdsForLineItemQueryInput {

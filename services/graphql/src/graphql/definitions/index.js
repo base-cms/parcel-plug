@@ -46,6 +46,9 @@ type Image {
   filename: String!
   uploadedAt: Date!
   mimetype: String!
+  width: Int
+  height: Int
+  size: Int
 }
 
 interface Timestampable {
