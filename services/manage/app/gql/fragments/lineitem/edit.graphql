@@ -1,6 +1,9 @@
 fragment LineItemEditFragment on LineItem {
   id
   name
+  status
+  requires
+  paused
   order {
     id
     name

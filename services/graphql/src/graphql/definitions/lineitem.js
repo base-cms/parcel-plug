@@ -20,6 +20,7 @@ extend type Mutation {
 
   lineitemName(input: LineItemNameMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "name")
   lineitemPriority(input: LineItemPriorityMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "priority")
+  lineitemPaused(input: LineItemPausedMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "paused")
   lineitemAdUnits(input: LineItemAdUnitsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.adunitIds")
   lineitemDeployments(input: LineItemDeploymentsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.deploymentIds")
   lineitemPublishers(input: LineItemPublishersMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.publisherIds")
@@ -27,9 +28,21 @@ extend type Mutation {
   lineitemDateRange(input: LineItemDateRangeMutationInput): LineItem! @requiresAuth
 }
 
+enum LineItemStatus {
+  Deleted
+  Finished
+  Incomplete
+  Paused
+  Running
+  Scheduled
+}
+
 type LineItem implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
+  status: LineItemStatus!
+  paused: Boolean!
+  requires: String!
   fullName: String!
   advertiser: Advertiser! @refOne(modelName: "advertiser", localField: "advertiserId", foreignField: "_id")
   order: Order! @refOne(modelName: "order", localField: "orderId", foreignField: "_id")
@@ -118,6 +131,11 @@ input LineItemNameMutationInput {
 input LineItemPriorityMutationInput {
   id: ObjectID!
   value: Int!
+}
+
+input LineItemPausedMutationInput {
+  id: ObjectID!
+  value: Boolean!
 }
 
 input LineItemAdUnitsMutationInput {

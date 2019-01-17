@@ -1,12 +1,19 @@
 mutation AdImage($input: AdImageMutationInput!) {
   adImage(input: $input) {
     id
+    status
+    requires
     image {
       id
       src
       width
       height
       filename
+    }
+    lineitem {
+      id
+      status
+      requires
     }
   }
 }

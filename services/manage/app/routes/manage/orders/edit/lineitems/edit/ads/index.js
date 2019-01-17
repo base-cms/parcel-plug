@@ -25,6 +25,11 @@ export default Route.extend(RouteObservableMixin, {
       this.get('graphErrors').show(e);
     }
   },
+
+  setupController(controller, model) {
+    controller.set('lineitem', this.modelFor('manage.orders.edit.lineitems.edit'));
+    this._super(controller, model);
+  },
 });
 
 

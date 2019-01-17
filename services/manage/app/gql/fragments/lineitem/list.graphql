@@ -3,6 +3,8 @@
 fragment LineItemListFragment on LineItem {
   id
   name
+  requires
+  status
   order {
     id
     name

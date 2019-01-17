@@ -8,6 +8,9 @@ const {
   userAttributionPlugin,
 } = require('../plugins');
 
+const { isArray } = Array;
+const isObject = v => v && typeof v === 'object';
+
 const targetingSchema = new Schema({});
 targetingSchema.plugin(referencePlugin, {
   name: 'adunitIds',
@@ -66,6 +69,16 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
+  ready: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  paused: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   dates: {
     type: datesSchema,
     default: {},
@@ -103,6 +116,71 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.virtual('status').get(function getStatus() {
+  const { dates } = this;
+
+  const now = Date.now();
+  let newestDay;
+  let oldestDay;
+  if (dates.type === 'days') {
+    const days = isArray(dates.days) ? dates.days : [];
+    [oldestDay] = days.sort();
+    [newestDay] = days.reverse();
+  }
+
+  if (this.deleted) return 'Deleted';
+  if (dates.type === 'range' && dates.end && dates.end.valueOf() <= now) return 'Finished';
+  if (dates.type === 'days' && newestDay && newestDay.valueOf() <= now) return 'Finished';
+  if (!this.ready) return 'Incomplete';
+  if (this.paused) return 'Paused';
+  if (dates.type === 'range' && dates.start && dates.start.valueOf() <= now) return 'Running';
+  if (dates.type === 'days' && oldestDay && oldestDay.valueOf() <= now) return 'Running';
+  return 'Scheduled';
+});
+
+schema.method('getRequirements', async function getRequirements() {
+  const {
+    targeting,
+    dates,
+  } = this;
+
+  const needs = [];
+
+  const targetingNeeds = 'at least one inventory selection';
+  if (!isObject(targeting)) {
+    needs.push(targetingNeeds);
+  } else {
+    const targetingIds = ['adunitIds', 'deploymentIds', 'publisherIds'].reduce((arr, key) => {
+      const values = targeting[key];
+      if (isArray(values) && values.length) arr.push(values[0]);
+      return arr;
+    }, []);
+    if (!targetingIds.length) needs.push(targetingNeeds);
+  }
+
+  const datesNeeds = 'a valid date range or selection of days';
+  if (!isObject(dates)) {
+    needs.push(datesNeeds);
+  } else {
+    switch (dates.type) {
+      case 'range':
+        if (!dates.start || !dates.end) needs.push(datesNeeds);
+        break;
+      case 'days':
+        if (!isArray(dates.days) || !dates.days.length) needs.push(datesNeeds);
+        break;
+      default:
+        needs.push(datesNeeds);
+        break;
+    }
+  }
+
+  const adNeeds = 'at least one active ad';
+  const ads = await connection.model('ad').find({ lineitemId: this.id, deleted: false, paused: false });
+  if (!ads.length || !ads.some(ad => ad.status === 'Active')) needs.push(adNeeds);
+  return needs.sort().join(', ');
+});
+
 // @todo If the order name changes, this will also have to change.
 schema.pre('validate', async function setOrderAndAdvertiser() {
   if (this.isModified('orderId') || !this.orderName || !this.advertiserName || !this.advertiserId) {
@@ -117,6 +195,15 @@ schema.pre('validate', async function setOrderAndAdvertiser() {
 schema.pre('validate', function setFullName() {
   const { name, orderName, advertiserName } = this;
   this.fullName = `${advertiserName} > ${orderName} > ${name}`;
+});
+
+schema.pre('save', async function setReady() {
+  const needs = await this.getRequirements();
+  if (needs.length) {
+    this.ready = false;
+  } else {
+    this.ready = true;
+  }
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });

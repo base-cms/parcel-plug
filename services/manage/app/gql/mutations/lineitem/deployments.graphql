@@ -1,6 +1,8 @@
 mutation LineItemDeployments($input: LineItemDeploymentsMutationInput!) {
   lineitemDeployments(input: $input) {
     id
+    status
+    requires
     targeting {
       deployments {
         id

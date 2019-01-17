@@ -75,7 +75,13 @@
   {{/auto-save/form}}
 
 {{/bs-modal/body}}
-{{#bs-modal/footer}}
+{{#bs-modal/footer class="d-flex justify-content-between"}}
+  <p class="mb-0">
+    {{lineitem/-status status=model.status}}
+    {{#if model.requires}}
+      <span class="text-muted">(requires {{model.requires}})</span>
+    {{/if}}
+  </p>
   {{confirm-button
     icon="trash"
     label="Delete"

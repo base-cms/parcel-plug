@@ -28,7 +28,13 @@
 
   {{/fetch-more}}
 </div>
-{{#bs-modal/footer}}
+{{#bs-modal/footer class="d-flex justify-content-between"}}
+  <p class="mb-0">
+    {{lineitem/-status status=lineitem.status}}
+    {{#if lineitem.requires}}
+      <span class="text-muted">(requires {{lineitem.requires}})</span>
+    {{/if}}
+  </p>
   <button
     class="btn btn-success btn-lg"
     {{action (route-action "transitionTo" "manage.orders.edit.lineitems.edit.ads.create")}}

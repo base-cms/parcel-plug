@@ -186,6 +186,11 @@ schema.pre('save', async function setReady() {
   }
 });
 
+schema.post('save', async function updateLineItem() {
+  const lineitem = await connection.model('lineitem').findById(this.lineitemId);
+  return lineitem ? lineitem.save() : null;
+});
+
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ advertiserName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ size: 1, _id: 1 }, { collation: { locale: 'en_US' } });

@@ -1,6 +1,8 @@
 mutation LineItemDateRange($input: LineItemDateRangeMutationInput!) {
   lineitemDateRange(input: $input) {
     id
+    status
+    requires
     dates {
       type
       start

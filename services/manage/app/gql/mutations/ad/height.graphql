@@ -3,5 +3,12 @@ mutation AdHeight($input: AdHeightMutationInput!) {
     id
     height
     size
+    status
+    requires
+    lineitem {
+      id
+      status
+      requires
+    }
   }
 }

@@ -1,6 +1,8 @@
 mutation LineItemAdUnits($input: LineItemAdUnitsMutationInput!) {
   lineitemAdUnits(input: $input) {
     id
+    status
+    requires
     targeting {
       adunits {
         id

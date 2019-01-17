@@ -1,5 +1,10 @@
 mutation CreateAd($input: CreateAdMutationInput!) {
   createAd(input: $input) {
     id
+    lineitem {
+      id
+      status
+      requires
+    }
   }
 }

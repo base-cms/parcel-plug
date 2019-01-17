@@ -3,5 +3,12 @@ mutation AdWidth($input: AdWidthMutationInput!) {
     id
     width
     size
+    status
+    requires
+    lineitem {
+      id
+      status
+      requires
+    }
   }
 }

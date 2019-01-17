@@ -12,6 +12,7 @@ module.exports = {
   LineItem: {
     targeting: ({ targeting }) => (isObject(targeting) ? targeting : {}),
     dates: ({ dates }) => (isObject(dates) ? dates : {}),
+    requires: lineitem => lineitem.getRequirements(),
   },
 
   LineItemTargeting: {

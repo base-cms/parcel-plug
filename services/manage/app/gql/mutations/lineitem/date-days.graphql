@@ -1,6 +1,8 @@
 mutation LineItemDateDays($input: LineItemDateDaysMutationInput!) {
   lineitemDateDays(input: $input) {
     id
+    status
+    requires
     dates {
       type
       start

@@ -1,6 +1,8 @@
 mutation LineItemPublishers($input: LineItemPublishersMutationInput!) {
   lineitemPublishers(input: $input) {
     id
+    status
+    requires
     targeting {
       publishers {
         id

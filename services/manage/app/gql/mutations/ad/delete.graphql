@@ -1,5 +1,10 @@
 mutation DeleteAd($input: DeleteAdMutationInput!) {
   deleteAd(input: $input) {
     id
+    lineitem {
+      id
+      status
+      requires
+    }
   }
 }
