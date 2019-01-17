@@ -5,6 +5,32 @@ module.exports = {
    *
    */
   Mutation: {
+    createAd: (_, { input }, { auth }) => {
+      const {
+        name,
+        width,
+        height,
+        url,
+        active,
+        image,
+        lineitemId,
+      } = input;
+      const ad = new Ad({
+        name,
+        width,
+        height,
+        url,
+        active,
+        lineitemId,
+      });
+      ad.setUserContext(auth.user);
+      return ad.uploadImage(image.file, {
+        width: image.width,
+        height: image.height,
+        bytes: image.bytes,
+      });
+    },
+
     /**
      *
      */

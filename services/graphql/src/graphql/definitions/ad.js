@@ -12,7 +12,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  createAd(input: CreateAdMutationInput!): Ad! @requiresAuth @create(modelName: "ad")
+  createAd(input: CreateAdMutationInput!): Ad! @requiresAuth
   updateAd(input: UpdateAdMutationInput!): Ad! @requiresAuth @update(modelName: "ad")
   deleteAd(input: DeleteAdMutationInput!): Ad! @requiresAuth @delete(modelName: "ad")
 
@@ -63,6 +63,7 @@ input CreateAdMutationInput {
   height: Int!
   url: String!
   active: Boolean = true
+  image: AdImagePayloadInput!
   lineitemId: ObjectID!
 }
 
@@ -132,6 +133,13 @@ input AdActiveMutationInput {
 
 input AdImageMutationInput {
   id: ObjectID!
+  file: Upload!
+  bytes: String!
+  width: Int!
+  height: Int!
+}
+
+input AdImagePayloadInput {
   file: Upload!
   bytes: String!
   width: Int!
