@@ -124,8 +124,9 @@ schema.virtual('status').get(function getStatus() {
   let oldestDay;
   if (dates.type === 'days') {
     const days = isArray(dates.days) ? dates.days : [];
-    [oldestDay] = days.sort();
-    [newestDay] = days.reverse();
+    const times = days.map(d => d.valueOf()).sort();
+    [oldestDay] = times;
+    [newestDay] = times.reverse();
   }
 
   if (this.deleted) return 'Deleted';
