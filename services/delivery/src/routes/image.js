@@ -7,7 +7,7 @@ module.exports = (app) => {
     if (!adunit) return res.status(404).send('Invalid Ad Unit');
 
     const winner = await deliver(adunit, 'view', query);
-    if (!winner) return res.status(204).send();
+    if (!winner) return res.status(200).send();
 
     return res.redirect(302, winner.src);
   }));
