@@ -182,11 +182,6 @@ schema.method('getRequirements', async function getRequirements() {
   return needs.sort().join(', ');
 });
 
-schema.post('init', function setInitialStatus() {
-  this.$initialStatus = this.status;
-  this.$initialDates = this.dates;
-});
-
 // @todo If the order name changes, this will also have to change.
 schema.pre('validate', async function setOrderAndAdvertiser() {
   if (this.isModified('orderId') || !this.orderName || !this.advertiserName || !this.advertiserId) {
@@ -212,44 +207,70 @@ schema.pre('save', async function setReady() {
   }
 });
 
-const createSchedules = () => {
-
-};
-
-const handleSchedules = async (lineitem, create = false) => {
-  try {
-    await connection.model('schedule').remove({ lineitemId: lineitem.id });
-    if (create) {
-      await createSchedules(lineitem);
-    }
-  } catch (e) {
-    // @todo Log to newrelic or whatever.
-    throw e;
-  }
-};
-
 schema.post('save', async function updateSchedules() {
-  const hasStatusChanged = this.$initialStatus !== this.status;
-  const { $initialDates, dates } = this;
+  const lineitem = this;
+  const bulkOps = [
+    { deleteMany: { filter: { lineitemId: lineitem._id } } },
+  ];
 
-  let haveDatesChanged = false;
-  if ($initialDates.type !== dates.type) {
-    haveDatesChanged = true;
-  } else if (dates.type === 'range') {
-    haveDatesChanged = dates.start.valueOf() !== $initialDates.start.valueOf()
-      || dates.end.valueOf() !== $initialDates.end.valueOf();
-  } else {
-    const days = dates.days || [];
-    const initialDays = $initialDates.days || [];
-    haveDatesChanged = days.sort().toString() !== initialDays.sort().toString();
-  }
+  const { targeting, priority, dates } = lineitem;
+  const { adunitIds, deploymentIds, publisherIds } = targeting || {};
 
-  const activeStatuses = ['Running', 'Scheduled'];
-  if (hasStatusChanged) {
-    handleSchedules(this, activeStatuses.includes(this.status));
-  } else if (haveDatesChanged) {
-    handleSchedules(this, true);
-  }
+  const ids = {
+    adunit: isArray(adunitIds) ? adunitIds : [],
+    deployment: isArray(deploymentIds) ? deploymentIds : [],
+    publisher: isArray(publisherIds) ? publisherIds : [],
+  };
+
+  const ads = await connection.model('ad').find({ lineitemId: lineitem.id });
+  const activeAds = ads.filter(ad => ad.status === 'Active');
+
+  const query = {
+    $or: [
+      { _id: { $in: ids.adunit } },
+      { deploymentId: { $in: ids.deployment } },
+      { publisherId: { $in: ids.publisher } },
+    ],
+    deleted: false,
+  };
+  const adunits = await connection.model('adunit').find(query);
+
+  const endDay = day => new Date(day.valueOf() + (24 * 60 * 60 * 1000) - 1);
+
+  const schedules = adunits.reduce((arr, adunit) => {
+    const elgible = activeAds
+      .filter(ad => ad.width === adunit.width && ad.height === adunit.height);
+
+    if (elgible.length) {
+      const winners = elgible.map(ad => ({ _id: ad._id, url: ad.url, src: ad.image.serveSrc }));
+      if (dates.type === 'range') {
+        arr.push({
+          lineitemId: lineitem._id,
+          adunitId: adunit._id,
+          priority,
+          start: dates.start,
+          end: dates.end,
+          ads: winners,
+        });
+      } else {
+        dates.days.forEach((day) => {
+          arr.push({
+            lineitemId: lineitem._id,
+            adunitId: adunit._id,
+            priority,
+            start: day,
+            end: endDay(day),
+            ads: winners,
+          });
+        });
+      }
+    }
+    return arr;
+  }, []);
+  schedules.forEach((schedule) => {
+    bulkOps.push({ insertOne: { document: schedule } });
+  });
+  return connection.model('schedule').bulkWrite(bulkOps);
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });

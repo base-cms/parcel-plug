@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const { CDN_HOST } = require('../../env');
 
 const schema = new Schema({
   filename: {
@@ -34,6 +35,10 @@ const schema = new Schema({
     type: Number,
     min: 0,
   },
+});
+
+schema.virtual('serveSrc').get(function getServeSrc() {
+  return `https://${CDN_HOST}/${this.get('s3.key')}`;
 });
 
 module.exports = schema;

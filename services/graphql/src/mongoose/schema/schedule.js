@@ -1,10 +1,10 @@
 const { Schema } = require('mongoose');
 
 const schema = new Schema({
-  adUnitId: Schema.Types.ObjectId,
+  adunitId: Schema.Types.ObjectId,
   start: Date,
   end: Date,
-  lineItemId: Schema.Types.ObjectId,
+  lineitemId: Schema.Types.ObjectId,
   priority: Number,
   ads: [{
     _id: Schema.Types.ObjectId,
@@ -13,7 +13,8 @@ const schema = new Schema({
   }],
 });
 
-schema.index({ adUnitId: 1, start: 1, end: 1 });
-schema.index({ adUnitId: 1, lineItemId: 1 });
+schema.index({ adunitId: 1, start: 1, end: 1 });
+schema.index({ lineitemId: 1 });
+schema.index({ priority: 1 });
 
 module.exports = schema;
