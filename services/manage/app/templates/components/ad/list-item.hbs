@@ -9,6 +9,14 @@
       <div class="d-flex flex-row">
         <div class="d-flex flex-column">
           <h4 class="mb-1">{{item.name}}</h4>
+
+          <p class="mb-0">
+            {{ad/-status status=item.status}}
+            {{#if item.requires}}
+              <span class="text-muted">(requires {{item.requires}})</span>
+            {{/if}}
+          </p>
+
           <p class="mb-1">Size: {{item.size}}</p>
           <small>ID: {{item.id}}</small>
         </div>

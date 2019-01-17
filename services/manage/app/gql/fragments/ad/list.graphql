@@ -6,7 +6,8 @@ fragment AdListFragment on Ad {
   size
   width
   height
-  active
+  status
+  requires
   createdAt
   updatedAt
   createdBy {

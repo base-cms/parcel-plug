@@ -4,7 +4,8 @@ fragment AdEditFragment on Ad {
   size
   width
   height
-  active
+  status
+  requires
   url
   image {
     id
