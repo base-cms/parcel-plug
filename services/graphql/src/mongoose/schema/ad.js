@@ -29,10 +29,15 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
-  active: {
+  ready: {
     type: Boolean,
     required: true,
-    default: true,
+    default: false,
+  },
+  paused: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
   width: {
     type: Number,
@@ -85,6 +90,32 @@ schema.plugin(paginablePlugin, {
   collateWhen: ['name', 'advertiserName', 'size'],
 });
 schema.plugin(userAttributionPlugin);
+
+schema.virtual('status').get(function getStatus() {
+  if (this.deleted) return 'Deleted';
+  if (!this.ready) return 'Incomplete';
+  if (this.paused) return 'Paused';
+  return 'Active';
+});
+
+schema.method('getRequirements', async function getRequirements() {
+  const {
+    width = 0,
+    height = 0,
+    image,
+  } = this;
+
+  const { width: w = 0, height: h = 0 } = image;
+  const needs = [];
+
+  const adRatio = height ? width / height : 0;
+  const imageRatio = h ? w / h : 0;
+
+  if (adRatio !== imageRatio) {
+    needs.push('an image that matches the ad size');
+  }
+  return needs.sort().join(', ');
+});
 
 schema.method('uploadImage', async function uploadImage(file, { width, height, bytes }) {
   const {
@@ -144,6 +175,15 @@ schema.pre('validate', async function setPublisherName() {
 schema.pre('validate', function setFullName() {
   const { name, advertiserName, size } = this;
   this.fullName = `${advertiserName} > ${name} (${size})`;
+});
+
+schema.pre('save', async function setReady() {
+  const needs = await this.getRequirements();
+  if (needs.length) {
+    this.ready = false;
+  } else {
+    this.ready = true;
+  }
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });

@@ -4,6 +4,13 @@ module.exports = {
   /**
    *
    */
+  Ad: {
+    requires: ad => ad.getRequirements(),
+  },
+
+  /**
+   *
+   */
   Mutation: {
     createAd: (_, { input }, { auth }) => {
       const {

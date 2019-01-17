@@ -20,15 +20,23 @@ extend type Mutation {
   adWidth(input: AdWidthMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "width")
   adHeight(input: AdHeightMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "height")
   adUrl(input: AdUrlMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "url")
-  adActive(input: AdActiveMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "active")
+  adPaused(input: AdPausedMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "paused")
   adImage(input: AdImageMutationInput!): Ad! @requiresAuth
+}
+
+enum AdStatus {
+  Deleted
+  Incomplete
+  Paused
+  Active
 }
 
 type Ad implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
   fullName: String!
-  active: Boolean!
+  status: AdStatus!
+  requires: String
   width: Int!
   height: Int!
   size: String!
@@ -62,7 +70,6 @@ input CreateAdMutationInput {
   width: Int!
   height: Int!
   url: String!
-  active: Boolean = true
   image: AdImagePayloadInput!
   lineitemId: ObjectID!
 }
@@ -81,7 +88,7 @@ input UpdateAdPayloadInput {
   width: Int!
   height: Int!
   url: String!
-  active: Boolean = true
+  paused: Boolean = false
 }
 
 input AdQueryInput {
@@ -126,7 +133,7 @@ input AdUrlMutationInput {
   value: String!
 }
 
-input AdActiveMutationInput {
+input AdPausedMutationInput {
   id: ObjectID!
   value: Boolean!
 }
