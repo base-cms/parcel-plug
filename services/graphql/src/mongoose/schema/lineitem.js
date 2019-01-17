@@ -182,6 +182,11 @@ schema.method('getRequirements', async function getRequirements() {
   return needs.sort().join(', ');
 });
 
+schema.post('init', function setInitialStatus() {
+  this.$initialStatus = this.status;
+  this.$initialDates = this.dates;
+});
+
 // @todo If the order name changes, this will also have to change.
 schema.pre('validate', async function setOrderAndAdvertiser() {
   if (this.isModified('orderId') || !this.orderName || !this.advertiserName || !this.advertiserId) {
@@ -204,6 +209,46 @@ schema.pre('save', async function setReady() {
     this.ready = false;
   } else {
     this.ready = true;
+  }
+});
+
+const createSchedules = () => {
+
+};
+
+const handleSchedules = async (lineitem, create = false) => {
+  try {
+    await connection.model('schedule').remove({ lineitemId: lineitem.id });
+    if (create) {
+      await createSchedules(lineitem);
+    }
+  } catch (e) {
+    // @todo Log to newrelic or whatever.
+    throw e;
+  }
+};
+
+schema.post('save', async function updateSchedules() {
+  const hasStatusChanged = this.$initialStatus !== this.status;
+  const { $initialDates, dates } = this;
+
+  let haveDatesChanged = false;
+  if ($initialDates.type !== dates.type) {
+    haveDatesChanged = true;
+  } else if (dates.type === 'range') {
+    haveDatesChanged = dates.start.valueOf() !== $initialDates.start.valueOf()
+      || dates.end.valueOf() !== $initialDates.end.valueOf();
+  } else {
+    const days = dates.days || [];
+    const initialDays = $initialDates.days || [];
+    haveDatesChanged = days.sort().toString() !== initialDays.sort().toString();
+  }
+
+  const activeStatuses = ['Running', 'Scheduled'];
+  if (hasStatusChanged) {
+    handleSchedules(this, activeStatuses.includes(this.status));
+  } else if (haveDatesChanged) {
+    handleSchedules(this, true);
   }
 });
 
