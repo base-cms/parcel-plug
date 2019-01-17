@@ -1,28 +1,21 @@
-{{#image-uploader
-  isLoading=isUploading
-  onUploadStart=(action (mut value.src null))
-  upload=(action on-change)
-as |uploader|
+{{#form.elements.file
+  class="custom-file-input"
+  autocomplete="off"
+  autofocus=autofocus
+  accept=accept
+  name=name
+  label=label
+  on-change=(action "handleImage")
+  required=true
+as |input|
 }}
-  {{#form.elements.file
-    class="custom-file-input"
-    autocomplete="off"
-    autofocus=autofocus
-    accept=uploader.accept
-    name=name
-    label=label
-    on-change=(action uploader.actions.upload)
-    required=true
-  as |input|
-  }}
-    {{input.elements.label}}
-    <div class="custom-file">
-      {{input.element}}
-      <label class="custom-file-label" for="customFile">Choose file</label>
-      {{input.elements.invalid-feedback}}
-    </div>
-  {{/form.elements.file}}
-{{/image-uploader}}
+  {{input.elements.label}}
+  <div class="custom-file">
+    {{input.element}}
+    <label class="custom-file-label" for="customFile">Choose file</label>
+    {{input.elements.invalid-feedback}}
+  </div>
+{{/form.elements.file}}
 {{#if value.src}}
   <figure class="figure mt-3">
     <img src={{value.src}} alt={{value.name}} class="img-thumbnail">

@@ -64,15 +64,24 @@ export default Component.extend(OnInsertMixin, {
     this.validate();
     const fn = this.get('on-change');
     if (typeof fn === 'function' && this.get('_child.isValid')) {
+      const { id, name, shouldSave, label } = this.getProperties('id', 'name', 'shouldSave', 'label');
+      const props = {
+        id,
+        name,
+        value: files,
+        label,
+        shouldSave,
+        event,
+      };
       this.set('isChanging', true);
       try {
-        await fn(files);
+        await fn(props);
         this.set('changeComplete', true);
       } catch (e) {
         this.set('_child.validationMessage', e.message);
         const onError = this.get('on-error');
         if (typeof onError === 'function') {
-          onError(e);
+          onError(e, props);
         }
       } finally {
         this.set('isChanging', false);

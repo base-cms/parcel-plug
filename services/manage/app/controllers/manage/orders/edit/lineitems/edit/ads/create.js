@@ -17,6 +17,7 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
         name,
         width,
         height,
+        image,
         url,
       } = this.get('model');
       const input = {
@@ -24,6 +25,12 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
         name,
         width: parseInt(width, 10),
         height: parseInt(height, 10),
+        image: {
+          file: image.file,
+          bytes: image.bytes,
+          width: parseInt(image.width, 10),
+          height: parseInt(image.height, 10),
+        },
         url,
       };
       const variables = { input };
@@ -39,6 +46,17 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
 
     setFieldValue({ name, value }) {
       this.set(`model.${name}`, value);
+    },
+
+    setImage({ value, info }) {
+      this.set('model.image', {
+        file: value,
+        src: URL.createObjectURL(value),
+        size: value.size,
+        bytes: info.bytes,
+        width: info.width,
+        height: info.height,
+      });
     },
   },
 });
