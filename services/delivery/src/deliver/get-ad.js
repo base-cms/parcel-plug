@@ -1,4 +1,4 @@
-const { mongo } = require('../connections');
+const mongodb = require('../mongodb');
 const { log, randomElement } = require('../utils');
 
 const getSchedules = (adunitId, date) => {
@@ -8,7 +8,7 @@ const getSchedules = (adunitId, date) => {
     { $group: { _id: '$priority', ids: { $push: '$_id' } } },
     { $sort: { _id: -1 } },
   ];
-  return mongo.db().collection('schedules').aggregate(pipeline);
+  return mongodb.db().collection('schedules').aggregate(pipeline);
 };
 
 /**
@@ -23,7 +23,7 @@ const updateCorrelator = async (correlator, adUnit, schedule, ad) => {
   const { src, url } = ad;
   const adId = ad._id;
   const adunitId = adUnit._id;
-  mongo.db().collection('correlators').updateOne({ value: correlator }, { $set: { src, url, adId } }, { upsert: true });
+  mongodb.db().collection('correlators').updateOne({ value: correlator }, { $set: { src, url, adId } }, { upsert: true });
 
   const { deploymentId, publisherId } = adUnit;
   const { lineitemId } = schedule;
@@ -33,7 +33,7 @@ const updateCorrelator = async (correlator, adUnit, schedule, ad) => {
       advertiserId: 1,
     },
   };
-  const lineItem = await mongo.db().collection('lineitems').findOne({ _id: lineitemId }, lineItemOpts);
+  const lineItem = await mongodb.db().collection('lineitems').findOne({ _id: lineitemId }, lineItemOpts);
   const { orderId, advertiserId } = lineItem;
   const eventSet = {
     adunitId,
@@ -44,7 +44,7 @@ const updateCorrelator = async (correlator, adUnit, schedule, ad) => {
     deploymentId,
     publisherId,
   };
-  mongo.db().collection('events').updateMany({ correlator }, { $set: eventSet }, { upsert: true, multi: true });
+  mongodb.db().collection('events').updateMany({ correlator }, { $set: eventSet }, { upsert: true, multi: true });
 };
 
 
@@ -52,7 +52,7 @@ const updateCorrelator = async (correlator, adUnit, schedule, ad) => {
  * Retrieves an ad for the request
  */
 module.exports = async (correlator, adUnit, date) => {
-  const correlated = await mongo.db().collection('correlators').findOne({ value: correlator });
+  const correlated = await mongodb.db().collection('correlators').findOne({ value: correlator });
   if (correlated) return correlated;
 
   const schedules = await getSchedules(adUnit._id, date).toArray();
@@ -60,7 +60,7 @@ module.exports = async (correlator, adUnit, date) => {
   if (!schedules.length) return null;
 
   const scheduleId = randomElement(schedules[0].ids);
-  const schedule = await mongo.db().collection('schedules').findOne({ _id: scheduleId });
+  const schedule = await mongodb.db().collection('schedules').findOne({ _id: scheduleId });
   if (!schedule) return null;
 
   const ad = randomElement(schedule.ads);

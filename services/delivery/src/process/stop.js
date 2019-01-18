@@ -1,4 +1,4 @@
-const { mongo } = require('../connections');
+const mongodb = require('../mongodb');
 const { log } = require('../utils');
 
 const stop = (promise, name) => {
@@ -10,5 +10,5 @@ const stop = (promise, name) => {
 };
 
 module.exports = () => Promise.all([
-  stop(mongo.close(), 'MongoDB'),
+  stop(mongodb.close(), 'MongoDB'),
 ]);

@@ -1,22 +1,22 @@
 const { HealthCheckError } = require('@godaddy/terminus');
-const { mongo } = require('./connections');
+const mongodb = require('./mongodb');
 const { log } = require('./utils');
 const pkg = require('../package.json');
 
 const ping = (promise, name) => promise.then(() => `${name} pinged successfully.`);
 
-const mongodb = () => {
+const mongo = () => {
   const args = [{ _id: pkg.name }, { $set: { last: new Date() } }, { upsert: true }];
   return Promise.all([
-    mongo.db().command({ ping: 1 }),
-    mongo.db().collection('pings').updateOne(...args),
+    mongodb.db().command({ ping: 1 }),
+    mongodb.db().collection('pings').updateOne(...args),
   ]);
 };
 
 module.exports = () => {
   const errors = [];
   return Promise.all([
-    ping(mongodb(), 'MongoDB'),
+    ping(mongo(), 'MongoDB'),
   ].map(p => p.catch((err) => {
     errors.push(err);
   }))).then((res) => {
