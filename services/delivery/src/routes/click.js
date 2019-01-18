@@ -6,7 +6,7 @@ module.exports = (app) => {
     const { adunitid } = params;
     const adunit = await getAdUnit(adunitid);
 
-    const winner = await deliver(adunit, 'click', query);
+    const winner = await deliver(adunit, query);
     if (!winner) return res.status(204).send();
 
     return res.redirect(302, winner.url);

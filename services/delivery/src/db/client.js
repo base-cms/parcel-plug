@@ -124,6 +124,19 @@ class DB {
   }
 
   /**
+   * Inserts a single document for the provided resource.
+   *
+   * @param {string} resource The resource, e.g. `adunits`.
+   * @param {object} doc The document to insert
+   * @param {object} [options] Options to pass to `Collection.insertOne`.
+   * @return {Promise<object|null>}
+   */
+  async insertOne(resource, doc, options) {
+    const coll = await this.collection(resource);
+    return coll.insertOne(doc, options);
+  }
+
+  /**
    * Updates a single document for the provided resource.
    *
    * @param {string} resource The resource, e.g. `adunits`.
