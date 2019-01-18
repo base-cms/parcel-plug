@@ -19,7 +19,12 @@ class SetAndUpdateDirective extends SchemaDirectiveVisitor {
       const Model = connection.model(modelName);
       const doc = await Model.strictFindActiveById(id);
       doc.setUserContext(auth.user);
-      doc.set(path, value || undefined);
+
+      if (value === false || value === 0) {
+        doc.set(path, value);
+      } else {
+        doc.set(path, value || undefined);
+      }
       return handleValidation(doc);
     };
   }
