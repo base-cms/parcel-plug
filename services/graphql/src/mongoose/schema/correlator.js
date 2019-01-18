@@ -5,6 +5,7 @@ const schema = new Schema({
   src: String,
   url: String,
   adId: Schema.Types.ObjectId,
+  lineitemId: Schema.Types.ObjectId,
 });
 
 schema.index({ value: 1 }, { unique: true });
