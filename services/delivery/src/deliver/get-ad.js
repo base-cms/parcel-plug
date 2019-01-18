@@ -19,8 +19,6 @@ const getSchedules = (adunitId, date) => db.aggregate('schedules', [
  */
 const updateCorrelator = async (correlator, ad, lineitemId) => {
   const { _id: adId, src, url } = ad;
-  // const { deploymentId, publisherId } = adunit;
-  // const { lineitemId } = schedule;
   return db.updateOne('correlators', { value: correlator }, {
     $set: {
       src,
@@ -29,32 +27,6 @@ const updateCorrelator = async (correlator, ad, lineitemId) => {
       lineitemId,
     },
   }, { upsert: true });
-
-  // const [, lineitem] = await Promise.all([
-  //   db.updateOne('correlators', { value: correlator }, {
-  //     $setOnInsert: {
-  //       src,
-  //       url,
-  //       adId: ad._id,
-  //       date: new Date(),
-  //     },
-  //   }, { upsert: true }),
-  //   db.findById('lineitems', lineitemId, {
-  //     projection: { orderId: 1, advertiserId: 1 },
-  //   }),
-  // ]);
-
-  // const { orderId, advertiserId } = lineitem;
-  // const eventSet = {
-  //   adunitId: adunit._id,
-  //   adId: ad._id,
-  //   lineitemId,
-  //   orderId,
-  //   advertiserId,
-  //   deploymentId,
-  //   publisherId,
-  // };
-  // db.updateMany('events', { correlator }, { $set: eventSet }, { upsert: true });
 };
 
 
