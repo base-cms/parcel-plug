@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const httpError = require('../utils/http-error');
 
 class DB {
   /**
@@ -138,9 +139,7 @@ class DB {
    * @param {number} statusCode
    */
   static error(message, statusCode) {
-    const err = new Error(message);
-    err.statusCode = Number(statusCode);
-    return err;
+    return httpError(statusCode, message);
   }
 }
 
