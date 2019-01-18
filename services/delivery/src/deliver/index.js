@@ -3,7 +3,6 @@ const createCorrelator = require('../utils/create-correlator');
 const getAd = require('./get-ad');
 const events = require('./events');
 const logError = require('../log-error');
-const { log } = require('../utils');
 
 /**
  * @param {object} adunit The requested adunit document.
@@ -25,9 +24,7 @@ module.exports = async (adunit, query, type) => {
     email,
     rand,
   });
-  log({ correlator });
   const correlated = await getAd(correlator, adunit, date);
-  log({ correlated });
 
   // Record events, but do not await.
   const params = {

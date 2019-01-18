@@ -1,5 +1,5 @@
 const db = require('../db');
-const { log, randomElement } = require('../utils');
+const { randomElement } = require('../utils');
 const logError = require('../log-error');
 
 const getSchedules = (adunitId, date) => db.aggregate('schedules', [
@@ -71,14 +71,12 @@ module.exports = async (correlator, adunit, date) => {
 
   const cursor = await getSchedules(adunit._id, date);
   const schedules = await cursor.toArray();
-  log({ schedules });
   if (!schedules.length) return null;
 
   const scheduleId = randomElement(schedules[0].ids);
   const schedule = await db.findById('schedules', scheduleId, {
     projection: { ads: 1, lineitemId: 1 },
   });
-  log({ schedule });
   if (!schedule) return null;
 
   const { ads, lineitemId } = schedule;
