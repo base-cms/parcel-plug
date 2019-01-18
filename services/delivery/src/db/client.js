@@ -67,6 +67,20 @@ class DB {
   }
 
   /**
+   * Finds a single document for the provided resource and ID, where active.
+   * Will throw an error if the document is not found.
+   *
+   * @param {string} resource The resource name, e.g. `adunits`.
+   * @param {*} id The model identifier.
+   * @param {object} [options] Options to pass to `Collection.findOne`.
+   * @return {Promise<object|null>}
+   */
+  strictFindActiveById(resource, id, options) {
+    const query = { _id: DB.coerceId(id), deleted: false };
+    return this.strictFindOne(resource, query, options);
+  }
+
+  /**
    * Finds a single document for the provided resource and (optional) query criteria.
    *
    * @param {string} resource The resource name, e.g. `adunits`.
