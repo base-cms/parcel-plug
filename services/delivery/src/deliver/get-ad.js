@@ -1,5 +1,6 @@
 const db = require('../db');
 const { log, randomElement } = require('../utils');
+const logError = require('../log-error');
 
 const getSchedules = (adunitId, date) => db.aggregate('schedules', [
   { $match: { adunitId, start: { $lte: date }, end: { $gte: date } } },
@@ -83,10 +84,7 @@ module.exports = async (correlator, adunit, date) => {
   const { ads, lineitemId } = schedule;
   const ad = randomElement(ads);
   const { src, url, _id: adId } = ad;
-  updateCorrelator(correlator, ad, lineitemId).catch(() => {
-    // @todo log error
-  });
-  // Return a consistent value.
+  updateCorrelator(correlator, ad, lineitemId).catch(e => logError(e));
   return {
     src,
     url,

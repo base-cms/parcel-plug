@@ -1,5 +1,5 @@
 const db = require('../db');
 
 module.exports = id => db.strictFindActiveById('adunits', id, {
-  projection: { width: 1, height: 1 },
+  projection: { deploymentId: 1, publisherId: 1 },
 });
