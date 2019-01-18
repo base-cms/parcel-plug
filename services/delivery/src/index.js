@@ -2,13 +2,13 @@ const http = require('http');
 const { createTerminus } = require('@godaddy/terminus');
 const { log } = require('./utils');
 const { start, stop } = require('./process');
-const express = require('./express');
+const app = require('./app');
 const env = require('./env');
 const health = require('./health');
 const pkg = require('../package.json');
 
 const { INTERNAL_PORT, EXTERNAL_PORT } = env;
-const server = http.createServer(express);
+const server = http.createServer(app);
 
 const run = async () => {
   // Await required services here...
