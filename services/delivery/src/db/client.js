@@ -111,6 +111,47 @@ class DB {
   }
 
   /**
+   * Aggregates document for the provided resource and pipeline.
+   *
+   * @param {string} resource The resource, e.g. `adunits`.
+   * @param {object} pipeline The aggregation pipeline.
+   * @param {object} [options] Options to pass to `Collection.aggregate`.
+   * @return {Promise<object|null>}
+   */
+  async aggregate(resource, pipeline, options) {
+    const coll = await this.collection(resource);
+    return coll.aggregate(pipeline, options);
+  }
+
+  /**
+   * Updates a single document for the provided resource.
+   *
+   * @param {string} resource The resource, e.g. `adunits`.
+   * @param {object} filter The query used to select the document to update.
+   * @param {object} update The update operations to be applied to the document.
+   * @param {object} [options] Options to pass to `Collection.updateOne`.
+   * @return {Promise<object|null>}
+   */
+  async updateOne(resource, filter, update, options) {
+    const coll = await this.collection(resource);
+    return coll.updateOne(filter, update, options);
+  }
+
+  /**
+   * Updates a multiple documents for the provided resource.
+   *
+   * @param {string} resource The resource, e.g. `adunits`.
+   * @param {object} filter The query used to select the documents to update.
+   * @param {object} update The update operations to be applied to the documents.
+   * @param {object} [options] Options to pass to `Collection.updateOne`.
+   * @return {Promise<object|null>}
+   */
+  async updateMany(resource, filter, update, options) {
+    const coll = await this.collection(resource);
+    return coll.updateOne(filter, update, options);
+  }
+
+  /**
    *
    * @param {string} id
    */
