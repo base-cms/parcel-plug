@@ -245,6 +245,15 @@ schema.pre('save', async function setReady() {
   }
 });
 
+schema.pre('save', async function checkDelete() {
+  if (this.isModified('deleted') && this.deleted) {
+    // Attempting to delete. Ensure no active ads are found.
+    const ads = await connection.model('ad').find({ lineitemId: this.id });
+    const active = ads.filter(ad => ad.status === 'Active');
+    if (active.length) throw new Error('Unable to delete line item: active ads were found.');
+  }
+});
+
 const removeCorrelators = lineitemId => connection.model('correlator').deleteMany({ lineitemId });
 
 schema.post('save', async function updateSchedules() {
