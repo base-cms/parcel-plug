@@ -38,6 +38,12 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.method('isActive', async function isActive() {
+  const orders = await connection.model('order').find({ advertiserId: this.id });
+  const actives = await Promise.all(orders.map(order => order.isActive()));
+  return actives.some(v => v === true);
+});
+
 schema.pre('save', async function updateOrders() {
   if (this.isModified('name')) {
     const [orders, lineitems, ads] = await Promise.all([
@@ -59,6 +65,15 @@ schema.pre('save', async function updateOrders() {
     });
   }
 });
+
+schema.pre('save', async function checkDelete() {
+  if (this.isModified('deleted') && this.deleted) {
+    // Attempting to delete. Ensure no active orders are found.
+    const isActive = await this.isActive();
+    if (isActive) throw new Error('Unable to delete advertiser: active orders were found.');
+  }
+});
+
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ updatedAt: 1, _id: 1 });
