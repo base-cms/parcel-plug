@@ -152,13 +152,25 @@ schema.method('getRequirements', async function getRequirements() {
   if (!isObject(targeting)) {
     needs.push(targetingNeeds);
   } else {
-    // @todo Must check if inventory items are deleted.
-    const targetingIds = ['adunitIds', 'deploymentIds', 'publisherIds'].reduce((arr, key) => {
+    const inventoryMap = {
+      adunit: 'adunitIds',
+      deployment: 'deploymentIds',
+      publisher: 'publisherIds',
+    };
+    const targetingDocs = await Promise.all(Object.keys(inventoryMap).map((modelName) => {
+      const key = inventoryMap[modelName];
       const values = targeting[key];
-      if (isArray(values) && values.length) arr.push(values[0]);
-      return arr;
-    }, []);
-    if (!targetingIds.length) needs.push(targetingNeeds);
+      if (isArray(values) && values.length) {
+        return connection.model(modelName).find({
+          _id: { $in: values },
+          deleted: false,
+        }, { _id: 1 });
+      }
+      return [];
+    }));
+
+    const hasTargetingDocs = targetingDocs.some(docs => docs.length);
+    if (!hasTargetingDocs) needs.push(targetingNeeds);
   }
 
   const datesNeeds = 'a valid date range or selection of days';
