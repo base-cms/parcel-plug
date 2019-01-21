@@ -22,6 +22,12 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.method('isActive', async function isActive() {
+  const deployments = await connection.model('deployment').find({ publisherId: this.id });
+  const actives = await Promise.all(deployments.map(deployment => deployment.isActive()));
+  return actives.some(v => v === true);
+});
+
 schema.pre('save', async function updateRelatedModels() {
   if (this.isModified('name')) {
     const [deployments, adunits] = await Promise.all([
@@ -37,6 +43,14 @@ schema.pre('save', async function updateRelatedModels() {
       adunit.set('publisherName', this.name);
       adunit.save();
     });
+  }
+});
+
+schema.pre('save', async function checkDelete() {
+  if (this.isModified('deleted') && this.deleted) {
+    // Attempting to delete. Ensure no active deployments are found.
+    const isActive = await this.isActive();
+    if (isActive) throw new Error('Unable to delete publisher: active deployments were found.');
   }
 });
 

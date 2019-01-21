@@ -40,6 +40,12 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.method('isActive', async function isActive() {
+  const adunits = await connection.model('adunit').find({ deploymentId: this.id });
+  const actives = await Promise.all(adunits.map(adunit => adunit.isActive()));
+  return actives.some(v => v === true);
+});
+
 schema.pre('validate', async function setPublisherInfo() {
   if (this.isModified('publisherId') || !this.publisherName) {
     const publisher = await connection.model('publisher').findOne({ _id: this.publisherId }, { name: 1 });
@@ -73,6 +79,14 @@ schema.pre('save', async function updateEvents() {
         $set: { publisherId },
       }).catch(e => logError(e));
     });
+  }
+});
+
+schema.pre('save', async function checkDelete() {
+  if (this.isModified('deleted') && this.deleted) {
+    // Attempting to delete. Ensure no active ad units are found.
+    const isActive = await this.isActive();
+    if (isActive) throw new Error('Unable to delete deployment: active ad units were found.');
   }
 });
 

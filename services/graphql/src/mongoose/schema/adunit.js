@@ -65,6 +65,12 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.method('isActive', async function isActive() {
+  const schedules = await connection.model('schedule').find({ adunitId: this.id }, { _id: 1 });
+  if (schedules.length) return true;
+  return false;
+});
+
 schema.pre('validate', function setSize() {
   const { width, height } = this;
   this.size = `${width}x${height}`;
@@ -97,6 +103,14 @@ schema.pre('save', async function updateEvents() {
         $set: { publisherId, deploymentId },
       }).catch(e => logError(e));
     });
+  }
+});
+
+schema.pre('save', async function checkDelete() {
+  if (this.isModified('deleted') && this.deleted) {
+    // Attempting to delete. Ensure no active schedues are found.
+    const isActive = await this.isActive();
+    if (isActive) throw new Error('Unable to delete ad unit: scheduled ads were found.');
   }
 });
 
