@@ -1,6 +1,6 @@
 {
   "name": "@base-cms/parcel-plug-delivery",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "The Parcel Plug Express Delivery Service.",
   "main": "src/index.js",
   "author": "Josh Worden <josh@limit0.io>",

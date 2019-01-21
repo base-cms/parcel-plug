@@ -1,6 +1,6 @@
 {
   "name": "@base-cms/parcel-plug-graphql",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "The Parcel Plug GraphQL server using Apollo and Express.",
   "main": "src/index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
