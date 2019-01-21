@@ -12,7 +12,7 @@ const getAdIds = async (adId) => {
 };
 
 module.exports = {
-  async view(adunit, adId, { now, email, send }) {
+  async view(adunit, correlator, adId, { now, email, send }) {
     const { _id: adunitId, deploymentId, publisherId } = adunit;
     const ids = await getAdIds(adId);
     return db.insertOne('views', {
@@ -23,11 +23,16 @@ module.exports = {
       date: now,
       email,
       send,
+      correlator,
     });
   },
 
-  async click(adunit, adId, { now, email, send }) {
+  async click(adunit, correlator, adId, { now, email, send }) {
     const { _id: adunitId, deploymentId, publisherId } = adunit;
+
+    const view = await db.findOne('views', { adId, correlator }, { projection: { _id: 1 } });
+    if (!view) await this.view(adunit, correlator, adId, { now, email, send });
+
     const ids = await getAdIds(adId);
     return db.insertOne('clicks', {
       ...ids,

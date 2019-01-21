@@ -35,10 +35,14 @@ module.exports = async (adunit, query, type) => {
   switch (type) {
     case 'image':
       events.request(adunit, params).catch(e => logError(e));
-      if (correlated) events.view(adunit, correlated.adId, params).catch(e => logError(e));
+      if (correlated) {
+        events.view(adunit, correlator, correlated.adId, params).catch(e => logError(e));
+      }
       break;
     case 'click':
-      if (correlated) events.click(adunit, correlated.adId, params).catch(e => logError(e));
+      if (correlated) {
+        events.click(adunit, correlator, correlated.adId, params).catch(e => logError(e));
+      }
       break;
     default:
       break;
