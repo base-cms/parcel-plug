@@ -39,8 +39,7 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
-// @todo If the advertiser name changes, this will also have to change.
-schema.pre('validate', async function setPublisherName() {
+schema.pre('validate', async function setAdvertiserName() {
   if (this.isModified('advertiserId') || !this.advertiserName) {
     const advertiser = await connection.model('advertiser').findOne({ _id: this.advertiserId }, { name: 1 });
     this.advertiserName = advertiser.name;
@@ -50,6 +49,20 @@ schema.pre('validate', async function setPublisherName() {
 schema.pre('validate', function setFullName() {
   const { name, advertiserName } = this;
   this.fullName = `${advertiserName} > ${name}`;
+});
+
+schema.pre('save', async function updateRelatedModels() {
+  if (this.isModified('advertiserId') || this.isModified('name')) {
+    const [lineitems] = await Promise.all([
+      connection.model('lineitem').find({ orderId: this.id }),
+    ]);
+
+    lineitems.forEach((lineitem) => {
+      lineitem.set('advertiserId', this.advertiserId);
+      lineitem.set('orderName', this.name);
+      lineitem.save();
+    });
+  }
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });

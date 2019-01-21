@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const connection = require('../connections/account');
 const {
   deleteablePlugin,
   paginablePlugin,
@@ -20,6 +21,24 @@ schema.plugin(paginablePlugin, {
   collateWhen: ['name'],
 });
 schema.plugin(userAttributionPlugin);
+
+schema.pre('save', async function updateRelatedModels() {
+  if (this.isModified('name')) {
+    const [deployments, adunits] = await Promise.all([
+      connection.model('deployment').find({ publisherId: this.id }),
+      connection.model('adunit').find({ publisherId: this.id }),
+    ]);
+
+    deployments.forEach((deployment) => {
+      deployment.set('publisherName', this.name);
+      deployment.save();
+    });
+    adunits.forEach((adunit) => {
+      adunit.set('publisherName', this.name);
+      adunit.save();
+    });
+  }
+});
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ updatedAt: 1, _id: 1 });
