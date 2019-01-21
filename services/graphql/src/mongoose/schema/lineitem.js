@@ -151,6 +151,7 @@ schema.method('getRequirements', async function getRequirements() {
   if (!isObject(targeting)) {
     needs.push(targetingNeeds);
   } else {
+    // @todo Must check if inventory items are deleted.
     const targetingIds = ['adunitIds', 'deploymentIds', 'publisherIds'].reduce((arr, key) => {
       const values = targeting[key];
       if (isArray(values) && values.length) arr.push(values[0]);
