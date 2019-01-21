@@ -1,6 +1,7 @@
 const { Schema } = require('mongoose');
 const { isURL } = require('validator');
 const connection = require('../connections/account');
+const logError = require('../../log-error');
 const {
   deleteablePlugin,
   paginablePlugin,
@@ -46,15 +47,15 @@ schema.pre('save', async function updateOrders() {
     ]);
     orders.forEach((order) => {
       order.set('advertiserName', this.name);
-      order.save();
+      order.save().catch(e => logError(e));
     });
     lineitems.forEach((lineitem) => {
       lineitem.set('advertiserName', this.name);
-      lineitem.save();
+      lineitem.save().catch(e => logError(e));
     });
     ads.forEach((ad) => {
       ad.set('advertiserName', this.name);
-      ad.save();
+      ad.save().catch(e => logError(e));
     });
   }
 });

@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 const connection = require('../connections/account');
+const logError = require('../../log-error');
 const {
   deleteablePlugin,
   paginablePlugin,
@@ -207,7 +208,7 @@ schema.pre('save', async function updateRelatedModels() {
       ad.set('advertiserId', this.advertiserId);
       ad.set('advertiserName', this.advertiserName);
       ad.set('lineitemName', this.name);
-      ad.save();
+      ad.save().catch(e => logError(e));
     });
   }
 });

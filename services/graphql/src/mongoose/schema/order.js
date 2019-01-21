@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 const connection = require('../connections/account');
+const logError = require('../../log-error');
 const {
   deleteablePlugin,
   paginablePlugin,
@@ -62,14 +63,14 @@ schema.pre('save', async function updateRelatedModels() {
       lineitem.set('advertiserId', this.advertiserId);
       lineitem.set('advertiserName', this.advertiserName);
       lineitem.set('orderName', this.name);
-      lineitem.save();
+      lineitem.save().catch(e => logError(e));
     });
 
     ads.forEach((ad) => {
       ad.set('advertiserId', this.advertiserId);
       ad.set('advertiserName', this.advertiserName);
       ad.set('orderName', this.name);
-      ad.save();
+      ad.save().catch(e => logError(e));
     });
   }
 });
