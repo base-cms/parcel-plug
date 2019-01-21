@@ -237,6 +237,16 @@ schema.pre('save', async function updateEvents() {
   }
 });
 
+schema.pre('save', async function updateCorrelators() {
+  if (this.isModified('url') || this.isModified('image.src')) {
+    const { url } = this;
+    const { serveSrc: src } = this.image;
+    connection.model('correlator').updateMany({ adId: this._id }, {
+      $set: { url, src },
+    }).catch(e => logError(e));
+  }
+});
+
 schema.post('save', async function updateLineItem() {
   const lineitem = await connection.model('lineitem').findById(this.lineitemId);
   return lineitem ? lineitem.save() : null;
