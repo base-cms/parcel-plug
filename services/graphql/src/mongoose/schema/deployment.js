@@ -65,6 +65,17 @@ schema.pre('save', async function updateRelatedModels() {
   }
 });
 
+schema.pre('save', async function updateEvents() {
+  if (this.isModified('publisherId')) {
+    const { publisherId } = this;
+    ['request', 'view', 'click'].forEach((modelName) => {
+      connection.model(modelName).updateMany({ deploymentId: this._id }, {
+        $set: { publisherId },
+      }).catch(e => logError(e));
+    });
+  }
+});
+
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ publisherName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ updatedAt: 1, _id: 1 });

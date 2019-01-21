@@ -13,4 +13,7 @@ const schema = new Schema({
   send: String,
 });
 
+schema.index({ deploymentId: 1 });
+schema.index({ adunitId: 1 });
+
 module.exports = schema;

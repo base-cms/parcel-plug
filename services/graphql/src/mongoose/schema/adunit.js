@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 const connection = require('../connections/account');
+const logError = require('../../log-error');
 const {
   deleteablePlugin,
   paginablePlugin,
@@ -86,6 +87,17 @@ schema.pre('validate', function setFullName() {
     publisherName,
   } = this;
   this.fullName = `${publisherName} > ${deploymentName} > ${name} (${size})`;
+});
+
+schema.pre('save', async function updateEvents() {
+  if (this.isModified('deploymentId')) {
+    const { publisherId, deploymentId } = this;
+    ['request', 'view', 'click'].forEach((modelName) => {
+      connection.model(modelName).updateMany({ adunitId: this._id }, {
+        $set: { publisherId, deploymentId },
+      }).catch(e => logError(e));
+    });
+  }
 });
 
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
