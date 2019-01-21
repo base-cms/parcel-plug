@@ -213,6 +213,17 @@ schema.pre('save', async function updateRelatedModels() {
   }
 });
 
+schema.pre('save', async function updateEvents() {
+  if (this.isModified('orderId')) {
+    const { advertiserId, orderId } = this;
+    ['view', 'click'].forEach((modelName) => {
+      connection.model(modelName).updateMany({ lineitemId: this._id }, {
+        $set: { advertiserId, orderId },
+      }).catch(e => logError(e));
+    });
+  }
+});
+
 schema.pre('save', async function setReady() {
   const needs = await this.getRequirements();
   if (needs.length) {

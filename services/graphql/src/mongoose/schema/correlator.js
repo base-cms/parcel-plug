@@ -9,5 +9,6 @@ const schema = new Schema({
 });
 
 schema.index({ value: 1 }, { unique: true });
+schema.index({ adId: 1 });
 
 module.exports = schema;

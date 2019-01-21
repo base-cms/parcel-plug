@@ -4,6 +4,7 @@ const uuid = require('uuid/v4');
 const { extname } = require('path');
 const upload = require('../../s3/upload');
 const connection = require('../connections/account');
+const logError = require('../../log-error');
 const {
   deleteablePlugin,
   paginablePlugin,
@@ -218,6 +219,21 @@ schema.pre('save', async function setReady() {
     this.ready = false;
   } else {
     this.ready = true;
+  }
+});
+
+schema.pre('save', async function updateEvents() {
+  if (this.isModified('lineitemId')) {
+    const { advertiserId, orderId, lineitemId } = this;
+    ['view', 'click'].forEach((modelName) => {
+      connection.model(modelName).updateMany({ adId: this._id }, {
+        $set: { advertiserId, orderId, lineitemId },
+      }).catch(e => logError(e));
+    });
+    // Update correlators
+    connection.model('correlator').updateMany({ adId: this._id }, {
+      $set: { lineitemId },
+    }).catch(e => logError(e));
   }
 });
 
