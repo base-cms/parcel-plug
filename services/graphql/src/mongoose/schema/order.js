@@ -40,6 +40,12 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.method('isActive', async function isActive() {
+  const lineitems = await connection.model('lineitem').find({ orderId: this.id });
+  const actives = await Promise.all(lineitems.map(lineitem => lineitem.isActive()));
+  return actives.some(v => v === true);
+});
+
 schema.pre('validate', async function setAdvertiserName() {
   if (this.isModified('advertiserId') || !this.advertiserName) {
     const advertiser = await connection.model('advertiser').findOne({ _id: this.advertiserId }, { name: 1 });
@@ -89,10 +95,8 @@ schema.pre('save', async function updateEvents() {
 schema.pre('save', async function checkDelete() {
   if (this.isModified('deleted') && this.deleted) {
     // Attempting to delete. Ensure no active line items are found.
-    const lineitems = await connection.model('lineitem').find({ orderId: this.id });
-    const inactiveStatues = ['Incomplete', 'Deleted', 'Paused'];
-    const active = lineitems.filter(lineitem => !inactiveStatues.includes(lineitem.status));
-    if (active.length) throw new Error('Unable to delete order: active line items were found.');
+    const isActive = await this.isActive();
+    if (isActive) throw new Error('Unable to delete order: active line items were found.');
   }
 });
 

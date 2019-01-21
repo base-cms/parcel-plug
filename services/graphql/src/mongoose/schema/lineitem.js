@@ -140,6 +140,13 @@ schema.virtual('status').get(function getStatus() {
   return 'Scheduled';
 });
 
+schema.method('isActive', async function isActive() {
+  const inactiveStatus = ['Deleted', 'Incomplete', 'Paused'];
+  if (inactiveStatus.includes(this.status)) return true;
+  const ads = await connection.model('ad').find({ lineitemId: this.id });
+  return ads.some(ad => ad.status === 'Active');
+});
+
 schema.method('getRequirements', async function getRequirements() {
   const {
     targeting,
@@ -248,9 +255,8 @@ schema.pre('save', async function setReady() {
 schema.pre('save', async function checkDelete() {
   if (this.isModified('deleted') && this.deleted) {
     // Attempting to delete. Ensure no active ads are found.
-    const ads = await connection.model('ad').find({ lineitemId: this.id });
-    const active = ads.filter(ad => ad.status === 'Active');
-    if (active.length) throw new Error('Unable to delete line item: active ads were found.');
+    const isActive = await this.isActive();
+    if (isActive) throw new Error('Unable to delete line item: active ads were found.');
   }
 });
 
@@ -262,9 +268,8 @@ schema.post('save', async function updateSchedules() {
     { deleteMany: { filter: { lineitemId: lineitem._id } } },
   ];
 
-  const { status } = lineitem;
-  const ineligble = ['Deleted', 'Incomplete', 'Paused'];
-  if (!ineligble.includes(status)) {
+  const isActive = await this.isActive();
+  if (isActive) {
     // Only run on elgible statuses.
     const { targeting, priority, dates } = lineitem;
     const { adunitIds, deploymentIds, publisherIds } = targeting || {};
