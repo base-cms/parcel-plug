@@ -86,6 +86,16 @@ schema.pre('save', async function updateEvents() {
   }
 });
 
+schema.pre('save', async function checkDelete() {
+  if (this.isModified('deleted') && this.deleted) {
+    // Attempting to delete. Ensure no active line items are found.
+    const lineitems = await connection.model('lineitem').find({ orderId: this.id });
+    const inactiveStatues = ['Incomplete', 'Deleted', 'Paused'];
+    const active = lineitems.filter(lineitem => !inactiveStatues.includes(lineitem.status));
+    if (active.length) throw new Error('Unable to delete order: active line items were found.');
+  }
+});
+
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ advertiserName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ updatedAt: 1, _id: 1 });
