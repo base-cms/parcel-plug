@@ -98,3 +98,42 @@ In priority order (acts like a `switch` block):
   - When `dates.start` or the oldest/least `dates.day` value is less than or equal to now
 - Scheduled
   - When all of the above criteria is not met
+
+
+## Cascading Updates
+### Advertiser
+On `advertiser.name` change, the `advertiserName` will be updated on related
+- orders
+- lineitems
+- ads
+
+### Order
+On `order.name` change, the `orderName` will be updated on related
+- lineitems
+- ads
+On `order.advertiserId` change, the `advertiserId` and `advertiserName` will be updated on related
+- lineitems
+- ads
+
+### Line Item
+On `lineitem.name` change, the `lineitemName` will be updated on related
+- ads
+On `lineitem.orderId` change, the `orderId`, `orderName`, `advertiserId`, and `advertiserName` will be updated on related
+- ads
+
+### Ad
+On `ad.lineitemId` change, the `lineitemName`, `orderId`, `orderName`, `advertiserId`, and `advertiserName` will be updated on itself
+
+### Publisher
+On `publisher.name` change, the `publisherName` will be updated on related
+- deployments
+- adunits
+
+### Deployment
+On `deployment.name` change, the `deploymentName` will be updated on related
+- adunits
+On `deployment.publisherId` change, the `publisherId` and `publisherName` will be updated on related
+- adunits
+
+### Ad Unit
+On `adunit.deploymentId` change, the `deploymentName`, `publisherId`, and `publisherName` will be updated on itself
