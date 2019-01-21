@@ -183,20 +183,33 @@ schema.method('getRequirements', async function getRequirements() {
   return needs.sort().join(', ');
 });
 
-// @todo If the order name changes, this will also have to change.
 schema.pre('validate', async function setOrderAndAdvertiser() {
   if (this.isModified('orderId') || !this.orderName || !this.advertiserName || !this.advertiserId) {
-    const order = await connection.model('order').findOne({ _id: this.orderId }, { name: 1, advertiserId: 1 });
-    const advertiser = await connection.model('advertiser').findOne({ _id: order.advertiserId }, { name: 1 });
+    const order = await connection.model('order').findOne({ _id: this.orderId }, { name: 1, advertiserId: 1, advertiserName: 1 });
     this.orderName = order.name;
-    this.advertiserName = advertiser.name;
-    this.advertiserId = advertiser.id;
+    this.advertiserName = order.advertiserName;
+    this.advertiserId = order.advertiserId;
   }
 });
 
 schema.pre('validate', function setFullName() {
   const { name, orderName, advertiserName } = this;
   this.fullName = `${advertiserName} > ${orderName} > ${name}`;
+});
+
+schema.pre('save', async function updateRelatedModels() {
+  if (this.isModified('orderId') || this.isModified('name')) {
+    const ads = await connection.model('ad').find({ lineitemId: this.id });
+
+    ads.forEach((ad) => {
+      ad.set('orderId', this.orderId);
+      ad.set('orderName', this.orderName);
+      ad.set('advertiserId', this.advertiserId);
+      ad.set('advertiserName', this.advertiserName);
+      ad.set('lineitemName', this.name);
+      ad.save();
+    });
+  }
 });
 
 schema.pre('save', async function setReady() {

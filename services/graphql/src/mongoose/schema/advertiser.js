@@ -39,9 +39,10 @@ schema.plugin(userAttributionPlugin);
 
 schema.pre('save', async function updateOrders() {
   if (this.isModified('name')) {
-    const [orders, lineitems] = await Promise.all([
+    const [orders, lineitems, ads] = await Promise.all([
       connection.model('order').find({ advertiserId: this.id }),
       connection.model('lineitem').find({ advertiserId: this.id }),
+      connection.model('ad').find({ advertiserId: this.id }),
     ]);
     orders.forEach((order) => {
       order.set('advertiserName', this.name);
@@ -50,6 +51,10 @@ schema.pre('save', async function updateOrders() {
     lineitems.forEach((lineitem) => {
       lineitem.set('advertiserName', this.name);
       lineitem.save();
+    });
+    ads.forEach((ad) => {
+      ad.set('advertiserName', this.name);
+      ad.save();
     });
   }
 });

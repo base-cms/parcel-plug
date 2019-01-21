@@ -53,14 +53,23 @@ schema.pre('validate', function setFullName() {
 
 schema.pre('save', async function updateRelatedModels() {
   if (this.isModified('advertiserId') || this.isModified('name')) {
-    const [lineitems] = await Promise.all([
+    const [lineitems, ads] = await Promise.all([
       connection.model('lineitem').find({ orderId: this.id }),
+      connection.model('ad').find({ orderId: this.id }),
     ]);
 
     lineitems.forEach((lineitem) => {
       lineitem.set('advertiserId', this.advertiserId);
+      lineitem.set('advertiserName', this.advertiserName);
       lineitem.set('orderName', this.name);
       lineitem.save();
+    });
+
+    ads.forEach((ad) => {
+      ad.set('advertiserId', this.advertiserId);
+      ad.set('advertiserName', this.advertiserName);
+      ad.set('orderName', this.name);
+      ad.save();
     });
   }
 });

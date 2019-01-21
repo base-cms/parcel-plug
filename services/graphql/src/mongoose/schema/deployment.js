@@ -39,7 +39,7 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
-schema.pre('validate', async function setPublisherName() {
+schema.pre('validate', async function setPublisherInfo() {
   if (this.isModified('publisherId') || !this.publisherName) {
     const publisher = await connection.model('publisher').findOne({ _id: this.publisherId }, { name: 1 });
     this.publisherName = publisher.name;
@@ -53,12 +53,11 @@ schema.pre('validate', function setFullName() {
 
 schema.pre('save', async function updateRelatedModels() {
   if (this.isModified('publisherId') || this.isModified('name')) {
-    const [adunits] = await Promise.all([
-      connection.model('adunit').find({ deploymentId: this.id }),
-    ]);
+    const adunits = await connection.model('adunit').find({ deploymentId: this.id });
 
     adunits.forEach((adunit) => {
       adunit.set('publisherId', this.publisherId);
+      adunit.set('publisherName', this.publisherName);
       adunit.set('deploymentName', this.name);
       adunit.save();
     });

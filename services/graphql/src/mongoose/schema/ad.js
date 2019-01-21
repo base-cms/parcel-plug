@@ -29,6 +29,16 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
+  orderName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  lineitemName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   ready: {
     type: Boolean,
     required: true,
@@ -78,6 +88,12 @@ schema.plugin(referencePlugin, {
   options: { required: true },
 });
 schema.plugin(referencePlugin, {
+  name: 'orderId',
+  connection,
+  modelName: 'order',
+  options: { required: true },
+});
+schema.plugin(referencePlugin, {
   name: 'advertiserId',
   connection,
   modelName: 'advertiser',
@@ -87,7 +103,7 @@ schema.plugin(referencePlugin, {
 schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);
 schema.plugin(paginablePlugin, {
-  collateWhen: ['name', 'advertiserName', 'size'],
+  collateWhen: ['name', 'advertiserName', 'orderName', 'lineitemName', 'size'],
 });
 schema.plugin(userAttributionPlugin);
 
@@ -162,19 +178,38 @@ schema.pre('validate', function setSize() {
   this.size = `${width}x${height}`;
 });
 
-// @todo If the advertiser name changes, this will also have to change.
-schema.pre('validate', async function setPublisherName() {
-  if (this.isModified('advertiserId') || !this.advertiserName) {
-    const lineitem = await connection.model('lineitem').findOne({ _id: this.lineitemId }, { advertiserId: 1 });
-    const advertiser = await connection.model('advertiser').findOne({ _id: lineitem.advertiserId }, { name: 1 });
-    this.advertiserId = advertiser.id;
-    this.advertiserName = advertiser.name;
+schema.pre('validate', async function setRelatedFields() {
+  const isEmpty = [
+    'advertiserName',
+    'orderName',
+    'lineitemName',
+  ].map(k => this.get(k)).some(v => !v);
+
+  if (this.isModified('lineitemId') || isEmpty) {
+    const lineitem = await connection.model('lineitem').findOne({ _id: this.lineitemId }, {
+      name: 1,
+      orderId: 1,
+      orderName: 1,
+      advertiserId: 1,
+      advertiserName: 1,
+    });
+    this.lineitemName = lineitem.name;
+    this.orderId = lineitem.orderId;
+    this.orderName = lineitem.orderName;
+    this.advertiserId = lineitem.advertiserId;
+    this.advertiserName = lineitem.advertiserName;
   }
 });
 
 schema.pre('validate', function setFullName() {
-  const { name, advertiserName, size } = this;
-  this.fullName = `${advertiserName} > ${name} (${size})`;
+  const {
+    name,
+    advertiserName,
+    orderName,
+    lineitemName,
+    size,
+  } = this;
+  this.fullName = `${advertiserName} > ${orderName} > ${lineitemName} > ${name} (${size})`;
 });
 
 schema.pre('save', async function setReady() {

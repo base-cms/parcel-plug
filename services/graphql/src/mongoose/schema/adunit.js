@@ -69,13 +69,12 @@ schema.pre('validate', function setSize() {
   this.size = `${width}x${height}`;
 });
 
-schema.pre('validate', async function setDeploymentName() {
+schema.pre('validate', async function setPublisherAndDeploymentInfo() {
   if (this.isModified('deploymentId') || !this.deploymentName || !this.publisherName || !this.publisherId) {
-    const deployment = await connection.model('deployment').findOne({ _id: this.deploymentId }, { name: 1, publisherId: 1 });
-    const publisher = await connection.model('publisher').findOne({ _id: deployment.publisherId }, { name: 1 });
-    this.publisherId = publisher.id;
+    const deployment = await connection.model('deployment').findOne({ _id: this.deploymentId }, { name: 1, publisherId: 1, publisherName: 1 });
+    this.publisherId = deployment.publisherId;
+    this.publisherName = deployment.publisherName;
     this.deploymentName = deployment.name;
-    this.publisherName = publisher.name;
   }
 });
 
