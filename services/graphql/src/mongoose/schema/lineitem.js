@@ -245,69 +245,85 @@ schema.pre('save', async function setReady() {
   }
 });
 
+const removeCorrelators = lineitemId => connection.model('correlator').deleteMany({ lineitemId });
+
 schema.post('save', async function updateSchedules() {
   const lineitem = this;
   const bulkOps = [
     { deleteMany: { filter: { lineitemId: lineitem._id } } },
   ];
 
-  const { targeting, priority, dates } = lineitem;
-  const { adunitIds, deploymentIds, publisherIds } = targeting || {};
+  const { status } = lineitem;
+  const ineligble = ['Deleted', 'Incomplete', 'Paused'];
+  if (!ineligble.includes(status)) {
+    // Only run on elgible statuses.
+    const { targeting, priority, dates } = lineitem;
+    const { adunitIds, deploymentIds, publisherIds } = targeting || {};
 
-  const ids = {
-    adunit: isArray(adunitIds) ? adunitIds : [],
-    deployment: isArray(deploymentIds) ? deploymentIds : [],
-    publisher: isArray(publisherIds) ? publisherIds : [],
-  };
+    const ids = {
+      adunit: isArray(adunitIds) ? adunitIds : [],
+      deployment: isArray(deploymentIds) ? deploymentIds : [],
+      publisher: isArray(publisherIds) ? publisherIds : [],
+    };
 
-  const ads = await connection.model('ad').find({ lineitemId: lineitem.id });
-  const activeAds = ads.filter(ad => ad.status === 'Active');
+    const ads = await connection.model('ad').find({ lineitemId: lineitem.id });
+    const activeAds = ads.filter(ad => ad.status === 'Active');
 
-  const query = {
-    $or: [
-      { _id: { $in: ids.adunit } },
-      { deploymentId: { $in: ids.deployment } },
-      { publisherId: { $in: ids.publisher } },
-    ],
-    deleted: false,
-  };
-  const adunits = await connection.model('adunit').find(query);
+    const query = {
+      $or: [
+        { _id: { $in: ids.adunit } },
+        { deploymentId: { $in: ids.deployment } },
+        { publisherId: { $in: ids.publisher } },
+      ],
+      deleted: false,
+    };
+    const adunits = await connection.model('adunit').find(query);
 
-  const endDay = day => new Date(day.valueOf() + (24 * 60 * 60 * 1000) - 1);
+    const endDay = day => new Date(day.valueOf() + (24 * 60 * 60 * 1000) - 1);
 
-  const schedules = adunits.reduce((arr, adunit) => {
-    const elgible = activeAds
-      .filter(ad => ad.width === adunit.width && ad.height === adunit.height);
+    const schedules = adunits.reduce((arr, adunit) => {
+      const elgible = activeAds
+        .filter(ad => ad.width === adunit.width && ad.height === adunit.height);
 
-    if (elgible.length) {
-      const winners = elgible.map(ad => ({ _id: ad._id, url: ad.url, src: ad.image.serveSrc }));
-      if (dates.type === 'range') {
-        arr.push({
-          lineitemId: lineitem._id,
-          adunitId: adunit._id,
-          priority,
-          start: dates.start,
-          end: dates.end,
-          ads: winners,
-        });
-      } else {
-        dates.days.forEach((day) => {
+      if (elgible.length) {
+        const winners = elgible.map(ad => ({ _id: ad._id, url: ad.url, src: ad.image.serveSrc }));
+        if (dates.type === 'range') {
           arr.push({
             lineitemId: lineitem._id,
             adunitId: adunit._id,
             priority,
-            start: day,
-            end: endDay(day),
+            start: dates.start,
+            end: dates.end,
             ads: winners,
           });
-        });
+        } else {
+          dates.days.forEach((day) => {
+            arr.push({
+              lineitemId: lineitem._id,
+              adunitId: adunit._id,
+              priority,
+              start: day,
+              end: endDay(day),
+              ads: winners,
+            });
+          });
+        }
       }
+      return arr;
+    }, []);
+    schedules.forEach((schedule) => {
+      bulkOps.push({ insertOne: { document: schedule } });
+    });
+    if (!schedules.length) {
+      // Remove correlators when schedules are found.
+      await removeCorrelators(this._id);
     }
-    return arr;
-  }, []);
-  schedules.forEach((schedule) => {
-    bulkOps.push({ insertOne: { document: schedule } });
-  });
+  } else {
+    // The line item is no longer active. Remove correlators.
+    // Prevents images and clicks from serving for previosuly correlated ads.
+    await removeCorrelators(this._id);
+  }
+  // Execute the bulk write.
   return connection.model('schedule').bulkWrite(bulkOps);
 });
 

@@ -242,6 +242,14 @@ schema.post('save', async function updateLineItem() {
   return lineitem ? lineitem.save() : null;
 });
 
+schema.post('save', async function removeCorrelators() {
+  if (this.status !== 'Active') {
+    // Remove all correlators for inactive ads.
+    // Will no longer serve images or clicks that were previously correlated.
+    await connection.model('correlator').deleteMany({ adId: this._id });
+  }
+});
+
 schema.index({ name: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ advertiserName: 1, _id: 1 }, { collation: { locale: 'en_US' } });
 schema.index({ size: 1, _id: 1 }, { collation: { locale: 'en_US' } });
