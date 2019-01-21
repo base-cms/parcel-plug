@@ -69,7 +69,6 @@ schema.pre('validate', function setSize() {
   this.size = `${width}x${height}`;
 });
 
-// @todo If the publisher+deployment relationship changes, this will need to be updated!
 schema.pre('validate', async function setDeploymentName() {
   if (this.isModified('deploymentId') || !this.deploymentName || !this.publisherName || !this.publisherId) {
     const deployment = await connection.model('deployment').findOne({ _id: this.deploymentId }, { name: 1, publisherId: 1 });
