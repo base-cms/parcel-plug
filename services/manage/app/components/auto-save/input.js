@@ -26,6 +26,8 @@ export default Component.extend(OnInsertMixin, {
     return undefined;
   }),
 
+  checked: computed.reads('value'),
+
   /**
    * Determines if the field should be readonly.
    * Is passed to the input element.
