@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { debounce, cancel } from '@ember/runloop';
+import { debounce } from '@ember/runloop';
 import OnInsertMixin from '../form-elements/mixins/on-insert';
 
 export default Component.extend(OnInsertMixin, {
@@ -141,31 +141,6 @@ export default Component.extend(OnInsertMixin, {
     },
 
     /**
-     * Debounces the input input event.
-     *
-     * The change event will be debounced based on the
-     * milliseconds defined in the `typeDelay` property.
-     *
-     * @param {Event} event
-     */
-    debounceInput(event) {
-      const { target } = event;
-      const { value } = target;
-      const isDirty = this.get('value') !== value;
-      this.resetState(); // Reset when inputting (but not on change)
-      if (isDirty) {
-        this.resetValidity();
-        if (this.get('shouldSave')) {
-          // Debounce when saving.
-          const inputDebounce = debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
-          this.set('inputDebounce', inputDebounce);
-        } else {
-          this.sendOnChange(value, event);
-        }
-      }
-    },
-
-    /**
      * Debounces the input onchange event.
      *
      * Will immediately fire the change, if dirty, and
@@ -182,8 +157,6 @@ export default Component.extend(OnInsertMixin, {
         if (this.get('shouldSave')) {
           // Debounce when saving and cancel any pending input
           this.validate();
-          const inputDebounce = this.get('inputDebounce');
-          cancel(inputDebounce);
           debounce(this, 'sendOnChange', value, event, 1, true);
         } else {
           this.sendOnChange(value, event);

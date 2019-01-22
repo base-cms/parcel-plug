@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { ObjectQueryManager } from 'ember-apollo-client';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
-import { computed } from '@ember/object';
 
 import adName from '@base-cms/parcel-plug-manage/gql/mutations/ad/name';
 import adImage from '@base-cms/parcel-plug-manage/gql/mutations/ad/image';
@@ -12,12 +11,6 @@ import deleteAd from '@base-cms/parcel-plug-manage/gql/mutations/ad/delete';
 import pauseAd from '@base-cms/parcel-plug-manage/gql/mutations/ad/pause';
 
 export default Controller.extend(ActionMixin, ObjectQueryManager, {
-  isActive: computed.not('model.paused'),
-  isPausedDisabled: computed('isActionRunning', 'model.status', function() {
-    if (this.get('isActionRunning')) return true;
-    return -1 === ['Paused', 'Active'].indexOf(this.get('model.status'));
-  }),
-
   actions: {
     async setName({ value }) {
       this.startAction();

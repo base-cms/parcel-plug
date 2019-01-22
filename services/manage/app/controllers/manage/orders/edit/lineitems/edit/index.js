@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
 import { ObjectQueryManager } from 'ember-apollo-client';
-import { computed } from '@ember/object';
 
 import lineitemName from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/name';
 import lineitemPriority from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/priority';
@@ -14,12 +13,6 @@ import deleteLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/
 import pauseLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/pause';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
-  isActive: computed.not('model.paused'),
-  isPausedDisabled: computed('isActionRunning', 'model.status', function() {
-    if (this.get('isActionRunning')) return true;
-    return -1 === ['Paused', 'Running', 'Scheduled'].indexOf(this.get('model.status'));
-  }),
-
   actions: {
     /**
      *
