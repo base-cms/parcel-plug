@@ -18,6 +18,7 @@ extend type Mutation {
 
   orderName(input: OrderNameMutationInput!): Order! @requiresAuth @setAndUpdate(modelName: "order", path: "name")
   orderAdvertiser(input: OrderAdvertiserMutationInput!): Order! @requiresAuth @setAndUpdate(modelName: "order", path: "advertiserId")
+  orderExternalLinks(input: ExternalLinksMutationInput): Order! @requiresAuth @setAndUpdate(modelName: "order", path: "externalLinks")
 }
 
 type Order implements Timestampable & UserAttributable @applyInterfaceFields {
@@ -26,6 +27,7 @@ type Order implements Timestampable & UserAttributable @applyInterfaceFields {
   fullName: String!
   advertiser: Advertiser! @refOne(modelName: "advertiser", localField: "advertiserId", foreignField: "_id")
   lineitems(input: OrderLineItemsInput = {}): LineItemConnection! @refMany(modelName: "lineitem", localField: "_id", foreignField: "orderId")
+  externalLinks: [ExternalLink]
 }
 
 type OrderConnection {

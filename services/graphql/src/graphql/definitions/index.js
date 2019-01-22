@@ -51,6 +51,21 @@ type Image {
   size: Int
 }
 
+type ExternalLink {
+  label: String
+  url: String!
+}
+
+input ExternalLinksMutationInput {
+  id: ObjectID!
+  value: [ExternalLinkInput]
+}
+
+input ExternalLinkInput {
+  label: String
+  url: String!
+}
+
 interface Timestampable {
   createdAt: Date
   updatedAt: Date

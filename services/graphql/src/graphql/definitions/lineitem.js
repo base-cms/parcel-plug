@@ -26,6 +26,7 @@ extend type Mutation {
   lineitemPublishers(input: LineItemPublishersMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.publisherIds")
   lineitemDateDays(input: LineItemDateDaysMutationInput): LineItem! @requiresAuth
   lineitemDateRange(input: LineItemDateRangeMutationInput): LineItem! @requiresAuth
+  lineitemExternalLinks(input: ExternalLinksMutationInput): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "externalLinks")
 }
 
 enum LineItemStatus {
@@ -50,6 +51,7 @@ type LineItem implements Timestampable & UserAttributable @applyInterfaceFields 
   dates: LineItemDates!
   priority: Int!
   ads(input: LineItemAdsInput = {}): AdConnection! @refMany(modelName: "ad", localField: "_id", foreignField: "lineitemId")
+  externalLinks: [ExternalLink]
 }
 
 type LineItemTargeting {

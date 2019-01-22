@@ -3,6 +3,7 @@ const connection = require('../connections/account');
 const logError = require('../../log-error');
 const {
   deleteablePlugin,
+  externalLinkingPlugin,
   paginablePlugin,
   referencePlugin,
   repositoryPlugin,
@@ -111,6 +112,7 @@ schema.plugin(referencePlugin, {
 });
 
 schema.plugin(deleteablePlugin);
+schema.plugin(externalLinkingPlugin);
 schema.plugin(repositoryPlugin);
 schema.plugin(paginablePlugin, {
   collateWhen: ['name', 'advertiserName', 'orderName'],
