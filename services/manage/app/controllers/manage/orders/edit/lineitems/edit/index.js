@@ -116,20 +116,16 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
     /**
      *
      */
-    async pause() {
+    async setPaused({ value }) {
       this.startAction();
-      this.set('isPausing', true);
-      const id = this.get('model.id');
-      const value = !this.get('model.paused');
-      const variables = { input: { id, value } };
-      const mutation = pauseLineItem;
+      const input = { id: this.get('model.id'), value };
+      const variables = { input };
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'pauseLineItem');
+        await this.get('apollo').mutate({ mutation: pauseLineItem, variables }, 'pauseLineItem');
       } catch (e) {
-        this.get('graphErrors').show(e);
+        throw this.get('graphErrors').handle(e);
       } finally {
         this.endAction();
-        this.set('isPausing', false);
       }
     },
 

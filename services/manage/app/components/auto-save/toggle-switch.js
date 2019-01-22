@@ -148,14 +148,13 @@ export default Component.extend(OnInsertMixin, {
      *
      * @param {Event} event
      */
-    debounceChange(event) {
-      const { target } = event;
-      const { value } = target;
+    debounceChange({ target }) {
+      const value = target.checked;
       const isDirty = this.get('value') !== value;
       if (isDirty) {
         this.resetValidity();
         if (this.get('shouldSave')) {
-          // Debounce when saving and cancel any pending input
+          // Debounce when saving
           this.validate();
           debounce(this, 'sendOnChange', value, event, 1, true);
         } else {
