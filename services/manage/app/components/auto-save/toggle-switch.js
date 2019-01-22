@@ -45,12 +45,6 @@ export default Component.extend(OnInsertMixin, {
   isChanging: false,
 
   /**
-   * The number of milliseconds to debounce the
-   * change event by when typing.
-   */
-  typeDelay: 750,
-
-  /**
    * An error that was received when the on change event occured.
    */
   changeError: null,
