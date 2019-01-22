@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { ObjectQueryManager } from 'ember-apollo-client';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
+import { computed } from '@ember/object';
 
 import adName from '@base-cms/parcel-plug-manage/gql/mutations/ad/name';
 import adImage from '@base-cms/parcel-plug-manage/gql/mutations/ad/image';
@@ -8,8 +9,15 @@ import adWidth from '@base-cms/parcel-plug-manage/gql/mutations/ad/width';
 import adHeight from '@base-cms/parcel-plug-manage/gql/mutations/ad/height';
 import adUrl from '@base-cms/parcel-plug-manage/gql/mutations/ad/url';
 import deleteAd from '@base-cms/parcel-plug-manage/gql/mutations/ad/delete';
+import pauseAd from '@base-cms/parcel-plug-manage/gql/mutations/ad/pause';
 
 export default Controller.extend(ActionMixin, ObjectQueryManager, {
+  isActive: computed.not('model.paused'),
+  isPausedDisabled: computed('isActionRunning', 'model.status', function() {
+    if (this.get('isActionRunning')) return true;
+    return -1 === ['Paused', 'Active'].indexOf(this.get('model.status'));
+  }),
+
   actions: {
     async setName({ value }) {
       this.startAction();
@@ -88,7 +96,29 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
         this.endAction();
       }
     },
+    /**
+     *
+     */
+    async pause() {
+      this.startAction();
+      this.set('isPausing', true);
+      const id = this.get('model.id');
+      const value = !this.get('model.paused');
+      const variables = { input: { id, value } };
+      const mutation = pauseAd;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'pauseAd');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+        this.set('isPausing', false);
+      }
+    },
 
+    /**
+     *
+     */
     async delete() {
       this.startAction();
       this.set('isDeleting', true);

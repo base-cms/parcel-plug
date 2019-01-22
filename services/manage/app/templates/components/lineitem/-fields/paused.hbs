@@ -1,0 +1,19 @@
+<label for="lineitem-paused">Paused</label>
+{{#form.elements.toggle-switch
+  id="lineitem-paused"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="text"
+  name="paused"
+  label="Paused"
+  value=value
+  aria-labeledby="lineitem-paused-help"
+  on-change=on-change
+  required=false
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.label}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.toggle-switch}}

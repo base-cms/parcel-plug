@@ -1,11 +1,18 @@
 {{#bs-modal/body}}
   {{#auto-save/form id="lineitem-edit" as |form|}}
     <div class="row">
-      <div class="col">
+      <div class="col-md-9">
         {{lineitem/-fields/name
           form=form
           value=model.name
           on-change=(action "setName")
+        }}
+      </div>
+      <div class="col-md-3">
+        {{lineitem/-fields/paused
+          form=form
+          value=model.paused
+          on-change=(action "pause")
         }}
       </div>
     </div>

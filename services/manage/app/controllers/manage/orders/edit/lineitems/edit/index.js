@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
 import { ObjectQueryManager } from 'ember-apollo-client';
+import { computed } from '@ember/object';
 
 import lineitemName from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/name';
 import lineitemPriority from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/priority';
@@ -10,8 +11,15 @@ import lineitemPublishers from '@base-cms/parcel-plug-manage/gql/mutations/linei
 import lineitemDateDays from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/date-days';
 import lineitemDateRange from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/date-range';
 import deleteLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/delete';
+import pauseLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/pause';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
+  isActive: computed.not('model.paused'),
+  isPausedDisabled: computed('isActionRunning', 'model.status', function() {
+    if (this.get('isActionRunning')) return true;
+    return -1 === ['Paused', 'Running', 'Scheduled'].indexOf(this.get('model.status'));
+  }),
+
   actions: {
     /**
      *
@@ -109,6 +117,26 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
         } finally {
           this.endAction();
         }
+      }
+    },
+
+    /**
+     *
+     */
+    async pause() {
+      this.startAction();
+      this.set('isPausing', true);
+      const id = this.get('model.id');
+      const value = !this.get('model.paused');
+      const variables = { input: { id, value } };
+      const mutation = pauseLineItem;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'pauseLineItem');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+        this.set('isPausing', false);
       }
     },
 

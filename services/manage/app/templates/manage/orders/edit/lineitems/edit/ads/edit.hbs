@@ -37,11 +37,18 @@
       </div>
 
       <div class="row">
-        <div class="col">
+        <div class="col-md-9">
           {{ad/-fields/url
             form=form
             value=model.url
             on-change=(action "setUrl")
+          }}
+        </div>
+        <div class="col-md-3">
+          {{lineitem/-fields/paused
+            form=form
+            value=model.paused
+            on-change=(action "pause")
           }}
         </div>
       </div>
