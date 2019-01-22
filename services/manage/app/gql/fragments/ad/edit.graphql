@@ -4,6 +4,7 @@ fragment AdEditFragment on Ad {
   size
   width
   height
+  paused
   status
   requires
   url
