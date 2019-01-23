@@ -124,8 +124,7 @@ schema.method('clone', async function clone(user, orderId, lineitemId) {
     lineitemId: lineitemId || _doc.lineitemId,
     name: `${this.name} copy`,
   };
-  delete input.id;
-  delete input._id;
+  ['id', '_id', 'createdAt', 'updatedAt', 'updatedBy', 'createdBy'].forEach(k => delete input[k]);
 
   const doc = new Model(input);
   doc.setUserContext(user);
