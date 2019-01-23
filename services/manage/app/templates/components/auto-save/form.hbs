@@ -9,6 +9,12 @@
           on-insert=(action "addFormElement")
           on-destroy=(action "removeFormElement")
         )
+        toggle-switch=(component "auto-save/toggle-switch"
+          shouldSave=shouldAutosave
+          formId=id
+          on-insert=(action "addFormElement")
+          on-destroy=(action "removeFormElement")
+        )
         textarea=(component "auto-save/textarea"
           shouldSave=shouldAutosave
           formId=id

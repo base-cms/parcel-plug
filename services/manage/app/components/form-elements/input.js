@@ -11,6 +11,7 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
     'aria-describedby',
     'autocomplete',
     'autofocus',
+    'checked',
     'data-label',
     'disabled',
     'max',
@@ -42,6 +43,8 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
    * Whether to show the element.
    */
   show: true,
+
+  checked: computed.reads('value'),
 
   style: computed('show', function() {
     const style = this.get('show') ? '' : 'display: none;';

@@ -8,6 +8,7 @@ import adWidth from '@base-cms/parcel-plug-manage/gql/mutations/ad/width';
 import adHeight from '@base-cms/parcel-plug-manage/gql/mutations/ad/height';
 import adUrl from '@base-cms/parcel-plug-manage/gql/mutations/ad/url';
 import deleteAd from '@base-cms/parcel-plug-manage/gql/mutations/ad/delete';
+import pauseAd from '@base-cms/parcel-plug-manage/gql/mutations/ad/pause';
 
 export default Controller.extend(ActionMixin, ObjectQueryManager, {
   actions: {
@@ -89,6 +90,25 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
       }
     },
 
+    /**
+     *
+     */
+    async setPaused({ value }) {
+      this.startAction();
+      const input = { id: this.get('model.id'), value };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: pauseAd, variables }, 'pauseAd');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    /**
+     *
+     */
     async delete() {
       this.startAction();
       this.set('isDeleting', true);

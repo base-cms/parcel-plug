@@ -1,0 +1,8 @@
+mutation LineItemPaused($input: LineItemPausedMutationInput!) {
+  lineitemPaused(input: $input) {
+    id
+    paused
+    status
+    requires
+  }
+}

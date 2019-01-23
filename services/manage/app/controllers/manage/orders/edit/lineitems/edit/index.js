@@ -10,6 +10,7 @@ import lineitemPublishers from '@base-cms/parcel-plug-manage/gql/mutations/linei
 import lineitemDateDays from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/date-days';
 import lineitemDateRange from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/date-range';
 import deleteLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/delete';
+import pauseLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/pause';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
   actions: {
@@ -109,6 +110,22 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
         } finally {
           this.endAction();
         }
+      }
+    },
+
+    /**
+     *
+     */
+    async setPaused({ value }) {
+      this.startAction();
+      const input = { id: this.get('model.id'), value };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: pauseLineItem, variables }, 'pauseLineItem');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
       }
     },
 

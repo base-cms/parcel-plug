@@ -35,6 +35,7 @@ type Ad implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
   fullName: String!
+  paused: Boolean!
   status: AdStatus!
   requires: String
   width: Int!

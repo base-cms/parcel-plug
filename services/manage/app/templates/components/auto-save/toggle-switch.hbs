@@ -1,0 +1,41 @@
+<div class="custom-control custom-switch my-05">
+  {{yield
+    (hash
+      element=(component "form-elements/input"
+        id=id
+        tabindex=tabindex
+        class="custom-control-input"
+        type="checkbox"
+        value=value
+        name=name
+        data-label=data-label
+        title=title
+        required=false
+        disabled=disabled
+        readonly=_readonly
+        aria-describedby=aria-describedby
+
+        validator=validator
+        on-insert=(action "setChildInputComponent")
+        change=(action "sendOnChange")
+      )
+      elements=(hash
+        label=(component "form-elements/label"
+          value=" "
+          required=required
+          for=id
+          class="custom-control-label"
+        )
+        indicator=(component "auto-save/indicator"
+          visible=shouldSave
+          isChanging=isChanging
+          changeComplete=changeComplete
+          validationMessage=_child.validationMessage
+        )
+        invalid-feedback=(component "auto-save/invalid-feedback"
+          message=_child.validationMessage
+        )
+      )
+    )
+  }}
+</div>

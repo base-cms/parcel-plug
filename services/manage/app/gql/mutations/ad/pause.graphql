@@ -1,0 +1,13 @@
+mutation AdPaused($input: AdPausedMutationInput!) {
+  adPaused(input: $input) {
+    id
+    paused
+    status
+    requires
+    lineitem {
+      id
+      status
+      requires
+    }
+  }
+}
