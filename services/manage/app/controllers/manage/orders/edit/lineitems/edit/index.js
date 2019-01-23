@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
+import { get } from '@ember/object';
 import { ObjectQueryManager } from 'ember-apollo-client';
 
 import lineitemName from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/name';
@@ -12,6 +13,7 @@ import lineitemDateDays from '@base-cms/parcel-plug-manage/gql/mutations/lineite
 import lineitemDateRange from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/date-range';
 import deleteLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/delete';
 import pauseLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/pause';
+import cloneLineItem from '@base-cms/parcel-plug-manage/gql/mutations/lineitem/clone';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
   actions: {
@@ -144,6 +146,27 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
         throw this.get('graphErrors').handle(e);
       } finally {
         this.endAction();
+      }
+    },
+
+    /**
+     *
+     */
+    async clone() {
+      this.startAction();
+      this.set('isCloning', true);
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = cloneLineItem;
+      try {
+        const refetchQueries = ['LineItemListForOrder', 'MatchLineItemListForOrder'];
+        const lineitem = await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'cloneLineItem');
+        await this.transitionToRoute('manage.orders.edit.lineitems.edit.index', get(lineitem, 'order.id'), get(lineitem, 'id'));
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+        this.set('isCloning', false);
       }
     },
 

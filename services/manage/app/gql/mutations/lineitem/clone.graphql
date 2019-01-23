@@ -1,0 +1,8 @@
+mutation CloneLineItem($input: CloneLineItemMutationInput!) {
+  cloneLineItem(input: $input) {
+    id
+    order {
+      id
+    }
+  }
+}

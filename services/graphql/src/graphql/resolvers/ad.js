@@ -12,6 +12,10 @@ module.exports = {
    *
    */
   Mutation: {
+    cloneAd: async (_, { input: { id } }, { auth: { user } }) => {
+      const doc = await Ad.strictFindActiveById(id);
+      return doc.clone(user);
+    },
     createAd: (_, { input }, { auth }) => {
       const {
         name,

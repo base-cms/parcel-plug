@@ -115,6 +115,23 @@ schema.virtual('status').get(function getStatus() {
   return 'Active';
 });
 
+schema.method('clone', async function clone(user, orderId, lineitemId) {
+  const Model = connection.model('ad');
+  const { _doc } = this;
+  const input = {
+    ..._doc,
+    orderId: orderId || _doc.orderId,
+    lineitemId: lineitemId || _doc.lineitemId,
+    name: `${this.name} copy`,
+  };
+  delete input.id;
+  delete input._id;
+
+  const doc = new Model(input);
+  doc.setUserContext(user);
+  return doc.save();
+});
+
 schema.method('getRequirements', async function getRequirements() {
   const {
     width = 0,

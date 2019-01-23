@@ -17,6 +17,7 @@ extend type Mutation {
   createLineItem(input: CreateLineItemMutationInput!): LineItem! @requiresAuth @create(modelName: "lineitem")
   updateLineItem(input: UpdateLineItemMutationInput!): LineItem! @requiresAuth @update(modelName: "lineitem")
   deleteLineItem(input: DeleteLineItemMutationInput!): LineItem! @requiresAuth @delete(modelName: "lineitem")
+  cloneLineItem(input: CloneLineItemMutationInput!): LineItem! @requiresAuth
 
   lineitemName(input: LineItemNameMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "name")
   lineitemNotes(input: LineItemNotesMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "notes")
@@ -100,6 +101,10 @@ input CreateLineItemMutationInput {
 input UpdateLineItemMutationInput {
   id: ObjectID!
   payload: UpdateLineItemPayloadInput!
+}
+
+input CloneLineItemMutationInput {
+  id: ObjectID!
 }
 
 input DeleteLineItemMutationInput {

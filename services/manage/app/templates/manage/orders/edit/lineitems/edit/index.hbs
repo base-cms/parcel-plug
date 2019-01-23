@@ -100,6 +100,15 @@
     {{/if}}
   </p>
   {{confirm-button
+    icon="copy"
+    label="Clone"
+    runningLabel="Cloning..."
+    class="btn-info"
+    disabled=isActionRunning
+    isRunning=isCloning
+    onConfirm=(action "clone")
+  }}
+  {{confirm-button
     icon="trash"
     label="Delete"
     runningLabel="Deleting..."
