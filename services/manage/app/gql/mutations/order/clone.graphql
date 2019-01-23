@@ -1,0 +1,5 @@
+mutation CloneOrder($input: CloneOrderMutationInput!) {
+  cloneOrder(input: $input) {
+    id
+  }
+}

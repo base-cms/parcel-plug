@@ -15,6 +15,7 @@ extend type Mutation {
   createOrder(input: CreateOrderMutationInput!): Order! @requiresAuth @create(modelName: "order")
   updateOrder(input: UpdateOrderMutationInput!): Order! @requiresAuth @update(modelName: "order")
   deleteOrder(input: DeleteOrderMutationInput!): Order! @requiresAuth @delete(modelName: "order")
+  cloneOrder(input: CloneOrderMutationInput!): Order! @requiresAuth
 
   orderName(input: OrderNameMutationInput!): Order! @requiresAuth @setAndUpdate(modelName: "order", path: "name")
   orderAdvertiser(input: OrderAdvertiserMutationInput!): Order! @requiresAuth @setAndUpdate(modelName: "order", path: "advertiserId")
@@ -55,6 +56,10 @@ input CreateOrderMutationInput {
 input UpdateOrderMutationInput {
   id: ObjectID!
   payload: UpdateOrderPayloadInput!
+}
+
+input CloneOrderMutationInput {
+  id: ObjectID!
 }
 
 input DeleteOrderMutationInput {

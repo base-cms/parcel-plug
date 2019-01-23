@@ -6,6 +6,7 @@ import { ObjectQueryManager } from 'ember-apollo-client';
 import orderName from '@base-cms/parcel-plug-manage/gql/mutations/order/name';
 import orderAdvertiser from '@base-cms/parcel-plug-manage/gql/mutations/order/advertiser';
 import deleteOrder from '@base-cms/parcel-plug-manage/gql/mutations/order/delete';
+import cloneOrder from '@base-cms/parcel-plug-manage/gql/mutations/order/clone';
 
 export default Controller.extend(ObjectQueryManager, ActionMixin, {
   actions: {
@@ -40,6 +41,26 @@ export default Controller.extend(ObjectQueryManager, ActionMixin, {
         throw this.get('graphErrors').handle(e);
       } finally {
         this.endAction();
+      }
+    },
+
+    /**
+     *
+     */
+    async clone() {
+      this.startAction();
+      this.set('isCloning', true);
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = cloneOrder;
+      try {
+        const order = await this.get('apollo').mutate({ mutation, variables }, 'cloneOrder');
+        await this.transitionToRoute('manage.orders.edit.index', get(order, 'id'));
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+        this.set('isCloning', false);
       }
     },
 

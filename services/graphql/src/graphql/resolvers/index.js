@@ -5,6 +5,7 @@ const { GraphQLUpload } = require('apollo-server-express');
 const User = require('../../mongoose/models/user');
 const ad = require('./ad');
 const lineitem = require('./lineitem');
+const order = require('./order');
 const user = require('./user');
 const { DateType, ObjectIDType } = require('../types');
 
@@ -18,6 +19,7 @@ module.exports = deepAssign(
   ad,
   lineitem,
   user,
+  order,
   {
     /**
      * Custom scalar types.

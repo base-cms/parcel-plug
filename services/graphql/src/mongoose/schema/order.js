@@ -40,6 +40,26 @@ schema.plugin(paginablePlugin, {
 });
 schema.plugin(userAttributionPlugin);
 
+schema.method('clone', async function clone(user) {
+  const Model = connection.model('order');
+  const { _doc } = this;
+  const input = {
+    ..._doc,
+    name: `${this.name} copy`,
+  };
+  delete input.id;
+  delete input._id;
+
+  const doc = new Model(input);
+  doc.setUserContext(user);
+  await doc.save();
+
+  const orderId = doc.id;
+  const lineitems = await connection.model('lineitem').find({ orderId: this.id });
+  await Promise.all(lineitems.map(lineitem => lineitem.clone(user, orderId)));
+  return doc;
+});
+
 schema.method('isActive', async function isActive() {
   const lineitems = await connection.model('lineitem').find({ orderId: this.id });
   const actives = await Promise.all(lineitems.map(lineitem => lineitem.isActive()));
