@@ -35,10 +35,6 @@ module.exports = {
   },
 
   Mutation: {
-    cloneLineItem: async (_, { input: { id } }, { auth: { user } }) => {
-      const doc = await LineItem.strictFindActiveById(id);
-      return doc.clone(user);
-    },
     lineitemDateDays: async (_, { input }, { auth }) => {
       const { id, days } = input;
       const doc = await LineItem.strictFindActiveById(id);
