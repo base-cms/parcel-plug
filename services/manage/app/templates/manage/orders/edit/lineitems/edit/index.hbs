@@ -11,6 +11,16 @@
     </div>
 
     <div class="row">
+      <div class="col">
+        {{lineitem/-fields/notes
+          form=form
+          value=model.notes
+          on-change=(action "setNotes")
+        }}
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-6">
         <div class="card lineitem-criteria mnh-100">
           <div class="card-header">Dates and Priority</div>

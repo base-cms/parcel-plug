@@ -55,6 +55,11 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
+  notes: {
+    type: String,
+    required: false,
+    trim: true,
+  },
   fullName: {
     type: String,
     required: true,
