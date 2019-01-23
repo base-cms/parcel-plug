@@ -1,0 +1,9 @@
+mutation OrderExternalLinks($input: ExternalLinksMutationInput!) {
+  orderExternalLinks(input: $input) {
+    id
+    externalLinks {
+      url
+      label
+    }
+  }
+}

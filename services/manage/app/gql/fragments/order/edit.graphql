@@ -8,4 +8,8 @@ fragment OrderEditFragment on Order {
   lineitems {
     totalCount
   }
+  externalLinks {
+    url
+    label
+  }
 }

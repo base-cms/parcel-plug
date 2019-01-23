@@ -40,9 +40,11 @@ Router.map(function() {
     this.route('orders', function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {
+        this.route('links');
         this.route('lineitems', function() {
           this.route('create');
           this.route('edit', { path: ':lineitem_id' }, function() {
+            this.route('links');
             this.route('ads', function() {
               this.route('create');
               this.route('edit', { path: ':ad_id' });

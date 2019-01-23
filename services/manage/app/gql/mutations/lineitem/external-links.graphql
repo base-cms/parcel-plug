@@ -1,0 +1,9 @@
+mutation LineItemExternalLinks($input: ExternalLinksMutationInput!) {
+  lineitemExternalLinks(input: $input) {
+    id
+    externalLinks {
+      url
+      label
+    }
+  }
+}

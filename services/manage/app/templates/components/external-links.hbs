@@ -1,0 +1,72 @@
+{{#each value as |link|}}
+  {{#auto-save/form as |form|}}
+    <div class="row mb-1">
+      <div class="col-md-2 col-sm-6 mb-1">
+        <a
+          href={{ link.url }}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-block btn-info text-nowrap text-truncate"
+        >
+          {{entypo-icon "link"}}
+          <span class="">{{if link.label link.label link.url}}</span>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-6 mb-1">
+        {{confirm-button
+          icon="cross"
+          confirmIcon="warning"
+          label="Remove"
+          class="btn btn-block btn-warning text-nowrap text-truncate"
+          onConfirm=(action "removeLink" link)
+        }}
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        {{#form.elements.input
+          class="form-control"
+          autocomplete="off"
+          autofocus=true
+          type="url"
+          name="url"
+          form=form
+          label="URL"
+          value=link.url
+          on-change=(action "setLinkUrl" link)
+          required=true
+        as |input|
+        }}
+          {{input.element}}
+          {{input.elements.invalid-feedback}}
+        {{/form.elements.input}}
+      </div>
+      <div class="col-md-4 col-sm-6">
+        {{#form.elements.input
+          class="form-control"
+          autocomplete="off"
+          autofocus=true
+          type="text"
+          name="Label"
+          form=form
+          label="Label"
+          value=link.label
+          on-change=(action "setLinkLabel" link)
+        as |input|
+        }}
+          {{input.element}}
+          {{input.elements.invalid-feedback}}
+        {{/form.elements.input}}
+      </div>
+    </div>
+  {{/auto-save/form}}
+{{/each}}
+
+<div class="mt-1 text-right">
+  <button class="btn btn-sm btn-primary" type="button" {{action "createLink"}}>{{entypo-icon "plus"}} Add Link</button>
+</div>
+
+{{#if error}}
+  <div class="my-1 alert alert-danger" role="alert">
+    {{error}}
+  </div>
+{{/if}}

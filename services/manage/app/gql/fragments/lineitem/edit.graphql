@@ -19,6 +19,10 @@ fragment LineItemEditFragment on LineItem {
     end
     days
   }
+  externalLinks {
+    url
+    label
+  }
   targeting {
     adunits {
       id

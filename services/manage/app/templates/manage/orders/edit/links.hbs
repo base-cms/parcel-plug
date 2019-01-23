@@ -1,0 +1,12 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col">
+      {{external-links
+        value=model.externalLinks
+        on-change=(action "setExternalLinks")
+      }}
+    </div>
+  </div>
+</div>
+
+{{order/create-button}}
