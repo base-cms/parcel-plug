@@ -1,6 +1,7 @@
 fragment LineItemEditFragment on LineItem {
   id
   name
+  notes
   status
   requires
   paused

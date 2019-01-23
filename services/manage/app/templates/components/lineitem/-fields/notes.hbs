@@ -1,0 +1,18 @@
+<label for="lineitem-notes">Notes</label>
+{{#form.elements.textarea
+  id="lineitem-notes"
+  class="form-control"
+  autocomplete="off"
+  autofocus=autofocus
+  type="text"
+  name="notes"
+  label="Notes"
+  value=value
+  aria-labeledby="lineitem-notes-help"
+  on-change=on-change
+as |input|
+}}
+  {{input.element}}
+  {{input.elements.invalid-feedback}}
+{{/form.elements.textarea}}
+<small id="lineitem-notes-help" class="form-text text-muted">Notes to store about this line item.</small>

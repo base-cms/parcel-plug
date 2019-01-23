@@ -19,6 +19,7 @@ extend type Mutation {
   deleteLineItem(input: DeleteLineItemMutationInput!): LineItem! @requiresAuth @delete(modelName: "lineitem")
 
   lineitemName(input: LineItemNameMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "name")
+  lineitemNotes(input: LineItemNotesMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "notes")
   lineitemPriority(input: LineItemPriorityMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "priority")
   lineitemPaused(input: LineItemPausedMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "paused")
   lineitemAdUnits(input: LineItemAdUnitsMutationInput!): LineItem! @requiresAuth @setAndUpdate(modelName: "lineitem", path: "targeting.adunitIds")
@@ -40,6 +41,7 @@ enum LineItemStatus {
 type LineItem implements Timestampable & UserAttributable @applyInterfaceFields {
   id: ObjectID!
   name: String!
+  notes: String
   status: LineItemStatus!
   paused: Boolean!
   requires: String!
@@ -124,6 +126,11 @@ input LineItemSortInput {
 }
 
 input LineItemNameMutationInput {
+  id: ObjectID!
+  value: String!
+}
+
+input LineItemNotesMutationInput {
   id: ObjectID!
   value: String!
 }
