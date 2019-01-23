@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { debounce } from '@ember/runloop';
 import OnInsertMixin from '../form-elements/mixins/on-insert';
 
 export default Component.extend(OnInsertMixin, {
@@ -55,46 +54,6 @@ export default Component.extend(OnInsertMixin, {
   changeComplete: false,
 
   /**
-   * Sends the on-change events.
-   * Will only fire when the field is valid.
-   *
-   * @param {string} value
-   * @param {Event} event
-   */
-  async sendOnChange(value, event) {
-    this.resetState();
-    this.validate();
-    const fn = this.get('on-change');
-    if (typeof fn === 'function' && this.get('_child.isValid')) {
-      const { id, name, shouldSave, label } = this.getProperties('id', 'name', 'shouldSave', 'label');
-      const props = {
-        id,
-        name,
-        value,
-        label,
-        shouldSave,
-        event,
-      };
-      this.set('isChanging', true);
-      try {
-        await fn(props);
-        this.set('changeComplete', true);
-      } catch (e) {
-        this.set('_child.validationMessage', e.message);
-        const onError = this.get('on-error');
-        // On server error, reset the input's value.
-        // This prevents the value from getting "stuck" as non-dirty.
-        event.target.value = this.get('value');
-        if (typeof onError === 'function') {
-          onError(e, props);
-        }
-      } finally {
-        this.set('isChanging', false);
-      }
-    }
-  },
-
-  /**
    * Resets the change state of this component.
    */
   resetState() {
@@ -134,27 +93,46 @@ export default Component.extend(OnInsertMixin, {
       this.set('_child', component);
     },
 
-    /**
-     * Debounces the input onchange event.
-     *
-     * Will immediately fire the change, if dirty, and
-     * will cancel any other pending change events.
-     *
-     * @param {Event} event
-     */
-    debounceChange({ target }) {
-      const value = target.checked;
-      const isDirty = this.get('value') !== value;
-      if (isDirty) {
-        this.resetValidity();
-        if (this.get('shouldSave')) {
-          // Debounce when saving
-          this.validate();
-          debounce(this, 'sendOnChange', value, event, 1, true);
-        } else {
-          this.sendOnChange(value, event);
+  /**
+   * Sends the on-change events.
+   * Will only fire when the field is valid.
+   *
+   * @param {string} value
+   * @param {Event} event
+   */
+  async sendOnChange(event) {
+    const { target } = event;
+    const value = target.checked;
+    this.resetState();
+    this.validate();
+    const fn = this.get('on-change');
+    if (typeof fn === 'function' && this.get('_child.isValid')) {
+      const { id, name, shouldSave, label } = this.getProperties('id', 'name', 'shouldSave', 'label');
+      const props = {
+        id,
+        name,
+        value,
+        label,
+        shouldSave,
+        event,
+      };
+      this.set('isChanging', true);
+      try {
+        await fn(props);
+        this.set('changeComplete', true);
+      } catch (e) {
+        this.set('_child.validationMessage', e.message);
+        const onError = this.get('on-error');
+        // On server error, reset the input's value.
+        // This prevents the value from getting "stuck" as non-dirty.
+        event.target.value = this.get('value');
+        if (typeof onError === 'function') {
+          onError(e, props);
         }
+      } finally {
+        this.set('isChanging', false);
       }
-    },
+    }
+  },
   },
 });

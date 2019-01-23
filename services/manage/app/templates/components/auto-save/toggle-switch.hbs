@@ -17,7 +17,7 @@
 
         validator=validator
         on-insert=(action "setChildInputComponent")
-        change=(action "debounceChange")
+        change=(action "sendOnChange")
       )
       elements=(hash
         label=(component "form-elements/label"
