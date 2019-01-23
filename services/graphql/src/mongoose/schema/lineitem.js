@@ -169,7 +169,7 @@ schema.method('clone', async function clone(user, orderId) {
 
 schema.method('isActive', async function isActive() {
   const inactiveStatus = ['Deleted', 'Incomplete', 'Paused'];
-  if (inactiveStatus.includes(this.status)) return true;
+  if (inactiveStatus.includes(this.status)) return false;
   const ads = await connection.model('ad').find({ lineitemId: this.id });
   return ads.some(ad => ad.status === 'Active');
 });
