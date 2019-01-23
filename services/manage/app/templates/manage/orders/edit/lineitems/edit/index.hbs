@@ -99,12 +99,12 @@
       <span class="text-muted">(requires {{model.requires}})</span>
     {{/if}}
   </p>
-  <div>
+  <div class="d-flex">
     {{confirm-button
       icon="copy"
       label="Clone"
       runningLabel="Cloning..."
-      class="btn-info"
+      class="btn-info mr-1"
       disabled=isActionRunning
       isRunning=isCloning
       onConfirm=(action "clone")
