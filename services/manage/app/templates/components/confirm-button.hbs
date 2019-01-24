@@ -1,5 +1,7 @@
-{{#if isRunning}}
-  {{entypo-icon "hour-glass" class="d-inline-block spin"}} {{runningLabel}}
-{{else}}
-  {{entypo-icon _icon class=iconClass}} <span class={{labelClass}}>{{_label}}</span>
-{{/if}}
+<div class="d-flex">
+  {{#if isRunning}}
+    {{entypo-icon "hour-glass" class="d-inline-block spin"}} <span class="text-nowrap">{{runningLabel}}</span>
+  {{else}}
+    {{entypo-icon _icon class=iconClass}} <span class="text-nowrap {{labelClass}}">{{_label}}</span>
+  {{/if}}
+</div>

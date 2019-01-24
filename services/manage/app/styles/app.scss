@@ -37,15 +37,6 @@
   padding-bottom: 1rem;
 }
 
-// Add xl modal, per https://github.com/twbs/bootstrap/pull/19925
-@include media-breakpoint-up(lg) {
-  .modal-xl { max-width: $modal-lg; }
-}
-
-@include media-breakpoint-up(xl) {
-  .modal-xl { max-width: $modal-xl; }
-}
-
 // Compensate for bottom progress bar. Ensures nav bar links are vertically centered.
 nav.navbar {
   padding-top: 1.2em;

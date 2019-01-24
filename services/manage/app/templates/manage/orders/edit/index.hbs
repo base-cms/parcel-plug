@@ -22,6 +22,15 @@
   </div>
   <div class="card-footer text-right">
     {{confirm-button
+      icon="copy"
+      label="Clone"
+      runningLabel="Cloning..."
+      class="btn-info mr-1"
+      disabled=isActionRunning
+      isRunning=isCloning
+      onConfirm=(action "clone")
+    }}
+    {{confirm-button
       icon="trash"
       label="Delete"
       runningLabel="Deleting..."

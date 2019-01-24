@@ -15,6 +15,7 @@ extend type Mutation {
   createAd(input: CreateAdMutationInput!): Ad! @requiresAuth
   updateAd(input: UpdateAdMutationInput!): Ad! @requiresAuth @update(modelName: "ad")
   deleteAd(input: DeleteAdMutationInput!): Ad! @requiresAuth @delete(modelName: "ad")
+  cloneAd(input: CloneAdMutationInput!): Ad! @requiresAuth @clone(modelName: "ad")
 
   adName(input: AdNameMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "name")
   adWidth(input: AdWidthMutationInput!): Ad! @requiresAuth @setAndUpdate(modelName: "ad", path: "width")
@@ -78,6 +79,10 @@ input CreateAdMutationInput {
 input UpdateAdMutationInput {
   id: ObjectID!
   payload: UpdateAdPayloadInput!
+}
+
+input CloneAdMutationInput {
+  id: ObjectID!
 }
 
 input DeleteAdMutationInput {

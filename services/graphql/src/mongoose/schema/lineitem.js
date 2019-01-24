@@ -145,9 +145,30 @@ schema.virtual('status').get(function getStatus() {
   return 'Scheduled';
 });
 
+schema.method('clone', async function clone(user, orderId) {
+  const Model = connection.model('lineitem');
+  const { _doc } = this;
+  const input = {
+    ..._doc,
+    paused: true,
+    orderId: orderId || _doc.orderId,
+    name: `${this.name} copy`,
+  };
+  ['id', '_id', 'createdAt', 'updatedAt', 'updatedBy', 'createdBy'].forEach(k => delete input[k]);
+
+  const doc = new Model(input);
+  doc.setUserContext(user);
+  await doc.save();
+
+  const lineitemId = doc.id;
+  const ads = await connection.model('ad').find({ lineitemId: this.id });
+  await Promise.all(ads.map(ad => ad.clone(user, orderId, lineitemId)));
+  return doc;
+});
+
 schema.method('isActive', async function isActive() {
   const inactiveStatus = ['Deleted', 'Incomplete', 'Paused'];
-  if (inactiveStatus.includes(this.status)) return true;
+  if (inactiveStatus.includes(this.status)) return false;
   const ads = await connection.model('ad').find({ lineitemId: this.id });
   return ads.some(ad => ad.status === 'Active');
 });

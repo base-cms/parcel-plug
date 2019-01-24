@@ -17,6 +17,7 @@ scalar Upload
 
 directive @applyInterfaceFields on OBJECT
 directive @create(modelName: String!) on FIELD_DEFINITION
+directive @clone(modelName: String!) on FIELD_DEFINITION
 directive @delete(modelName: String!) on FIELD_DEFINITION
 directive @matchMany(modelName: String!, using: JSON) on FIELD_DEFINITION
 directive @refMany(modelName: String!, localField: String!, foreignField: String!) on FIELD_DEFINITION

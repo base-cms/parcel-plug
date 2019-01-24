@@ -1,4 +1,5 @@
 const ApplyInterfaceDirective = require('./apply-interface');
+const CloneDirective = require('./clone');
 const CreateDirective = require('./create');
 const DeleteDirective = require('./delete');
 const MatchManyDirective = require('./match-many');
@@ -12,6 +13,7 @@ const UpdateDirective = require('./update');
 
 module.exports = {
   applyInterfaceFields: ApplyInterfaceDirective,
+  clone: CloneDirective,
   create: CreateDirective,
   delete: DeleteDirective,
   matchMany: MatchManyDirective,

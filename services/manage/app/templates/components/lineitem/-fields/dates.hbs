@@ -15,7 +15,7 @@ as |select|
 {{/form-elements/select}}
 
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-xl-6">
     {{#if showDateRange}}
       {{lineitem/-fields/dates/calendar-range
         range=_range
@@ -28,7 +28,7 @@ as |select|
       }}
     {{/if}}
   </div>
-  <div class="col-lg-6 text-left text-lg-right pt-2 pt-lg-0">
+  <div class="col-xl-6 text-left text-xl-right pt-2 pt-xl-0">
     {{#if showDateRange}}
       {{#if isRangeSet}}
         <small class="d-block">Start: {{moment-format _range.start "ddd MMM Do, YYYY"}}</small>
