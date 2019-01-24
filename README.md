@@ -117,8 +117,7 @@ On `order.advertiserId` change, the `advertiserId` and `advertiserName` will be 
 - ads
 
 On `order.advertiserId` change, the `advertiserId` will be updated where `order.id === orderId` on
-- views
-- clicks
+- events
 
 ### Line Item
 On `lineitem.name` change, the `lineitemName` will be updated on related
@@ -128,15 +127,13 @@ On `lineitem.orderId` change, the `orderId`, `orderName`, `advertiserId`, and `a
 - ads
 
 On `lineitem.orderId` change, the `orderId` will be updated where `lineitem.id === lineitemId` on
-- views
-- clicks
+- events
 
 ### Ad
 On `ad.lineitemId` change, the `lineitemName`, `orderId`, `orderName`, `advertiserId`, and `advertiserName` will be updated on itself
 
 On `ad.lineitemId` change, the `lineitemId`, `orderId` and `advertiserId` will be updated where `ad.id === adId` on
-- views
-- clicks
+- events
 
 On `ad.lineitemId` change, the `lineitemId` will be updated where `ad.id === adId` on
 - correlators
@@ -154,14 +151,10 @@ On `deployment.publisherId` change, the `publisherId` and `publisherName` will b
 - adunits
 
 On `deployment.publisherId` change, the `publisherId` will be updated where `deployment.id === deploymentId` on
-- requests
-- views
-- clicks
+- events
 
 ### Ad Unit
 On `adunit.deploymentId` change, the `deploymentName`, `publisherId`, and `publisherName` will be updated on itself
 
 On `adunit.deploymentId` change, the `publisherId` and `deploymentId` will be updated where `adunit.id === adunitId` on
-- requests
-- views
-- clicks
+- events
