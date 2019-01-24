@@ -1,6 +1,6 @@
 <div class="card z-depth-0">
   <div class="card-header">
-    <strong>{{ad/-icon}} {{model.name}} ({{model.size}}) [ {{ad/-status status=model.status}} ]</strong>
+    <strong>{{ad/-icon}} {{model.name}} ({{model.size}})</strong>
   </div>
 
   <div class="card-body">
@@ -66,16 +66,24 @@
     {{/auto-save/form}}
   </div>
 
-  <div class="card-footer text-right">
-    {{confirm-button
-      icon="trash"
-      label="Delete"
-      runningLabel="Deleting..."
-      class="btn-danger"
-      disabled=isActionRunning
-      isRunning=isDeleting
-      onConfirm=(action "delete")
-    }}
+  <div class="card-footer d-flex justify-content-between">
+    <p class="mb-0">
+      {{ad/-status status=model.status}}
+      {{#if model.requires}}
+        <span class="text-muted">(requires {{model.requires}})</span>
+      {{/if}}
+    </p>
+    <div class="d-flex align-items-end">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        runningLabel="Deleting..."
+        class="btn-danger"
+        disabled=isActionRunning
+        isRunning=isDeleting
+        onConfirm=(action "delete")
+      }}
+    </div>
   </div>
 
 </div>
