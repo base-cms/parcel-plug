@@ -6,6 +6,7 @@ const User = require('../../mongoose/models/user');
 const ad = require('./ad');
 const lineitem = require('./lineitem');
 const user = require('./user');
+const report = require('./report');
 const { DateType, ObjectIDType } = require('../types');
 
 const resolveType = (doc) => {
@@ -18,6 +19,7 @@ module.exports = deepAssign(
   ad,
   lineitem,
   user,
+  report,
   {
     /**
      * Custom scalar types.

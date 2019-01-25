@@ -6,6 +6,7 @@ const deployment = require('./deployment');
 const lineitem = require('./lineitem');
 const order = require('./order');
 const publisher = require('./publisher');
+const report = require('./report');
 const user = require('./user');
 
 module.exports = gql`
@@ -86,6 +87,7 @@ ${deployment}
 ${lineitem}
 ${order}
 ${publisher}
+${report}
 ${user}
 
 `;
