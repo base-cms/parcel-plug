@@ -52,6 +52,7 @@ Router.map(function() {
       });
     });
     this.route('lineitems');
+    this.route('reporting');
   });
   this.route('login');
   this.route('logout');
