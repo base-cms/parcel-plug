@@ -241,7 +241,8 @@ schema.pre('save', async function setReady() {
 schema.pre('save', async function updateEvents() {
   if (this.isModified('lineitemId')) {
     const { advertiserId, orderId, lineitemId } = this;
-    connection.model('event').updateMany({ adId: this._id }, {
+    const criteria = { adId: this._id, type: { $in: ['view', 'click'] } };
+    connection.model('event').updateMany(criteria, {
       $set: { advertiserId, orderId, lineitemId },
     }).catch(e => logError(e));
     // Update correlators

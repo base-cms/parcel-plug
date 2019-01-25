@@ -24,6 +24,6 @@ schema.index({ deploymentId: 1 });
 schema.index({ adunitId: 1 });
 schema.index({ orderId: 1 });
 schema.index({ lineitemId: 1 });
-schema.index({ adId: 1, correlator: 1 });
+schema.index({ adId: 1, type: 1, correlator: 1 });
 
 module.exports = schema;
