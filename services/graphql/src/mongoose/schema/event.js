@@ -4,7 +4,7 @@ const schema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ['click', 'view'],
+    enum: ['click', 'view', 'request'],
   },
   adId: Schema.Types.ObjectId,
   lineitemId: Schema.Types.ObjectId,
