@@ -5,6 +5,8 @@ import autocompleteAdvertisers from '@base-cms/parcel-plug-manage/gql/queries/ad
 import autocompleteAdUnits from '@base-cms/parcel-plug-manage/gql/queries/adunit/autocomplete';
 import autocompleteDeployments from '@base-cms/parcel-plug-manage/gql/queries/deployment/autocomplete';
 import autocompletePublishers from '@base-cms/parcel-plug-manage/gql/queries/publisher/autocomplete';
+import autocompleteOrders from '@base-cms/parcel-plug-manage/gql/queries/order/autocomplete';
+import autocompleteLineItems from '@base-cms/parcel-plug-manage/gql/queries/lineitem/autocomplete';
 
 export default Service.extend(ObjectQueryManager, {
   graphErrors: inject(),
@@ -24,6 +26,10 @@ export default Service.extend(ObjectQueryManager, {
         return { field: 'fullName', query: autocompleteDeployments, resultKey: 'matchDeployments' };
       case 'publishers':
         return { field: 'name', query: autocompletePublishers, resultKey: 'matchPublishers' };
+      case 'orders':
+        return { field: 'name', query: autocompleteOrders, resultKey: 'matchOrders' };
+      case 'lineitems':
+        return { field: 'name', query: autocompleteLineItems, resultKey: 'matchLineItems' };
       default:
         throw new Error(`The autocomplete type '${type}' is not registered.`);
     }

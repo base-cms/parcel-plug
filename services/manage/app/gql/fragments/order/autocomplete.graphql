@@ -1,0 +1,4 @@
+fragment OrderAutocompleteFragment on Order {
+  id
+  name
+}
