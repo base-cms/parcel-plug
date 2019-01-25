@@ -261,7 +261,8 @@ schema.pre('save', async function updateRelatedModels() {
 schema.pre('save', async function updateEvents() {
   if (this.isModified('orderId')) {
     const { advertiserId, orderId } = this;
-    connection.model('event').updateMany({ lineitemId: this._id }, {
+    const criteria = { lineitemId: this._id, type: { $in: ['view', 'click'] } };
+    connection.model('event').updateMany(criteria, {
       $set: { advertiserId, orderId },
     }).catch(e => logError(e));
   }
