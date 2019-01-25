@@ -31,8 +31,7 @@ module.exports = {
   async click(adunit, correlator, adId, { now, email, send }) {
     const { _id: adunitId, deploymentId, publisherId } = adunit;
 
-    const type = 'view';
-    const view = await db.findOne('events', { type, adId, correlator }, { projection: { _id: 1 } });
+    const view = await db.findOne('events', { adId, type: 'view', correlator }, { projection: { _id: 1 } });
     if (!view) await this.view(adunit, correlator, adId, { now, email, send });
 
     const ids = await getAdIds(adId);
