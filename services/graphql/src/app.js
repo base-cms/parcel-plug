@@ -6,6 +6,7 @@ const Auth = require('./auth');
 const bearer = require('./auth/bearer');
 const env = require('./env');
 const graphql = require('./graphql/server');
+const reporting = require('./routes/reporting');
 
 const { GRAPHQL_ENDPOINT } = env;
 
@@ -58,6 +59,9 @@ app.use((req, res, next) => {
 });
 
 graphql({ app, endpoint: GRAPHQL_ENDPOINT });
+
+// reporting.csv route
+reporting(app);
 
 // Redirect root domain requests to the app.
 app.get('/', (req, res) => {
