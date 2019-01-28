@@ -3,8 +3,7 @@ const gql = require('graphql-tag');
 module.exports = gql`
 
 extend type Query {
-  # report(input: ReportQueryInput!): Report! @requiresAuth
-  report(input: ReportQueryInput!): Report!
+  report(input: ReportQueryInput!): Report! @requiresAuth
 }
 
 type Report {
