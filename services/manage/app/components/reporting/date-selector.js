@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import InitValueMixin from '@base-cms/parcel-plug-manage/mixins/init-value';
+import InitValueMixin from '@base-cms/parcel-plug-manage/mixins/init-value-mixin';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
 import moment from 'moment';
 import { observer } from '@ember/object';
