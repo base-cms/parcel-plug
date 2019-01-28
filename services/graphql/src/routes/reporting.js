@@ -83,8 +83,9 @@ module.exports = (app) => {
 
     const parser = new Parser({ fields });
     const csv = parser.parse(data);
+    const hash = Buffer.from(req.query.input, 'ascii').toString('base64');
 
-    res.setHeader('Content-disposition', 'attachment; filename=reporting.csv');
+    res.setHeader('Content-disposition', `attachment; filename=emailx_${hash}.csv`);
     res.set('Content-Type', 'text/csv');
     res.status(200).send(csv);
   }));
