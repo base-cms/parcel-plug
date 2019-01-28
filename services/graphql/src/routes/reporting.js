@@ -1,12 +1,12 @@
 const { Parser } = require('json2csv');
 const { ObjectId } = require('mongodb');
 const reportingService = require('../services/reporting');
+const logError = require('../log-error');
 const {
   publisher, deployment, adunit, advertiser,
   order, lineitem, ad,
 } = require('../mongoose/models');
 
-const { log } = console;
 const { isArray } = Array;
 
 const asyncRoute = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
@@ -17,7 +17,7 @@ const getModelValue = (field, row, models) => {
     const found = models[`${model}s`].filter(({ _id }) => `${_id}` === `${row[`${model}Id`]}`);
     return found[0][subfield];
   } catch (e) {
-    log(e);
+    logError(e);
   }
   return null;
 };
