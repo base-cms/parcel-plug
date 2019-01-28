@@ -31,15 +31,13 @@ const parseRefs = async (rows, fields) => {
    * Is there a way to send this through graph first?
    */
   const models = {
-    publishers: await retrieve(publisher, [...new Set(rows.map(({ publisherId }) => publisherId))]),
-    deployments: await retrieve(deployment,
-      [...new Set(rows.map(({ deploymentId }) => deploymentId))]),
-    adunits: await retrieve(adunit, [...new Set(rows.map(({ adunitId }) => adunitId))]),
-    advertisers: await retrieve(advertiser,
-      [...new Set(rows.map(({ advertiserId }) => advertiserId))]),
-    orders: await retrieve(order, [...new Set(rows.map(({ orderId }) => orderId))]),
-    lineitems: await retrieve(lineitem, [...new Set(rows.map(({ lineitemId }) => lineitemId))]),
-    ads: await retrieve(ad, [...new Set(rows.map(({ adId }) => adId))]),
+    publishers: await retrieve(publisher, rows.map(({ publisherId }) => publisherId)),
+    deployments: await retrieve(deployment, rows.map(({ deploymentId }) => deploymentId)),
+    adunits: await retrieve(adunit, rows.map(({ adunitId }) => adunitId)),
+    advertisers: await retrieve(advertiser, rows.map(({ advertiserId }) => advertiserId)),
+    orders: await retrieve(order, rows.map(({ orderId }) => orderId)),
+    lineitems: await retrieve(lineitem, rows.map(({ lineitemId }) => lineitemId)),
+    ads: await retrieve(ad, rows.map(({ adId }) => adId)),
   };
 
   return rows.map((row) => {
