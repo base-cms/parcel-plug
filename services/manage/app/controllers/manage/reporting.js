@@ -29,22 +29,20 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
 
   getInput() {
     return {
-      input: {
-        start: parseInt(moment(this.get('start')).format('x')),
-        end: parseInt(moment(this.get('end')).format('x')),
-        publisherIds: this.get('publishers').map(v => v.id),
-        deploymentIds: this.get('deployments').map(v => v.id),
-        adunitIds: this.get('adunits').map(v => v.id),
-        advertiserIds: this.get('advertisers').map(v => v.id),
-        orderIds: this.get('orders').map(v => v.id),
-        lineitemIds: this.get('lineitems').map(v => v.id),
-      }
+      start: parseInt(moment(this.get('start')).format('x')),
+      end: parseInt(moment(this.get('end')).format('x')),
+      publisherIds: this.get('publishers').map(v => v.id),
+      deploymentIds: this.get('deployments').map(v => v.id),
+      adunitIds: this.get('adunits').map(v => v.id),
+      advertiserIds: this.get('advertisers').map(v => v.id),
+      orderIds: this.get('orders').map(v => v.id),
+      lineitemIds: this.get('lineitems').map(v => v.id),
     };
   },
 
   async execute() {
     this.startAction();
-    const variables = this.getInput();
+    const variables = { input: this.getInput() };
 
     try {
       const response = await this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'report');
