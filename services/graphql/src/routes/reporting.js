@@ -10,12 +10,19 @@ const {
 const { isArray } = Array;
 
 const asyncRoute = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
-const retrieve = (model, $in) => model.find({ _id: { $in } }, ['name', 'size']);
-const getModelValue = (field, row, models) => {
+const retrieve = (model, $in, projection = ['name']) => model.find({ _id: { $in } }, projection);
+
+/**
+ *
+ * @param {*} field  The field to retrieve
+ * @param {*} type   The model type (publisher, ad, etc)
+ * @param {*} row    The record containing the `type`Id field
+ * @param {*} models An array of models
+ */
+const getModelValue = (field, type, row, models) => {
   try {
-    const [model, subfield] = field.split('.');
-    const found = models[`${model}s`].filter(({ _id }) => `${_id}` === `${row[`${model}Id`]}`);
-    return found[0][subfield];
+    const found = models.filter(({ _id }) => `${_id}` === `${row[`${type}Id`]}`);
+    return found[0][field];
   } catch (e) {
     logError(e);
   }
@@ -31,19 +38,22 @@ const parseRefs = async (rows, fields) => {
    * Is there a way to send this through graph first?
    */
   const models = {
-    publishers: await retrieve(publisher, rows.map(({ publisherId }) => publisherId)),
-    deployments: await retrieve(deployment, rows.map(({ deploymentId }) => deploymentId)),
-    adunits: await retrieve(adunit, rows.map(({ adunitId }) => adunitId)),
-    advertisers: await retrieve(advertiser, rows.map(({ advertiserId }) => advertiserId)),
-    orders: await retrieve(order, rows.map(({ orderId }) => orderId)),
-    lineitems: await retrieve(lineitem, rows.map(({ lineitemId }) => lineitemId)),
-    ads: await retrieve(ad, rows.map(({ adId }) => adId)),
+    publisher: await retrieve(publisher, rows.map(({ publisherId }) => publisherId)),
+    deployment: await retrieve(deployment, rows.map(({ deploymentId }) => deploymentId)),
+    adunit: await retrieve(adunit, rows.map(({ adunitId }) => adunitId), ['name', 'size']),
+    advertiser: await retrieve(advertiser, rows.map(({ advertiserId }) => advertiserId)),
+    order: await retrieve(order, rows.map(({ orderId }) => orderId)),
+    lineitem: await retrieve(lineitem, rows.map(({ lineitemId }) => lineitemId)),
+    ad: await retrieve(ad, rows.map(({ adId }) => adId), ['name', 'size']),
   };
 
   return rows.map((row) => {
     const out = { ...row };
     fields.forEach((field) => {
-      if (field.indexOf('.') !== -1) out[field] = getModelValue(field, row, models);
+      if (field.indexOf('.') !== -1) {
+        const [type, subfield] = field.split('.');
+        out[field] = getModelValue(subfield, type, row, models[type]);
+      }
     });
     return out;
   });
