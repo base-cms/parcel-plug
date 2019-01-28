@@ -29,8 +29,8 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
 
   getInput() {
     return {
-      start: parseInt(moment(this.get('start')).format('x')),
-      end: parseInt(moment(this.get('end')).format('x')),
+      start: moment(this.get('start')).valueOf(),
+      end: moment(this.get('end')).valueOf(),
       publisherIds: this.get('publishers').map(v => v.id),
       deploymentIds: this.get('deployments').map(v => v.id),
       adunitIds: this.get('adunits').map(v => v.id),
