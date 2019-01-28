@@ -21,7 +21,6 @@ module.exports = {
     publisher: ({ publisherId }) => publisher.findById(publisherId),
     deployment: ({ deploymentId }) => deployment.findById(deploymentId),
     adunit: ({ adunitId }) => adunit.findById(adunitId),
-    ctr: ({ impressions, clicks }) => clicks / impressions,
   },
 
   /**
