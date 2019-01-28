@@ -74,11 +74,9 @@ schema.pre('save', async function updateRelatedModels() {
 schema.pre('save', async function updateEvents() {
   if (this.isModified('publisherId')) {
     const { publisherId } = this;
-    ['request', 'view', 'click'].forEach((modelName) => {
-      connection.model(modelName).updateMany({ deploymentId: this._id }, {
-        $set: { publisherId },
-      }).catch(e => logError(e));
-    });
+    connection.model('event').updateMany({ deploymentId: this._id }, {
+      $set: { publisherId },
+    }).catch(e => logError(e));
   }
 });
 
