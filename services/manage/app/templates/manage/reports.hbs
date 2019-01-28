@@ -61,7 +61,7 @@
         <button
           type="submit"
           class="btn btn-success ml-1"
-          disabled={{ isActionRunning }}
+          disabled={{isActionRunning}}
           {{action "update"}}
         >
           {{entypo-icon "controller-play"}} Execute
@@ -92,34 +92,34 @@
               {{#each model.rows as |item|}}
                 <tr>
                   <td>
-                    {{#link-to "manage.publishers.edit" item.publisher.id }}
-                      {{ item.publisher.name }}
+                    {{#link-to "manage.publishers.edit" item.publisher.id}}
+                      {{item.publisher.name}}
                     {{/link-to}}
                   </td>
                   <td>
-                    {{#link-to "manage.deployments.edit" item.deployment.id }}
-                      {{ item.deployment.name }}
+                    {{#link-to "manage.deployments.edit" item.deployment.id}}
+                      {{item.deployment.name}}
                     {{/link-to}}
                   </td>
                   <td>
-                    {{#link-to "manage.adunits.edit" item.adunit.id }}
-                      {{ item.adunit.name }}
+                    {{#link-to "manage.adunits.edit" item.adunit.id}}
+                      {{item.adunit.name}}
                     {{/link-to}}
                   </td>
-                  <td>{{ item.adunit.size }}</td>
+                  <td>{{item.adunit.size}}</td>
                   <td>
-                    {{#link-to "manage.advertisers.edit" item.advertiser.id }}
-                      {{ item.advertiser.name }}
-                    {{/link-to}}
-                  </td>
-                  <td>
-                    {{#link-to "manage.orders.edit" item.order.id }}
-                      {{ item.order.name }}
+                    {{#link-to "manage.advertisers.edit" item.advertiser.id}}
+                      {{item.advertiser.name}}
                     {{/link-to}}
                   </td>
                   <td>
-                    {{#link-to "manage.orders.edit.lineitems.edit" item.order.id item.lineitem.id }}
-                      {{ item.lineitem.name }}
+                    {{#link-to "manage.orders.edit" item.order.id}}
+                      {{item.order.name}}
+                    {{/link-to}}
+                  </td>
+                  <td>
+                    {{#link-to "manage.orders.edit.lineitems.edit" item.order.id item.lineitem.id}}
+                      {{item.lineitem.name}}
                     {{/link-to}}
                   </td>
                   <td>
@@ -129,13 +129,13 @@
                       item.lineitem.id
                       item.ad.id
                     }}
-                      {{ item.ad.name }}
+                      {{item.ad.name}}
                     {{/link-to}}
                   </td>
-                  <td>{{ item.ad.size }}</td>
-                  <td title="Toal Views: {{ item.impressions }}">{{ number-format item.impressions "0a" }}</td>
-                  <td title="Total Clicks: {{ item.clicks }}">{{ number-format item.clicks "0a" }}</td>
-                  <td title={{ item.ctr }}>{{ number-format item.ctr "0.00%" }}</td>
+                  <td>{{item.ad.size}}</td>
+                  <td title="Toal Views: {{item.impressions}}">{{number-format item.impressions "0a"}}</td>
+                  <td title="Total Clicks: {{item.clicks}}">{{number-format item.clicks "0a"}}</td>
+                  <td title={{item.ctr}}>{{number-format item.ctr "0.00%"}}</td>
                 </tr>
               {{else}}
                 <tr><td class="text-muted">No results</td></tr>
@@ -151,7 +151,7 @@
           class="btn btn-success"
           disabled={{isActionRunning}}
         >
-          {{ entypo-icon "download" }} Download
+          {{entypo-icon "download"}} Download
         </a>
       </div>
 
