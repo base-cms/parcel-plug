@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import moment from 'moment';
 
-import query from '@base-cms/parcel-plug-manage/gql/queries/reporting/list';
+import query from '@base-cms/parcel-plug-manage/gql/queries/report/list';
 import RouteObservableMixin from '../../mixins/route-observable-mixin';
 
 export default Route.extend(RouteObservableMixin, {

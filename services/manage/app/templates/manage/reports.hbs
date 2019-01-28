@@ -1,5 +1,5 @@
 {{#nav-breadcrumbs as |crumbs|}}
-  {{#crumbs.item active=true}}{{entypo-icon "area-graph"}} Reports{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{report/-icon}} Reports{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 <div class="row">
@@ -7,7 +7,7 @@
     <div class="card">
 
       <div class="card-header text-right">
-        {{reporting/date-selector
+        {{report/date-selector
           disabled=isActionRunning
           range=(hash start=start end=end)
           onchange=(action "setDates")
@@ -16,32 +16,32 @@
 
       <div class="card-body">
         <div class="row">
-          {{reporting/model-filter
+          {{report/model-filter
             disabled=isActionRunning
             modelName="publishers"
             value=publishers
           }}
-          {{reporting/model-filter
+          {{report/model-filter
             disabled=isActionRunning
             modelName="deployments"
             value=deployments
           }}
-          {{reporting/model-filter
+          {{report/model-filter
             disabled=isActionRunning
             modelName="adunits"
             value=adunits
           }}
-          {{reporting/model-filter
+          {{report/model-filter
             disabled=isActionRunning
             modelName="advertisers"
             value=advertisers
           }}
-          {{reporting/model-filter
+          {{report/model-filter
             disabled=isActionRunning
             modelName="orders"
             value=orders
           }}
-          {{reporting/model-filter
+          {{report/model-filter
             disabled=isActionRunning
             modelName="lineitems"
             value=lineitems

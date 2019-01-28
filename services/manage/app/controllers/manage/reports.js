@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import moment from 'moment';
 import { ObjectQueryManager } from 'ember-apollo-client';
 import ActionMixin from '@base-cms/parcel-plug-manage/mixins/action-mixin';
-import query from '@base-cms/parcel-plug-manage/gql/queries/reporting/list';
+import query from '@base-cms/parcel-plug-manage/gql/queries/report/list';
 import { computed } from '@ember/object';
 
 export default Controller.extend(ActionMixin, ObjectQueryManager, {
