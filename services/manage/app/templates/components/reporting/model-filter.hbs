@@ -13,5 +13,5 @@
   on-search=(action "search")
 as |result|
 }}
-  {{result.name}}
+  {{if result.fullName result.fullName result.name}}
 {{/form-elements/typeahead}}

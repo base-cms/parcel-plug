@@ -27,9 +27,9 @@ export default Service.extend(ObjectQueryManager, {
       case 'publishers':
         return { field: 'name', query: autocompletePublishers, resultKey: 'matchPublishers' };
       case 'orders':
-        return { field: 'name', query: autocompleteOrders, resultKey: 'matchOrders' };
+        return { field: 'fullName', query: autocompleteOrders, resultKey: 'matchOrders' };
       case 'lineitems':
-        return { field: 'name', query: autocompleteLineItems, resultKey: 'matchLineItems' };
+        return { field: 'fullName', query: autocompleteLineItems, resultKey: 'matchLineItems' };
       default:
         throw new Error(`The autocomplete type '${type}' is not registered.`);
     }

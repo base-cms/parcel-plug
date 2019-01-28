@@ -1,4 +1,4 @@
 fragment OrderAutocompleteFragment on Order {
   id
-  name
+  fullName
 }

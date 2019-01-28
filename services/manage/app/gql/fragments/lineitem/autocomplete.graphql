@@ -1,4 +1,4 @@
 fragment LineItemAutocompleteFragment on LineItem {
   id
-  name
+  fullName
 }
