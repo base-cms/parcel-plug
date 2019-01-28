@@ -1,4 +1,4 @@
-const Reporting = require('../../services/reporting');
+const reportingService = require('../../services/reporting');
 const {
   advertiser,
   order,
@@ -27,6 +27,6 @@ module.exports = {
    *
    */
   Query: {
-    report: (_, { input }) => Reporting(input),
+    report: (_, { input }) => reportingService(input),
   },
 };

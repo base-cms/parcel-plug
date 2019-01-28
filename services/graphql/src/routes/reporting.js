@@ -1,6 +1,6 @@
 const { Parser } = require('json2csv');
 const { ObjectId } = require('mongodb');
-const Reporting = require('../services/reporting');
+const reportingService = require('../services/reporting');
 const {
   publisher, deployment, adunit, advertiser,
   order, lineitem, ad,
@@ -78,7 +78,7 @@ module.exports = (app) => {
       'clicks',
       'ctr',
     ];
-    const { rows } = await Reporting(input);
+    const { rows } = await reportingService(input);
     const data = await parseRefs(rows, fields);
 
     const parser = new Parser({ fields });
