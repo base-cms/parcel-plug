@@ -2,12 +2,9 @@ const Event = require('../mongoose/models/event');
 
 const { isArray } = Array;
 
-const aggregate = async ({ criteria, start, end }) => {
-  const date = { $gte: start, $lte: end };
+const aggregate = async ($match) => {
   const pipeline = [
-    {
-      $match: { ...criteria, date },
-    },
+    { $match },
     {
       $group: {
         _id: {
@@ -45,6 +42,7 @@ const aggregate = async ({ criteria, start, end }) => {
 
 module.exports = (input) => {
   const { start, end } = input;
+  const date = { $gte: start, $lte: end };
   const map = [
     { key: 'adId', field: 'adIds' },
     { key: 'adunitId', field: 'adunitIds' },
@@ -54,11 +52,10 @@ module.exports = (input) => {
     { key: 'orderId', field: 'orderIds' },
     { key: 'publisherId', field: 'publisherIds' },
   ];
-  const criteria = map.reduce((o, { key, field }) => {
+  const $match = map.reduce((o, { key, field }) => {
     const value = input[field];
     if (!isArray(value) || !value.length) return o;
     return { ...o, [key]: { $in: value } };
-  }, { type: { $in: ['click', 'view'] } });
-
-  return aggregate({ criteria, start, end });
+  }, { date, type: { $in: ['click', 'view'] } });
+  return aggregate($match);
 };
