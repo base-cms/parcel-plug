@@ -125,6 +125,8 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
     handleChange(value) {
       // Reset the internal validation states.
       this.set('validationMessage', '');
+      // Set the value.
+      this.set('value', value);
       const fn = this.get('on-change');
       if (typeof fn === 'function') {
         fn(value);
