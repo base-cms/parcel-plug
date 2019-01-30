@@ -1,9 +1,11 @@
 const { Parser } = require('json2csv');
 const { ObjectId } = require('mongodb');
+const multer = require('multer');
 const moment = require('moment');
 const reportingService = require('../services/reporting');
 const connection = require('../mongoose/connections/account');
 
+const upload = multer();
 const { isArray } = Array;
 
 const asyncRoute = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
@@ -81,8 +83,8 @@ const formatInput = (queryParam) => {
 };
 
 module.exports = (app) => {
-  app.get('/reporting', asyncRoute(async (req, res) => {
-    const input = formatInput(req.query.input);
+  app.post('/reporting', upload.none(), asyncRoute(async (req, res) => {
+    const input = formatInput(req.body.input);
     const fields = [
       'publisher.name',
       'deployment.name',

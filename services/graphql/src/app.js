@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const Auth = require('./auth');
 const bearer = require('./auth/bearer');
 const env = require('./env');
@@ -16,6 +17,7 @@ app.set('trust proxy', 'loopback, linklocal, uniquelocal');
 // Set passport auth.
 passport.use(bearer);
 app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const CORS = cors({
   methods: ['GET', 'POST'],

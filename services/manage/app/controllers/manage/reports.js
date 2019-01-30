@@ -23,8 +23,8 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
     });
   },
 
-  downloadUrl: computed('start', 'end', 'publishers', 'deployments', 'adunits', 'advertisers', 'orders', 'lineitems', function() {
-    return `/reporting?input=${encodeURIComponent(JSON.stringify(this.getInput()))}`;
+  downloadInput: computed('start', 'end', 'publishers', 'deployments', 'adunits', 'advertisers', 'orders', 'lineitems', function() {
+    return JSON.stringify(this.getInput());
   }),
 
   getInput() {

@@ -133,7 +133,7 @@
                     {{/link-to}}
                   </td>
                   <td>{{item.ad.size}}</td>
-                  <td title="Toal Views: {{item.impressions}}">{{number-format item.impressions "0a"}}</td>
+                  <td title="Total Views: {{item.impressions}}">{{number-format item.impressions "0a"}}</td>
                   <td title="Total Clicks: {{item.clicks}}">{{number-format item.clicks "0a"}}</td>
                   <td title={{item.ctr}}>{{number-format item.ctr "0.00%"}}</td>
                 </tr>
@@ -146,13 +146,17 @@
       </div>
 
       <div class="card-footer d-flex justify-content-end">
-        <a
-          href={{downloadUrl}}
-          class="btn btn-success"
-          disabled={{isActionRunning}}
-        >
-          {{entypo-icon "download"}} Download
-        </a>
+        <form action="/reporting" method="post">
+          <input type="hidden" name="input" value={{downloadInput}}>
+          <button
+            type="submit"
+            class="btn btn-success"
+            disabled={{isActionRunning}}
+            title="Download Results"
+          >
+            {{entypo-icon "download"}} Download
+          </button>
+        </form>
       </div>
 
     </div>
