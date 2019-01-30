@@ -58,17 +58,11 @@ const retrieveModels = async (rows) => {
 
 const parseRefs = async (rows, fields) => {
   const models = await retrieveModels(rows);
-
-  return rows.map((row) => {
-    const out = { ...row };
-    fields.forEach((field) => {
-      if (field.indexOf('.') !== -1) {
-        const [type, subfield] = field.split('.');
-        out[field] = getModelValue(subfield, type, row, models[type]);
-      }
-    });
-    return out;
-  });
+  return rows.map(row => fields.reduce((o, field) => {
+    if (!field || field.indexOf('.') === -1) return o;
+    const [type, subfield] = field.split('.');
+    return { ...o, [field]: getModelValue(subfield, type, row, models[type]) };
+  }, row));
 };
 
 const formatInput = (queryParam) => {
