@@ -1,5 +1,6 @@
 const { Parser } = require('json2csv');
 const { ObjectId } = require('mongodb');
+const moment = require('moment');
 const reportingService = require('../services/reporting');
 const connection = require('../mongoose/connections/account');
 
@@ -80,7 +81,7 @@ const formatInput = (queryParam) => {
 };
 
 module.exports = (app) => {
-  app.get('/reporting.csv', asyncRoute(async (req, res) => {
+  app.get('/reporting', asyncRoute(async (req, res) => {
     const input = formatInput(req.query.input);
     const fields = [
       'publisher.name',
@@ -101,9 +102,9 @@ module.exports = (app) => {
 
     const parser = new Parser({ fields });
     const csv = parser.parse(data);
-    const hash = Buffer.from(req.query.input, 'ascii').toString('base64');
+    const date = moment().format();
 
-    res.setHeader('Content-disposition', `attachment; filename=emailx_${hash}.csv`);
+    res.setHeader('Content-disposition', `attachment; filename=emailx_report_${date}.csv`);
     res.set('Content-Type', 'text/csv');
     res.status(200).send(csv);
   }));
