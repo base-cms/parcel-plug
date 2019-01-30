@@ -20,6 +20,7 @@ const retrieve = (type, $in, projection = ['name']) => connection.model(type).fi
  */
 const getModelValue = (field, type, row, models) => {
   const found = models.filter(({ _id }) => `${_id}` === `${row[`${type}Id`]}`);
+  if (!found || !found[0]) return null;
   return found[0][field] || null;
 };
 
