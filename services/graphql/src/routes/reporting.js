@@ -1,7 +1,6 @@
 const { Parser } = require('json2csv');
 const { ObjectId } = require('mongodb');
 const reportingService = require('../services/reporting');
-const logError = require('../log-error');
 const connection = require('../mongoose/connections/account');
 
 const { isArray } = Array;
@@ -17,13 +16,8 @@ const retrieve = (type, $in, projection = ['name']) => connection.model(type).fi
  * @param {*} models An array of models
  */
 const getModelValue = (field, type, row, models) => {
-  try {
-    const found = models.filter(({ _id }) => `${_id}` === `${row[`${type}Id`]}`);
-    return found[0][field];
-  } catch (e) {
-    logError(e);
-  }
-  return null;
+  const found = models.filter(({ _id }) => `${_id}` === `${row[`${type}Id`]}`);
+  return found[0][field] || null;
 };
 
 /**
