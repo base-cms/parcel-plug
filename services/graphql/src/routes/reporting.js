@@ -2,15 +2,12 @@ const { Parser } = require('json2csv');
 const { ObjectId } = require('mongodb');
 const reportingService = require('../services/reporting');
 const logError = require('../log-error');
-const {
-  publisher, deployment, adunit, advertiser,
-  order, lineitem, ad,
-} = require('../mongoose/models');
+const connection = require('../mongoose/connections/account');
 
 const { isArray } = Array;
 
 const asyncRoute = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
-const retrieve = (model, $in, projection = ['name']) => model.find({ _id: { $in } }, projection);
+const retrieve = (type, $in, projection = ['name']) => connection.model(type).find({ _id: { $in } }, projection);
 
 /**
  *
@@ -29,23 +26,40 @@ const getModelValue = (field, type, row, models) => {
   return null;
 };
 
-const parseRefs = async (rows, fields) => {
-  /**
-   * Ultimately this should get each distinct model, retrieve the unique
-   * models using the fields for projection.  For now just hard loop it.
-   *
-   * @todo for large data sets this probably can't be done in memory.
-   * Is there a way to send this through graph first?
-   */
-  const models = {
-    publisher: await retrieve(publisher, rows.map(({ publisherId }) => publisherId)),
-    deployment: await retrieve(deployment, rows.map(({ deploymentId }) => deploymentId)),
-    adunit: await retrieve(adunit, rows.map(({ adunitId }) => adunitId), ['name', 'size']),
-    advertiser: await retrieve(advertiser, rows.map(({ advertiserId }) => advertiserId)),
-    order: await retrieve(order, rows.map(({ orderId }) => orderId)),
-    lineitem: await retrieve(lineitem, rows.map(({ lineitemId }) => lineitemId)),
-    ad: await retrieve(ad, rows.map(({ adId }) => adId), ['name', 'size']),
+/**
+ *
+ */
+const retrieveModels = async (rows) => {
+  const [
+    publisher,
+    deployment,
+    adunit,
+    advertiser,
+    order,
+    lineitem,
+    ad,
+  ] = await Promise.all([
+    retrieve('publisher', rows.map(({ publisherId }) => publisherId)),
+    retrieve('deployment', rows.map(({ deploymentId }) => deploymentId)),
+    retrieve('adunit', rows.map(({ adunitId }) => adunitId), ['name', 'size']),
+    retrieve('advertiser', rows.map(({ advertiserId }) => advertiserId)),
+    retrieve('order', rows.map(({ orderId }) => orderId)),
+    retrieve('lineitem', rows.map(({ lineitemId }) => lineitemId)),
+    retrieve('ad', rows.map(({ adId }) => adId), ['name', 'size']),
+  ]);
+  return {
+    publisher,
+    deployment,
+    adunit,
+    advertiser,
+    order,
+    lineitem,
+    ad,
   };
+};
+
+const parseRefs = async (rows, fields) => {
+  const models = await retrieveModels(rows);
 
   return rows.map((row) => {
     const out = { ...row };
