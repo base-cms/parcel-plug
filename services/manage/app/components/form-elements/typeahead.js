@@ -47,7 +47,6 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
     if (this.get('multiple') && !Array.isArray(this.get('value'))) {
       this.set('value', []);
     }
-    this.set('_value', this.get('value'));
   },
 
   /**
@@ -58,7 +57,7 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
     if (this.get('validationMessage')) return false;
 
     const validationMessage = 'Please fill out this field.';
-    const value = this.get('_value');
+    const value = this.get('value');
     const { required, multiple } = this.getProperties('required', 'multiple');
 
     if (required && multiple && (!value || !value.length)) {
@@ -89,7 +88,7 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
   validate() {
     const fn = this.get('validator');
     if (typeof fn === 'function') {
-      fn(this.get('_value'), this);
+      fn(this.get('value'), this);
     }
     this.checkValidity();
     this.set('wasValidated', true);
@@ -126,11 +125,9 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
     handleChange(value) {
       // Reset the internal validation states.
       this.set('validationMessage', '');
-      // Set the internal value.
-      this.set('_value', value);
       const fn = this.get('on-change');
       if (typeof fn === 'function') {
-        fn(...arguments);
+        fn(value);
       }
     },
   },

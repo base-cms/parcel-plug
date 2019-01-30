@@ -1,0 +1,30 @@
+{{#basic-dropdown as |dropdown|}}
+  <button
+    disabled={{disabled}}
+    class="btn btn-primary dropdown-toggle"
+    data-ebd-id="{{dropdown.uniqueId}}-trigger"
+    {{action dropdown.actions.toggle}}
+  >
+    {{entypo-icon "calendar"}}
+    {{dropdownLabel}}
+  </button>
+
+  {{#dropdown.content}}
+    <div class="card border-0 z-depth-2">
+      <div class="card-body">
+        {{#power-calendar-range
+          center=center
+          selected=range
+          disabled=disabled
+          minRange=0
+          onCenterChange=(action (mut center) value="moment")
+          onSelect=(action "setRange" dropdown)
+        as |calendar|
+        }}
+          {{calendar.nav}}
+          {{calendar.days}}
+        {{/power-calendar-range}}
+      </div>
+    </div>
+  {{/dropdown.content}}
+{{/basic-dropdown}}

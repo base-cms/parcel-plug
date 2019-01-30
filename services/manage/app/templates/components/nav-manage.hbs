@@ -9,6 +9,12 @@
         {{/link-to}}
       {{/link-to}}
 
+      {{#link-to "manage.reports" tagName="li" class="nav-item"}}
+        {{#link-to "manage.reports" class="nav-link" title="Reports"}}
+          {{report/-icon}} <span class="d-none d-md-inline">Reports</span>
+        {{/link-to}}
+      {{/link-to}}
+
       {{#link-to "manage.advertisers" tagName="li" class="nav-item"}}
         {{#link-to "manage.advertisers" class="nav-link" title="Manage Advertisers"}}
           {{advertiser/-icon}} <span class="d-none d-md-inline">Advertisers</span>
@@ -30,6 +36,17 @@
   </ul>
 
   <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a
+        href="https://as3.gitbook.io/email-ad-platform"
+        title="Application Documentation"
+        class="nav-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{entypo-icon "text-document"}} <span class="d-none d-md-inline">Documentation</span>
+      </a>
+    </li>
     {{nav-models}}
     {{nav-user}}
   </ul>

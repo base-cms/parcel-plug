@@ -1,0 +1,17 @@
+<label for={{id}}>{{label}}</label>
+{{#form-elements/typeahead
+  id=id
+  dropdownClass=dropdownClass
+  autocomplete="off"
+  name=modelName
+  label=label
+  multiple=true
+  closeOnSelect=false
+  value=value
+  disabled=disabled
+  on-change=(action (mut value))
+  on-search=(action "search")
+as |result|
+}}
+  {{if result.fullName result.fullName result.name}}
+{{/form-elements/typeahead}}

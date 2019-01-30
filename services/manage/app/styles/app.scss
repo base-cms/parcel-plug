@@ -132,3 +132,8 @@ body.transitioning {
 .my-05 {
   margin: 0.5em 0;
 }
+
+// Don't like how Bootswatch pulse theme displays disabled warning buttons
+.btn-warning.disabled, .btn-warning:disabled {
+  color: $white;
+}

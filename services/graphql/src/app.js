@@ -2,10 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const Auth = require('./auth');
 const bearer = require('./auth/bearer');
 const env = require('./env');
 const graphql = require('./graphql/server');
+const reporting = require('./routes/reporting');
 
 const { GRAPHQL_ENDPOINT } = env;
 
@@ -15,6 +17,7 @@ app.set('trust proxy', 'loopback, linklocal, uniquelocal');
 // Set passport auth.
 passport.use(bearer);
 app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const CORS = cors({
   methods: ['GET', 'POST'],
@@ -58,6 +61,9 @@ app.use((req, res, next) => {
 });
 
 graphql({ app, endpoint: GRAPHQL_ENDPOINT });
+
+// reporting.csv route
+reporting(app);
 
 // Redirect root domain requests to the app.
 app.get('/', (req, res) => {

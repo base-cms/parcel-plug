@@ -1,0 +1,39 @@
+query ReportingList($input: ReportQueryInput!) {
+  report(input: $input) {
+    rows {
+      advertiser {
+        id
+        name
+      }
+      order {
+        id
+        name
+      }
+      lineitem {
+        id
+        name
+      }
+      ad {
+        id
+        name
+        size
+      }
+      publisher {
+        id
+        name
+      }
+      deployment {
+        id
+        name
+      }
+      adunit {
+        id
+        name
+        size
+      }
+      impressions
+      clicks
+      ctr
+    }
+  }
+}
