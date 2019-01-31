@@ -21,7 +21,7 @@ as |modal|
     shouldAutosave=false
     model=model
     disabled=isActionRunning
-    on-submit=(action "create")
+    on-submit=(action "create" modal.actions.hide)
   as |form|
   }}
     {{#modal.body}}
