@@ -282,6 +282,12 @@ schema.pre('save', async function checkDelete() {
     // Attempting to delete. Ensure no active ads are found.
     const isActive = await this.isActive();
     if (isActive) throw new Error('Unable to delete line item: active ads were found.');
+    // Okay to delete. Delete all associated ads.
+    const ads = await connection.model('ad').find({ lineitemId: this.id });
+    await Promise.all(ads.map((ad) => {
+      ad.set('deleted', true);
+      return ad.save();
+    }));
   }
 });
 
