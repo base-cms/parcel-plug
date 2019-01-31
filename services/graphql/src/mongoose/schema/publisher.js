@@ -51,6 +51,12 @@ schema.pre('save', async function checkDelete() {
     // Attempting to delete. Ensure no active deployments are found.
     const isActive = await this.isActive();
     if (isActive) throw new Error('Unable to delete publisher: active deployments were found.');
+    // Okay to delete. Delete all associated deployments.
+    const deployments = await connection.model('deployment').find({ publisherId: this.id });
+    await Promise.all(deployments.map((deployment) => {
+      deployment.set('deleted', true);
+      return deployment.save();
+    }));
   }
 });
 

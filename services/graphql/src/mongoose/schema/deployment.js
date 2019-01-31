@@ -85,6 +85,12 @@ schema.pre('save', async function checkDelete() {
     // Attempting to delete. Ensure no active ad units are found.
     const isActive = await this.isActive();
     if (isActive) throw new Error('Unable to delete deployment: active ad units were found.');
+    // Okay to delete. Delete all associated ad units.
+    const adunits = await connection.model('adunit').find({ deploymentId: this.id });
+    await Promise.all(adunits.map((adunit) => {
+      adunit.set('deleted', true);
+      return adunit.save();
+    }));
   }
 });
 
