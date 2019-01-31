@@ -115,6 +115,12 @@ schema.pre('save', async function checkDelete() {
     // Attempting to delete. Ensure no active line items are found.
     const isActive = await this.isActive();
     if (isActive) throw new Error('Unable to delete order: active line items were found.');
+    // Okay to delete. Delete all associated line items.
+    const lineitems = await connection.model('lineitem').find({ orderId: this.id });
+    await Promise.all(lineitems.map((lineitem) => {
+      lineitem.set('deleted', true);
+      return lineitem.save();
+    }));
   }
 });
 

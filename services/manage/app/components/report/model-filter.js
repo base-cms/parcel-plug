@@ -8,10 +8,7 @@ export default Component.extend({
   id: computed('modelName', function() {
     return `model-filter-${this.get('modelName')}`;
   }),
-  label: computed('modelName', function() {
-    const name = this.get('modelName');
-    return `${name[0].toUpperCase()}${name.slice(1)}`;
-  }),
+  label: null,
   actions: {
     search(phrase) {
       return this.get('autocomplete').query(this.get('modelName'), phrase);

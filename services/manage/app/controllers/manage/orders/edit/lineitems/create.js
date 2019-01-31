@@ -10,7 +10,7 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
      *
      * @param {object} fields
      */
-    async create() {
+    async create(closeModal) {
       this.startAction();
       const orderId = this.get('order.id');
       const { name } = this.get('model');
@@ -19,6 +19,7 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
       try {
         const refetchQueries = ['LineItemListForOrder', 'MatchLineItemListForOrder'];
         const response = await this.get('apollo').mutate({ mutation: createLineItem, variables, refetchQueries }, 'createLineItem');
+        await closeModal(false);
         await this.transitionToRoute('manage.orders.edit.lineitems.edit', orderId, response.id);
       } catch (e) {
         this.get('graphErrors').show(e);

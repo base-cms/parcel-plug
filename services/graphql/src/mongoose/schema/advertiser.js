@@ -71,6 +71,12 @@ schema.pre('save', async function checkDelete() {
     // Attempting to delete. Ensure no active orders are found.
     const isActive = await this.isActive();
     if (isActive) throw new Error('Unable to delete advertiser: active orders were found.');
+    // Okay to delete. Delete all associated orders.
+    const orders = await connection.model('order').find({ advertiserId: this.id });
+    await Promise.all(orders.map((order) => {
+      order.set('deleted', true);
+      return order.save();
+    }));
   }
 });
 
