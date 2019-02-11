@@ -16,7 +16,7 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
       const { name } = this.get('model');
       const input = { name, publisherId };
       const variables = { input };
-      const refetchQueries = ['DeploymentListForPublisher', 'MatchDeploymentListForPublisher'];
+      const refetchQueries = ['DeploymentListForPublisher', 'MatchDeploymentListForPublisher', 'PublisherEdit'];
       try {
         await this.get('apollo').mutate({ mutation: createDeployment, variables, refetchQueries }, 'createDeployment');
         await this.transitionToRoute('manage.publishers.edit.deployments');
