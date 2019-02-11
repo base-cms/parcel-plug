@@ -139,8 +139,8 @@
                     {{/link-to}}
                   </td>
                   <td>{{item.ad.size}}</td>
-                  <td title="Total Views: {{item.impressions}}">{{number-format item.impressions "0a"}}</td>
-                  <td title="Total Clicks: {{item.clicks}}">{{number-format item.clicks "0a"}}</td>
+                  <td title="Total Views: {{item.impressions}}">{{number-format item.impressions "0,0"}}</td>
+                  <td title="Total Clicks: {{item.clicks}}">{{number-format item.clicks "0,0"}}</td>
                   <td title={{item.ctr}}>{{number-format item.ctr "0.00%"}}</td>
                 </tr>
               {{else}}
