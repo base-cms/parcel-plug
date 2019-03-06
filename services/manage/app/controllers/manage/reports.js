@@ -56,7 +56,10 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
 
   actions: {
     setDates({ start, end }) {
-      this.setProperties({ start, end });
+      this.setProperties({
+        start: moment(start).startOf('day'),
+        end: moment(end).endOf('day'),
+      });
     },
     reset() {
       this.setProperties({
