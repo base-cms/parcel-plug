@@ -17,6 +17,8 @@ const schema = new Schema({
   email: String,
   send: String,
   correlator: String,
+  ip: String,
+  ua: String,
 });
 
 schema.index({ type: 1 });
