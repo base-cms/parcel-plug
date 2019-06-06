@@ -11,8 +11,8 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
 
   init() {
     this._super(...arguments);
-    this.set('start', moment().startOf('week'));
-    this.set('end', moment().endOf('week'));
+    this.set('start', moment().startOf('day'));
+    this.set('end', moment().endOf('day'));
     this.setProperties({
       publishers: [],
       deployments: [],
@@ -63,8 +63,8 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
     },
     reset() {
       this.setProperties({
-        start: moment().startOf('week'),
-        end: moment().endOf('week'),
+        start: moment().startOf('day'),
+        end: moment().endOf('day'),
         publishers: [],
         deployments: [],
         adunits: [],
