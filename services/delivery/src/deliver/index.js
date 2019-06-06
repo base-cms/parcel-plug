@@ -8,8 +8,9 @@ const logError = require('../log-error');
  * @param {object} adunit The requested adunit document.
  * @param {object} query The request query string parameters.
  * @param {string} type The request type, e.g. `click` or `image`.
+ * @param {object} req The Express request object
  */
-module.exports = async (adunit, query, type) => {
+module.exports = async (adunit, query, type, req) => {
   const { _id: adunitid } = adunit;
   const {
     date,
@@ -31,6 +32,8 @@ module.exports = async (adunit, query, type) => {
     now: new Date(),
     email,
     send,
+    ip: req.ip,
+    ua: req.get('user-agent'),
   };
   switch (type) {
     case 'image':
