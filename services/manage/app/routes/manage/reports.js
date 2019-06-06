@@ -10,8 +10,8 @@ export default Route.extend(RouteObservableMixin, {
    * @param {object} params
    */
   async model() {
-    const start = moment().startOf('week').valueOf();
-    const end = moment().endOf('week').valueOf();
+    const start = moment().startOf('day').valueOf();
+    const end = moment().endOf('day').valueOf();
 
     const input = { start, end };
     const variables = { input };
@@ -24,5 +24,3 @@ export default Route.extend(RouteObservableMixin, {
     }
   },
 });
-
-
