@@ -23,6 +23,17 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
     });
   },
 
+  hasResults: computed('model.rows.length', function() {
+    const length = this.get('model.rows.length');
+    return length && length > 1;
+  }),
+
+  isDownloadDisabled: computed('isActionRunning', 'hasResults', function() {
+    const isActionRunning = this.get('isActionRunning');
+    const hasResults = this.get('hasResults');
+    return isActionRunning || !hasResults;
+  }),
+
   downloadInput: computed('start', 'end', 'publishers', 'deployments', 'adunits', 'advertisers', 'orders', 'lineitems', function() {
     return JSON.stringify(this.getInput());
   }),

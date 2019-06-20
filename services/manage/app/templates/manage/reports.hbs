@@ -74,6 +74,7 @@
         </button>
       </div>
 
+    {{#if model.rows}}
       <div class="card-body">
 
         <div class="table-responsive mt-3">
@@ -157,14 +158,14 @@
           <button
             type="submit"
             class="btn btn-success"
-            disabled={{isActionRunning}}
+            disabled={{isDownloadDisabled}}
             title="Download Results"
           >
             {{entypo-icon "download"}} Download
           </button>
         </form>
       </div>
-
+    {{/if}}
     </div>
   </div>
 </div>
