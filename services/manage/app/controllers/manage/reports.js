@@ -82,8 +82,8 @@ export default Controller.extend(ActionMixin, ObjectQueryManager, {
         advertisers: [],
         orders: [],
         lineitems: [],
+        model: null,
       });
-      this.execute();
     },
     update() {
       this.execute();
