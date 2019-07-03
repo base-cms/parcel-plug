@@ -1,5 +1,11 @@
 version: '3.7'
 
+x-env-defaults: &env
+  YARN_CACHE_FOLDER: /.yarn-cache
+  NODE_ENV: development
+  NEW_RELIC_ENABLED: ${NEW_RELIC_ENABLED-0}
+  NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY-(unset)}
+
 x-node-defaults: &node
   tty: true
   init: true
@@ -11,8 +17,7 @@ x-node-defaults: &node
     - ./node_modules:/parcel-plug/node_modules:delegated
     - yarn-cache:/.yarn-cache
   environment:
-    YARN_CACHE_FOLDER: /.yarn-cache
-    NODE_ENV: development
+    <<: *env
 
 services:
   commands:
@@ -38,8 +43,7 @@ services:
     working_dir: /parcel-plug/services/delivery
     entrypoint: ["/parcel-plug/node_modules/.bin/gulp"]
     environment:
-      YARN_CACHE_FOLDER: /.yarn-cache
-      NODE_ENV: development
+      <<: *env
       INTERNAL_PORT: 80
       EXTERNAL_PORT: 11004
       ACCOUNT_KEY: devel
@@ -54,8 +58,7 @@ services:
     working_dir: /parcel-plug/services/graphql
     entrypoint: ["/parcel-plug/node_modules/.bin/gulp"]
     environment:
-      YARN_CACHE_FOLDER: /.yarn-cache
-      NODE_ENV: development
+      <<: *env
       INTERNAL_PORT: 80
       EXTERNAL_PORT: 11002
       ACCOUNT_KEY: devel
