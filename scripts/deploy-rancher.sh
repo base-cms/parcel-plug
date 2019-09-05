@@ -1,11 +1,16 @@
 #!/bin/bash
 set -e
-./scripts/deploy-notify-start.sh
+IMAGE=basecms/parcel-plug-$1:$2
 yarn global add @base-cms/travis-rancher-deployer
+deploy-to-rancher $IMAGE "parcel-plug-$1"
 
-deploy-to-rancher "nginx:alpine" manage-nginx
-deploy-to-rancher "basecms/parcel-plug:${TRAVIS_TAG}" manage
-deploy-to-rancher "basecms/parcel-plug:${TRAVIS_TAG}" graphql
-deploy-to-rancher "basecms/parcel-plug:${TRAVIS_TAG}" delivery
-
-./scripts/deploy-notify.sh
+payload="{
+  \"deployment\": {
+    \"revision\": \"\`$2\`\",
+    \"user\": \"TravisCD\"
+  }
+}"
+curl -f -X POST --data "$payload" \
+  -H 'Content-type: application/json' \
+  -H "X-Api-Key:$NR_APIKEY" \
+  https://api.newrelic.com/v2/applications/$3/deployments.json

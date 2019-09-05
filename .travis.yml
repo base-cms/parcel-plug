@@ -1,20 +1,40 @@
 language: node_js
 node_js: "10.13"
 cache: yarn
-deploy:
-  -
-    provider: script
-    script: bash scripts/deploy-image.sh latest
-    on:
-      branch: master
-  -
-    provider: script
-    script: bash scripts/deploy-image.sh $TRAVIS_TAG
-    on:
-      tags: true
-  -
-    provider: script
-    script: bash scripts/deploy-rancher.sh
-    on:
-      tags: true
-      condition: "$TRAVIS_TAG =~ ^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
+stages:
+  - name: test
+  - name: notify_start
+    if: tag is present
+  - name: deploy
+    if: tag is present
+  - name: notify
+    if: tag is present
+
+jobs:
+  include:
+    - stage: test
+
+    - stage: notify_start
+      script: scripts/deploy-notify-start.sh
+      install: skip
+
+    - stage: notify
+      script: scripts/deploy-notify.sh
+      install: skip
+
+    - stage: deploy
+      name: Delivery
+      script: scripts/deploy.js delivery
+
+    - stage: deploy
+      name: Event Processor
+      script: scripts/deploy.js event-processor
+
+    - stage: deploy
+      name: GraphQL
+      script: scripts/deploy.js graphql
+
+    - stage: deploy
+      name: Manage
+      script: scripts/deploy.js manage
