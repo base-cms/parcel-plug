@@ -83,6 +83,17 @@ services:
       - "7020:7020"
       - "7357:7357"
 
+  event-processor:
+    <<: *node
+    working_dir: /parcel-plug/services/event-processor
+    entrypoint: ["/parcel-plug/node_modules/.bin/gulp"]
+    environment:
+      <<: *env
+      ACCOUNT_KEY: devel
+      MONGO_DSN: mongodb://mongodb:27017/parcel-plug
+    depends_on:
+      - mongodb
+
 volumes:
   mongodb: {}
   yarn-cache: {}
