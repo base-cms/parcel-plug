@@ -58,30 +58,27 @@ module.exports = async () => {
 
   const events = await coll.aggregate(pipeline);
 
-  return new Promise(async (resolve) => {
+  // eslint-disable-next-line no-await-in-loop
+  while (await events.hasNext()) {
     // eslint-disable-next-line no-await-in-loop
-    while (await events.hasNext()) {
+    const event = await events.next();
+    const { _id: ip, clicks } = event;
+
+    log(`click-frequency: Checking ip ${ip}...`);
+    const flagged = filterByThreshold(clicks);
+    log(`click-frequency: Found ${flagged.length} to flag for ${ip}`);
+
+    if (flagged.length) {
+      const bulkOps = flagged.map(_id => ({
+        updateOne: {
+          filter: { _id },
+          update: { $set: { flagged: true, flagReason: 'click-frequency' } },
+        },
+      }));
       // eslint-disable-next-line no-await-in-loop
-      const event = await events.next();
-      const { _id: ip, clicks } = event;
-
-      log(`click-frequency: Checking ip ${ip}...`);
-      const flagged = filterByThreshold(clicks);
-      log(`click-frequency: Found ${flagged.length} to flag for ${ip}`);
-
-      if (flagged.length) {
-        const bulkOps = flagged.map(_id => ({
-          updateOne: {
-            filter: { _id },
-            update: { $set: { flagged: true, flagReason: 'click-frequency' } },
-          },
-        }));
-        // eslint-disable-next-line no-await-in-loop
-        const { matchedCount } = await coll.bulkWrite(bulkOps);
-        log(`click-frequency: Updated ${matchedCount} flagged events.`);
-      }
+      const { matchedCount } = await coll.bulkWrite(bulkOps);
+      log(`click-frequency: Updated ${matchedCount} flagged events.`);
     }
-    log('click-frequency: Done');
-    resolve();
-  });
+  }
+  log('click-frequency: Done');
 };

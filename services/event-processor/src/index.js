@@ -1,30 +1,23 @@
 require('./newrelic');
 const pkg = require('../package.json');
 const db = require('./db');
-const processor = require('./processor');
+const clickFrequency = require('./rules/click-frequency');
 
 const { log } = console;
 
-const start = () => {
-  log('> Connecting to db...');
-  return db.then((r) => {
-    const { url } = r.client.s;
-    log(`> db connected (${url})`);
-    return r;
-  });
-};
-
-const stop = () => {
-  log('> Disconnecting from db...');
-  return db.close().then((r) => {
-    log('> db disconnected');
-    return r;
-  });
-};
+const stop = () => db.close();
 
 const run = async () => {
-  await start();
-  await processor();
+  const r = await db;
+  const { url } = r.client.s;
+  log(`> db connected (${url})`);
+
+  log('Processing rules');
+  await Promise.all([
+    clickFrequency(),
+  ]);
+  log('Done processing.');
+
   return stop();
 };
 
