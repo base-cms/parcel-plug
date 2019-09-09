@@ -43,8 +43,6 @@ module.exports = async () => {
   const coll = db.collection('events');
 
   const pipeline = [
-    // { $match: { type: 'click', ip: '38.64.56.46' } },
-    // { $match: { type: 'click', ip: '173.45.18.11' } },
     { $match: { type: 'click', ip: { $exists: true } } },
     { $sort: { date: -1 } },
     {
