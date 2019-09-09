@@ -10,6 +10,7 @@
   "dependencies": {
     "@newrelic/native-metrics": "^4.1.0",
     "envalid": "^4.1.4",
+    "forever": "^1.0.0",
     "mongodb-extended-json": "^1.10.1",
     "mongoose": "^5.4.1",
     "newrelic": "^5.9.1"

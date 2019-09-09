@@ -25,8 +25,7 @@ const stop = () => {
 const run = async () => {
   await start();
   await processor();
-  // Run the processor every 5 minutes
-  setInterval(processor, 5 * 60 * 1000);
+  return stop();
 };
 
 // Simulate future NodeJS behavior by throwing unhandled Promise rejections.
