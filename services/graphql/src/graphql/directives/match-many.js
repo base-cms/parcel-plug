@@ -17,7 +17,7 @@ const buildRegex = (term, position) => {
     end = '$';
   }
   const value = escapeRegex(term);
-  return new RegExp(`${start}${value.replace(/\s\s+/, ' ').replace(' ', '|')}${end}`, 'i');
+  return new RegExp(`${start}${value.replace(/\s\s+/, ' ').replace(' ', '.+?')}${end}`, 'i');
 };
 
 class MatchManyDirective extends SchemaDirectiveVisitor {
