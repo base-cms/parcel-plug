@@ -47,7 +47,7 @@ export default Service.extend(ObjectQueryManager, {
   async query(type, phrase, { pagination, vars } = {}) {
     const { field, query, resultKey } = this.getQueryFor(type);
     const input = {
-      pagination: pagination || { limit: 20 },
+      pagination: pagination || { limit: 50 },
       field,
       phrase,
       position: 'contains',
