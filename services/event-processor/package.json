@@ -1,0 +1,17 @@
+{
+  "name": "@base-cms/parcel-plug-event-processor",
+  "version": "1.0.5",
+  "description": "Processes and flags fraudulent events",
+  "main": "src/index.js",
+  "author": "Josh Worden <josh@limit0.io>",
+  "repository": "https://github.com/base-cms/parcel-plug/tree/master/services/event-processor",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@newrelic/native-metrics": "^4.1.0",
+    "envalid": "^4.1.4",
+    "forever": "^1.0.0",
+    "mongoose": "^5.4.1",
+    "newrelic": "^5.9.1"
+  }
+}
