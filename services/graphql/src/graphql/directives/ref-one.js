@@ -1,4 +1,5 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
+const { get } = require('@base-cms/object-path');
 const { account: connection } = require('../../mongoose/connections');
 
 class RefOneDirective extends SchemaDirectiveVisitor {
@@ -18,7 +19,7 @@ class RefOneDirective extends SchemaDirectiveVisitor {
       const Model = connection.model(modelName);
       const [doc] = args;
 
-      const value = doc.get(localField);
+      const value = typeof doc.get === 'function' ? doc.get(localField) : get(doc, localField);
       if (!value) return null;
 
       const query = {
