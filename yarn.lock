@@ -603,6 +603,19 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@base-cms/object-path@v1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@base-cms/object-path/-/object-path-1.0.0.tgz#b6fc6faafa9834ee11c0822bdb301739485f191f"
+  integrity sha512-A7iSPJwos+u13fMXwzny6/DBOI4LPhwvkpAo7NUgwv/LtGcpxI3svpk/PPaKEuOedjthpUCLiNjYCL8v1nFkCw==
+  dependencies:
+    "@base-cms/utils" "^1.0.0"
+    object-path "^0.11.4"
+
+"@base-cms/utils@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@base-cms/utils/-/utils-1.0.0.tgz#9e872c8c427ba0bbca08883a8bd8f65599eb18e6"
+  integrity sha512-ExCwdJkiZa9c+QoYfHWPCrlQaIFgP+xR1N+KzbzGE0ppO0oND3VBx9seJI68HuBRqXLiPeHk2I8raCAGgn/z0g==
+
 "@ember/jquery@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@ember/jquery/-/jquery-0.5.2.tgz#fe312c03ada0022fa092d23f7cd7e2eb0374b53a"
