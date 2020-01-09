@@ -15,12 +15,11 @@ class RefOneDirective extends SchemaDirectiveVisitor {
     } = this.args;
 
     // eslint-disable-next-line no-param-reassign
-    field.resolve = async (...args) => {
+    field.resolve = async (doc, _, { load }) => {
       const Model = connection.model(modelName);
-      const [doc] = args;
-
       const value = typeof doc.get === 'function' ? doc.get(localField) : get(doc, localField);
       if (!value) return null;
+      if (foreignField === '_id') return load(modelName, value);
 
       const query = {
         [foreignField]: value,
