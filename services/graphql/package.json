@@ -17,6 +17,7 @@
     "bcrypt": "^3.0.3",
     "bluebird": "^3.5.3",
     "cors": "^2.8.5",
+    "dataloader": "^2.0.0",
     "deep-assign": "^3.0.0",
     "deepmerge": "^3.0.0",
     "envalid": "^4.1.4",
