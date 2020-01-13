@@ -1,9 +1,9 @@
 const DataLoader = require('dataloader');
 const models = require('../mongoose/models');
 
-const reduceAndMap = ({ ids, docs, field = 'id' }) => {
+const reduceAndMap = ({ ids, docs }) => {
   const mapped = docs.reduce((map, doc) => {
-    const id = doc.get(field);
+    const id = doc.get('id');
     map.set(`${id}`, doc);
     return map;
   }, new Map());
