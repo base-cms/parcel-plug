@@ -1,4 +1,5 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
+const { get } = require('@base-cms/object-path');
 const { account: connection } = require('../../mongoose/connections');
 
 class RefOneDirective extends SchemaDirectiveVisitor {
@@ -14,12 +15,11 @@ class RefOneDirective extends SchemaDirectiveVisitor {
     } = this.args;
 
     // eslint-disable-next-line no-param-reassign
-    field.resolve = async (...args) => {
+    field.resolve = async (doc, _, { load }) => {
       const Model = connection.model(modelName);
-      const [doc] = args;
-
-      const value = doc.get(localField);
+      const value = typeof doc.get === 'function' ? doc.get(localField) : get(doc, localField);
       if (!value) return null;
+      if (foreignField === '_id') return load(modelName, value);
 
       const query = {
         [foreignField]: value,
