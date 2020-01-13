@@ -603,7 +603,7 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@base-cms/object-path@^v1.0.0":
+"@base-cms/object-path@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@base-cms/object-path/-/object-path-1.0.0.tgz#b6fc6faafa9834ee11c0822bdb301739485f191f"
   integrity sha512-A7iSPJwos+u13fMXwzny6/DBOI4LPhwvkpAo7NUgwv/LtGcpxI3svpk/PPaKEuOedjthpUCLiNjYCL8v1nFkCw==
