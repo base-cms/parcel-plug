@@ -49,6 +49,7 @@ const shouldBuild = async (image) => {
 
 const { argv } = process;
 const service = argv[2];
+if (!service) throw new Error('Service argument is required!');
 const servicePath = join('services', service);
 
 if (TRAVIS_TAG !== version) error(`Tagged version ${TRAVIS_TAG} differs from lerna version ${version}, aborting!`);
