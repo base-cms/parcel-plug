@@ -1,40 +1,114 @@
 language: node_js
-node_js: "10.13"
+node_js: "10.15"
 cache: yarn
+
+_production-env: &production-env
+  ENVIRONMENT: production
+  RANCHER_CLUSTERID: c-gxsr7
+
+# _staging-env: &staging-env
+#   ENVIRONMENT: staging
+#   RANCHER_CLUSTERID: c-rc5kp
+
+_production-job: &production-job
+  stage: production
+  name: SERVICE_NAME
+  script: scripts/deploy.js SERVICE_NAME
+  install: skip
+  env:
+    <<: *production-env
+
+# _staging-job: &staging-job
+#   stage: staging
+#   name: SERVICE_NAME
+#   script: scripts/deploy.js SERVICE_NAME
+#   install: skip
+#   env:
+#     <<: *staging-env
 
 stages:
   - name: test
-  - name: notify_start
-    if: tag is present
-  - name: deploy
-    if: tag is present
-  - name: notify
-    if: tag is present
+
+  - name: production-started
+    if: tag =~ /^v\d+\.\d+\.\d+$/
+  - name: production
+    if: tag =~ /^v\d+\.\d+\.\d+$/
+  - name: production-finished
+    if: tag =~ /^v\d+\.\d+\.\d+$/
+
+  # - name: staging-started
+  #   if: tag is present
+  # - name: staging
+  #   if: tag is present
+  # - name: staging-finished
+  #   if: tag is present
 
 jobs:
   include:
     - stage: test
+      env:
+        NODE_ENV: test
 
-    - stage: notify_start
-      script: scripts/deploy-notify-start.sh
+    - stage: production-started
+      name: Deployment Started
+      script: npx @base-cms/website-deployment-tool notify-started
       install: skip
+      env:
+        <<: *production-env
 
-    - stage: notify
-      script: scripts/deploy-notify.sh
-      install: skip
+    # - stage: staging-started
+    #   name: Deployment Started
+    #   script: npx @base-cms/website-deployment-tool notify-started
+    #   install: skip
+    #   env:
+    #     <<: *staging-env
 
-    - stage: deploy
-      name: Delivery
+    #############################
+    # vvv ADD SERVICES HERE vvv #
+    #############################
+
+    - <<: *production-job
+      name: Delivery Service
       script: scripts/deploy.js delivery
+    # - <<: *staging-job
+    #   name: Delivery Service
+    #   script: scripts/deploy.js delivery
 
-    - stage: deploy
-      name: Event Processor
+    - <<: *production-job
+      name: Event Processor Service
       script: scripts/deploy.js event-processor
+    # - <<: *staging-job
+    #   name: Event Processor Service
+    #   script: scripts/deploy.js event-processor
 
-    - stage: deploy
-      name: GraphQL
+    - <<: *production-job
+      name: GraphQL Service
       script: scripts/deploy.js graphql
+    # - <<: *staging-job
+    #   name: GraphQL Service
+    #   script: scripts/deploy.js graphql
 
-    - stage: deploy
-      name: Manage
+    - <<: *production-job
+      name: Manage Service
       script: scripts/deploy.js manage
+    # - <<: *staging-job
+    #   name: Manage Service
+    #   script: scripts/deploy.js manage
+
+    #############################
+    # ^^^ ADD SERVICES HERE ^^^ #
+    #############################
+
+    - stage: production-finished
+      name: Deployment Finished
+      script: npx @base-cms/website-deployment-tool notify-finished
+      install: skip
+      env:
+        <<: *production-env
+
+    # - stage: staging-finished
+    #   name: Deployment Finished
+    #   script: npx @base-cms/website-deployment-tool notify-finished
+    #   install: skip
+    #   env:
+    #     <<: *staging-env
