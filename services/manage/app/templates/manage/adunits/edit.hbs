@@ -67,6 +67,7 @@
       <div class="row">
         <div class="col">
           <label>Ad Unit Code</label>
+          {{!-- template-lint-disable attribute-indentation --}}
           <pre class="mb-0">
             {{adunit/-code
               adunitId=model.id
@@ -75,6 +76,7 @@
               deliveryHostname=model.publisher.deliveryHostname
             }}
           </pre>
+          {{!-- template-lint-enable attribute-indentation --}}
         </div>
       </div>
     </div>
