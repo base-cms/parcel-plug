@@ -57,6 +57,7 @@ type Session {
   cre: Int!
   exp: Int!
   token: String!
+  accountKey: String!
 }
 
 type User implements Timestampable & UserAttributable @applyInterfaceFields {
