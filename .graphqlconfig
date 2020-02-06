@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "parcel-plug": {
+      "schemaPath": "schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "dev": {
+            "url": "http://0.0.0.0:11002"
+          },
+          "production": {
+            "url": "https://example.email-x.io"
+          }
+        }
+      }
+    }
+  }
+}
