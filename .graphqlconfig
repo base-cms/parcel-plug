@@ -8,7 +8,7 @@
             "url": "http://0.0.0.0:11002"
           },
           "production": {
-            "url": "https://graphql.email-x.io"
+            "url": "https://example.email-x.io"
           }
         }
       }
