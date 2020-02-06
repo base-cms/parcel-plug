@@ -3,6 +3,8 @@
 fragment PublisherListFragment on Publisher {
   id
   name
+  deliveryHostname
+  cdnHostname
   deployments {
     totalCount
   }

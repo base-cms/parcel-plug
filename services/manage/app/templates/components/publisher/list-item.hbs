@@ -16,6 +16,12 @@
           <h4 class="mb-1">{{item.name}}</h4>
           <p class="mb-0">Deployments: {{item.deployments.totalCount}}</p>
           <p class="mb-1">Ad Units: {{item.adunits.totalCount}}</p>
+          {{#if item.deliveryHostname}}
+            <small>Delivery Host: {{item.deliveryHostname}}</small>
+          {{/if}}
+          {{#if item.cdnHostname}}
+            <small>CDN Host: {{item.cdnHostname}}</small>
+          {{/if}}
           <small>ID: {{item.id}}</small>
         </div>
       </div>
