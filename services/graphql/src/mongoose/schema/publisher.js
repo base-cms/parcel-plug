@@ -23,6 +23,11 @@ const schema = new Schema({
   },
 }, { timestamps: true });
 
+schema.virtual('hasCustomHosts').get(function hasCustomHosts() {
+  const { deliveryHostname, cdnHostname } = this;
+  return Boolean(deliveryHostname || cdnHostname);
+});
+
 schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);
 schema.plugin(paginablePlugin, {
