@@ -13,7 +13,20 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
+  deliveryHostname: {
+    type: String,
+    trim: true,
+  },
+  cdnHostname: {
+    type: String,
+    trim: true,
+  },
 }, { timestamps: true });
+
+schema.virtual('hasCustomHosts').get(function hasCustomHosts() {
+  const { deliveryHostname, cdnHostname } = this;
+  return Boolean(deliveryHostname || cdnHostname);
+});
 
 schema.plugin(deleteablePlugin);
 schema.plugin(repositoryPlugin);

@@ -3,4 +3,5 @@ fragment SessionFragment on Session {
   uid
   exp
   token
+  accountKey
 }

@@ -5,6 +5,7 @@ const uuidv5 = require('uuid/v5');
 const bcrypt = require('bcrypt');
 const accountService = require('./account');
 const redis = require('../redis');
+const { ACCOUNT_KEY } = require('../env');
 
 const getSettings = async () => {
   const account = await accountService.retrieve();
@@ -74,6 +75,7 @@ module.exports = {
       cre: verified.iat,
       exp: verified.exp,
       token,
+      accountKey: ACCOUNT_KEY,
     };
   },
 
@@ -119,6 +121,7 @@ module.exports = {
       cre: iat,
       exp,
       token,
+      accountKey: ACCOUNT_KEY,
     };
   },
 

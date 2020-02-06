@@ -1,6 +1,9 @@
 fragment PublisherEditFragment on Publisher {
   id
   name
+  deliveryHostname
+  cdnHostname
+  hasCustomHosts
   deployments {
     totalCount
   }

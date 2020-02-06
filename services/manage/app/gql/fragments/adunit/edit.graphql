@@ -12,5 +12,6 @@ fragment AdUnitEditFragment on AdUnit {
   publisher {
     id
     name
+    deliveryHostname
   }
 }
