@@ -74,9 +74,9 @@ jobs:
     #   name: Delivery Service
     #   script: scripts/deploy.js delivery
 
-    - <<: *production-job
-      name: Event Processor Service
-      script: scripts/deploy.js event-processor
+    # - <<: *production-job
+    #   name: Event Processor Service
+    #   script: scripts/deploy.js event-processor
     # - <<: *staging-job
     #   name: Event Processor Service
     #   script: scripts/deploy.js event-processor
