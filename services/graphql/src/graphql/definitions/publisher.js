@@ -23,6 +23,7 @@ type Publisher implements Timestampable & UserAttributable @applyInterfaceFields
   adunits(input: PublisherAdUnitsInput = {}): AdUnitConnection! @refMany(modelName: "adunit", localField: "_id", foreignField: "publisherId")
   deliveryHostname: String
   cdnHostname: String
+  hasCustomHosts: Boolean!
 }
 
 type PublisherConnection {

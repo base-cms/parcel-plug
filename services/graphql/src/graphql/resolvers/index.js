@@ -5,6 +5,7 @@ const { GraphQLUpload } = require('apollo-server-express');
 const User = require('../../mongoose/models/user');
 const ad = require('./ad');
 const lineitem = require('./lineitem');
+const publisher = require('./publisher');
 const user = require('./user');
 const report = require('./report');
 const { DateType, ObjectIDType } = require('../types');
@@ -18,6 +19,7 @@ const resolveType = (doc) => {
 module.exports = deepAssign(
   ad,
   lineitem,
+  publisher,
   user,
   report,
   {
