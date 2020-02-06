@@ -10,6 +10,18 @@
         }}
       </div>
     </div>
+    {{#if model.hasCustomHosts}}
+      <div class="row mt-3">
+        <div class="col">
+          {{#if model.deliveryHostname}}
+            <p>Delivery Host<br><code>{{model.deliveryHostname}}</code></p>
+          {{/if}}
+          {{#if model.cdnHostname}}
+            <p>CDN Host<br><code>{{model.cdnHostname}}</code></p>
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
   </div>
   <div class="card-footer text-right">
     {{confirm-button
