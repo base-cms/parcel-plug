@@ -13,6 +13,14 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
+  deliveryHostname: {
+    type: String,
+    trim: true,
+  },
+  cdnHostname: {
+    type: String,
+    trim: true,
+  },
 }, { timestamps: true });
 
 schema.plugin(deleteablePlugin);
