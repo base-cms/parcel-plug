@@ -64,6 +64,8 @@ services:
       ACCOUNT_KEY: ${ACCOUNT_KEY-devel}
       MONGO_DSN: ${MONGO_DSN-mongodb://mongodb:27017/parcel-plug}
       REDIS_DSN: redis://redis:6379/0
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     depends_on:
       - mongodb
       - redis
