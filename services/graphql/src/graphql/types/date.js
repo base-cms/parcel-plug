@@ -9,12 +9,16 @@ module.exports = new GraphQLScalarType({
     return new Date(parseInt(value, 10));
   },
   serialize(value) {
+    if (typeof value === 'string') {
+      const parsed = Date.parse(value);
+      return parsed || null;
+    }
     if (!(value instanceof Date)) return null;
     return value.getTime();
   },
   parseLiteral(ast) {
     if (ast.kind === Kind.INT) {
-      return parseInt(ast.value, 10);
+      return new Date(parseInt(ast.value, 10));
     }
     return null;
   },
